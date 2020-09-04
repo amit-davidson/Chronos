@@ -13,23 +13,37 @@ package main
 
 import (
 	"sync"
+	"fmt"
+    "math/rand"
 )
 
 // Test of context-sensitive treatment of certain function calls,
 // e.g. static calls to simple accessor methods.
 
 var a, b int
+var t = rand.Int()
+var cond = false
+	//map1 := map[string]map[string]interface{}{}
+type T struct{ X int }
 
-type T struct{ x *int }
+func (t *T) SetX(x int) { t.X = x }
+func (t *T) GetX() int  { return t.X }
 
-func (t *T) SetX(x *int) { t.x = x }
-func (t *T) GetX() *int  { return t.x }
+var ls1 = make([]int, 5)
+var ls2 = make([]int, 5, 5)
 
+ //go:noinline
+func context2 (a int) {
+	fmt.Print("4")
+}
 func context3() {
 	mutex := sync.Mutex{}
 	mutex2 := sync.Mutex{}
 	mutex3 := sync.Mutex{}
+	s := 1
+	_ = s
 	a := false
+	//tStruct := T{X:1}
 	if a {
 		defer mutex.Unlock()
 	} else if a {
@@ -40,14 +54,21 @@ func context3() {
 	}
 	mutex.Lock()
 	mutex3.Lock()
-	defer mutex.Lock()
-	if a {
-		mutex.Unlock()
+	//defer mutex.Lock()
+	//if a {
+	//	mutex.Unlock()
+	//}
+	//defer mutex.Unlock()
+	if cond {
+		map1 := map[string]map[string]int{}
+		map1["map2"] = map[string]int{}
+		//map1["map2"]["map2"] = map[string]interface{}{}
+		map1["map2"]["map2"] = 5
+		//ls1[0] = 3
+		//ls2[1] = ls1[1]
+		//tStruct.X = 2 + rand.Int()
+		//context2(tStruct.X)
 	}
-	defer mutex.Unlock()
-	map1 := map[string]map[string]interface{}{}
-	map1["map2"] = map[string]interface{}{}
-	map1["map2"]["map2"] = map[string]interface{}{}
 }
 
 func main() {
@@ -57,8 +78,6 @@ func main() {
 
 func main() {
 	var conf loader.Config
-	// Parse the input file, a string.
-	// (Command-line tools should use conf.FromArgs.)
 	file, err := conf.ParseFile("myprog.go", myprog)
 	if err != nil {
 		fmt.Print(err) // parse error
@@ -81,83 +100,8 @@ func main() {
 	// Build SSA code for bodies of all functions in the whole program.
 	prog.Build()
 
-	// Configure the pointer analysis to build a call-graph.
-	//config := &pointer.Config{
-	//	Mains:          []*ssa.Package{mainPkg},
-	//	BuildCallGraph: true,
-	//}
-	//
-	//calls := make(map[*ssa.CallCommon]bool)
-	// Query points-to set of (C).f's parameter m, a map.
 	funcInterface5 := mainPkg.Func("context3")
 	_ = GetFunctionLocks(funcInterface5)
-	//C := mainPkg.Type("P").Type()
-	//funcInterface5 := prog.LookupMethod(C, mainPkg.Pkg, "f")
-	//for _, b := range funcInterface5.Blocks {
-	//	for _, instr := range b.Instrs {
-	//		if instr, ok := instr.(ssa.CallInstruction); ok {
-	//			call := instr.Common()
-	//			if b, ok := call.Value.(*ssa.Builtin); ok && b.Name() == "print" && len(call.Args) == 1 {
-	//				calls[instr.Common()] = true
-	//			}
-	//		}
-	//	}
-	//}
-	//for probe := range calls {
-	//	v := probe.Args[0]
-	//	if pointer.CanPoint(v.Type()) {
-	//		config.AddQuery(v)
-	//	}
-	//}
-	//
-	////Cfm := funcInterface5.Params[1]
-	////config.AddQuery(Cfm)
-	//
-	//// Run the pointer analysis.
-	//result, err := pointer.Analyze(config)
-	//if err != nil {
-	//	panic(err) // internal error in pointer analysis
-	//}
-	//
-	//// Find edges originating from the main package.
-	//// By converting to strings, we de-duplicate nodes
-	//// representing the same function due to context sensitivity.
-	//var edges []string
-	//callgraph.GraphVisitEdges(result.CallGraph, func(edge *callgraph.Edge) error {
-	//	caller := edge.Caller.Func
-	//	if caller.Pkg == mainPkg {
-	//		edges = append(edges, fmt.Sprint(caller, " --> ", edge.Callee.Func))
-	//	}
-	//	return nil
-	//})
-	//
-	//// Print the edges in sorted order.
-	//sort.Strings(edges)
-	//for _, edge := range edges {
-	//	fmt.Println(edge)
-	//}
-	//fmt.Println()
-	//
-	//// Print the labels of (C).f(m)'s points-to set.
-	//fmt.Println("vars:")
-	//var labels []string
-	////pts := result.Queries[Cfm].PointsTo()
-	//for query, queryRes := range result.Queries {
-	//	_, ok := query.(*ssa.Extract)
-	//	if ok {
-	//		queryPos := prog.Fset.Position(query.(*ssa.Extract).Tuple.Pos())
-	//		fmt.Println(fmt.Sprintf(" query: %s", queryPos))
-	//	}
-	//	pts := queryRes.PointsTo()
-	//	for _, l := range pts.Labels() {
-	//		label := fmt.Sprintf("  %s: %s", prog.Fset.Position(l.Pos()), l)
-	//		labels = append(labels, label)
-	//	}
-	//	sort.Strings(labels)
-	//	for _, label := range labels {
-	//		fmt.Println(label)
-	//	}
-	//}
 }
 
 func IsCallToAny(call *ssa.CallCommon, names ...string) bool {
@@ -201,86 +145,65 @@ func FilterDebug(instr []ssa.Instruction) []ssa.Instruction {
 	return out
 }
 
-type lockset struct {
-	existingLocks   map[string]*ssa.CallCommon
-	existingUnlocks map[string]*ssa.CallCommon
+func addGuardedAccess(guardedAccesses []*guardedAccess, value ssa.Value, kind opKind, currentLockset lockset) {
+	guardedAccessToAdd := &guardedAccess{value: value, opKind: kind, lockset: currentLockset}
+	guardedAccesses = append(guardedAccesses, guardedAccessToAdd)
 }
 
-func newEmptyLockSet() *lockset {
-	return &lockset{
-		existingLocks:   make(map[string]*ssa.CallCommon, 0),
-		existingUnlocks: make(map[string]*ssa.CallCommon, 0),
-	}
-}
-
-func newLockSet(locks, unlocks map[string]*ssa.CallCommon) *lockset {
-	return &lockset{
-		existingLocks:   locks,
-		existingUnlocks: unlocks,
-	}
-}
-
-func (ls *lockset) updateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon) {
-	if newLocks != nil {
-		for lockName, lock := range newLocks {
-			ls.existingLocks[lockName] = lock
-		}
-	}
-	for unlockName, _ := range newUnlocks {
-		if _, ok := ls.existingLocks[unlockName]; ok {
-			delete(ls.existingLocks, unlockName)
-		}
-	}
-
-	if newUnlocks != nil {
-		for unlockName, unlock := range newUnlocks {
-			ls.existingUnlocks[unlockName] = unlock
-		}
-	}
-	for lockName, _ := range newLocks {
-		if _, ok := ls.existingLocks[lockName]; ok {
-			delete(ls.existingUnlocks, lockName)
-		}
-	}
-}
-
-func (ls *lockset) AddCallCommon(callCommon *ssa.CallCommon, isLocks bool) {
-	receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-	locks := map[string]*ssa.CallCommon{receiver: callCommon}
-	if isLocks {
-		ls.updateLockSet(locks, nil)
-	} else {
-		ls.updateLockSet(nil, locks)
-	}
-}
-
-func GetBlockLocks(block *ssa.BasicBlock) (*lockset, []*lockset) {
-	ls := newEmptyLockSet()
+func GetBlockLocks(block *ssa.BasicBlock, ls *lockset) (*lockset, []*lockset) {
+	currentLockset := ls
 	deferredCalls := make([]*lockset, 0)
-
+	guardedAccesses := make([]*guardedAccess, 0)
 	instrs := FilterDebug(block.Instrs)
 	for _, ins := range instrs[:len(instrs)-1] {
 		switch call := ins.(type) {
+		case *ssa.BinOp:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+			addGuardedAccess(guardedAccesses, call.Y, read, *currentLockset)
+		case *ssa.UnOp:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.Store:
+			addGuardedAccess(guardedAccesses, call.Addr, write, *currentLockset)
+			addGuardedAccess(guardedAccesses, call.Val, read, *currentLockset)
+		case *ssa.Field:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.FieldAddr:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.Index:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.IndexAddr:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.Lookup:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
+		case *ssa.MapUpdate:
+			addGuardedAccess(guardedAccesses, call.Map, write, *currentLockset)
+			addGuardedAccess(guardedAccesses, call.Value, read, *currentLockset)
+		case *ssa.Panic:
+			addGuardedAccess(guardedAccesses, call.X, read, *currentLockset)
 		case *ssa.Call:
 			callCommon := call.Common()
-			receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-			locks := map[string]*ssa.CallCommon{receiver: callCommon}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
+				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
+				locks := map[string]*ssa.CallCommon{receiver: callCommon}
 				ls.updateLockSet(locks, nil)
 			}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
+				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
+				locks := map[string]*ssa.CallCommon{receiver: callCommon}
 				ls.updateLockSet(nil, locks)
 			}
 			continue
 
 		case *ssa.Defer:
 			callCommon := call.Common()
-			receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-			locks := map[string]*ssa.CallCommon{receiver: callCommon}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
+				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
+				locks := map[string]*ssa.CallCommon{receiver: callCommon}
 				deferredCalls = append(deferredCalls, newLockSet(locks, nil))
 			}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
+				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
+				locks := map[string]*ssa.CallCommon{receiver: callCommon}
 				deferredCalls = append(deferredCalls, newLockSet(nil, locks))
 			}
 			continue
@@ -298,7 +221,7 @@ func GetFunctionLocks(fn *ssa.Function) *lockset {
 	deferredCalls := make([]*lockset, 0)
 
 	for _, block := range fn.Blocks {
-		lsRet, deferredCallsRet := GetBlockLocks(block)
+		lsRet, deferredCallsRet := GetBlockLocks(block, ls)
 		if _, ok := conditionalBlocks[block.Comment]; ok {
 			ls.updateLockSet(nil, lsRet.existingUnlocks) // Ignore locks in a condition branch since it's a must set.
 			for _, deferredCallRet := range deferredCallsRet {
