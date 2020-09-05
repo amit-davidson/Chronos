@@ -1,10 +1,19 @@
 package main
 
-import "golang.org/x/tools/go/ssa"
+import (
+	"encoding/json"
+	"golang.org/x/tools/go/ssa"
+)
 
 type lockset struct {
 	existingLocks   map[string]*ssa.CallCommon
 	existingUnlocks map[string]*ssa.CallCommon
+}
+
+// lockset name ans pos
+type locksetJson struct {
+	ExistingLocks   map[string]int
+	ExistingUnlocks map[string]int
 }
 
 func newEmptyLockSet() *lockset {
@@ -45,12 +54,29 @@ func (ls *lockset) updateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon
 	}
 }
 
-func (ls *lockset) AddCallCommon(callCommon *ssa.CallCommon, isLocks bool) {
-	receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-	locks := map[string]*ssa.CallCommon{receiver: callCommon}
-	if isLocks {
-		ls.updateLockSet(locks, nil)
-	} else {
-		ls.updateLockSet(nil, locks)
+func (ls *lockset) Copy() *lockset {
+	newLs := newEmptyLockSet()
+	newLocks := make(map[string]*ssa.CallCommon)
+	for key, value := range ls.existingLocks {
+		newLocks[key] = value
 	}
+	newLs.existingLocks = newLocks
+	newUnlocks := make(map[string]*ssa.CallCommon)
+	for key, value := range ls.existingUnlocks {
+		newUnlocks[key] = value
+	}
+	newLs.existingUnlocks = newUnlocks
+	return newLs
+}
+
+func (ls *lockset) MarshalJSON() ([]byte, error) {
+	dumpJson := locksetJson{ExistingLocks: make(map[string]int, 0), ExistingUnlocks: make(map[string]int, 0)}
+	for lockName, lock := range ls.existingLocks {
+		dumpJson.ExistingLocks[lockName] = int(lock.Pos())
+	}
+	for lockName, lock := range ls.existingUnlocks {
+		dumpJson.ExistingUnlocks[lockName] = int(lock.Pos())
+	}
+	dump, err := json.Marshal(dumpJson)
+	return dump, err
 }
