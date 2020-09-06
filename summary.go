@@ -2,7 +2,10 @@ package main
 
 import (
 	"golang.org/x/tools/go/ssa"
+	"strconv"
 )
+
+var pkgNamesToCheck = []string{"pkg", "main"}
 
 func addGuardedAccess(guardedAccesses *[]*guardedAccess, value ssa.Value, kind opKind, currentLockset *lockset) {
 	guardedAccessToAdd := &guardedAccess{value: value, opKind: kind, lockset: currentLockset.Copy()}
@@ -47,13 +50,15 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *lockset) (*lockset, []*lockset, 
 		case *ssa.Call:
 			callCommon := call.Common()
 			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
-				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-				locks := map[string]*ssa.CallCommon{receiver: callCommon}
+				receiver := callCommon.Args[0]
+				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
+				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				ls.updateLockSet(locks, nil)
 			}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
-				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-				locks := map[string]*ssa.CallCommon{receiver: callCommon}
+				receiver := callCommon.Args[0]
+				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
+				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				ls.updateLockSet(nil, locks)
 			}
 			if IsCallToAny(callCommon, "delete") {
@@ -72,10 +77,17 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *lockset) (*lockset, []*lockset, 
 			}
 			if function, isFunctionCall := callCommon.Value.(*ssa.Function); isFunctionCall {
 				pkgName := function.Pkg.Pkg.Path()
-				if pkgName != "main" {
+				found := false
+				for _, pkgNameToCheck := range pkgNamesToCheck {
+					if pkgName == pkgNameToCheck {
+						found = true
+						break
+					}
+				}
+				if !found {
 					continue
 				}
-				lsRet, guardedAccessesRet := GetFunctionSummary(function)
+				lsRet, guardedAccessesRet := GetFunctionSummary(function, ls)
 				guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
 				ls.updateLockSet(lsRet.existingLocks, lsRet.existingUnlocks)
 			}
@@ -83,13 +95,15 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *lockset) (*lockset, []*lockset, 
 		case *ssa.Defer:
 			callCommon := call.Common()
 			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
-				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-				locks := map[string]*ssa.CallCommon{receiver: callCommon}
+				receiver := callCommon.Args[0]
+				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
+				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				deferredCalls = append(deferredCalls, newLockSet(locks, nil))
 			}
 			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
-				receiver := callCommon.Args[0].(*ssa.Alloc).Comment
-				locks := map[string]*ssa.CallCommon{receiver: callCommon}
+				receiver := callCommon.Args[0]
+				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
+				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				deferredCalls = append(deferredCalls, newLockSet(nil, locks))
 			}
 			continue
@@ -98,12 +112,11 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *lockset) (*lockset, []*lockset, 
 	return ls, deferredCalls, guardedAccesses
 }
 
-func GetFunctionSummary(fn *ssa.Function) (*lockset, []*guardedAccess) {
+func GetFunctionSummary(fn *ssa.Function, ls *lockset) (*lockset, []*guardedAccess) {
 	var conditionalBlocks = map[string]struct{}{
 		"if.then": {},
 		"if.else": {},
 	}
-	ls := newEmptyLockSet()
 	deferredCalls := make([]*lockset, 0)
 	guardedAccesses := make([]*guardedAccess, 0)
 	for _, block := range fn.Blocks {

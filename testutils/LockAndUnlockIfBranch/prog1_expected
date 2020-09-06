@@ -1,4 +1,4 @@
-{"ExistingLocks":{},"ExistingUnlocks":{"mutex":191}}
+{"ExistingLocks":{},"ExistingUnlocks":{"t088":191}}
 {"Value":"t1","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
 {"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
 {"Value":"t2","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
@@ -7,5 +7,5 @@
 {"Value":"t4","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
 {"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
 {"Value":"t5","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{"mutex":191}}}
-{"Value":"6:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{"mutex":191}}}
+{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{"t088":191}}}
+{"Value":"6:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{"t088":191}}}

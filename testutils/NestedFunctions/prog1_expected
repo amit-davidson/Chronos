@@ -1,0 +1,5 @@
+{"ExistingLocks":{"t086":136},"ExistingUnlocks":{"mutex149":247,"t0171":230}}
+{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":121,"t086":136},"ExistingUnlocks":{}}}
+{"Value":"5:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":121,"t086":136},"ExistingUnlocks":{}}}
+{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":121,"t0171":206,"t086":136},"ExistingUnlocks":{}}}
+{"Value":"6:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":121,"t0171":206,"t086":136},"ExistingUnlocks":{}}}
