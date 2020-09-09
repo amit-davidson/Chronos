@@ -6,7 +6,7 @@ import (
 )
 
 var a = make(map[string]interface{}, 0)
-func fn1() {
+func main() {
 	mutex := sync.Mutex{}
 	if rand.Int() > 0 {
 		mutex.Lock()

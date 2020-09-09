@@ -7,7 +7,7 @@ import (
 
 var a int
 var cond = false
-func fn1() {
+func main() {
 	mutex := sync.Mutex{}
 	if rand.Int() > 0 {
 		mutex.Lock()

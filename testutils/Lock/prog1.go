@@ -6,7 +6,7 @@ import (
 
 var a int
 
-func fn1() {
+func main() {
 	mutex := sync.Mutex{}
 	mutex.Lock()
 	a = 5
