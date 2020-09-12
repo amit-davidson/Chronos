@@ -55,9 +55,9 @@ func TestGetFunctionSummary(t *testing.T) {
 			entryFunc := ssaPkg.Func("main")
 			emptyLS := newEmptyLockSet()
 			GoroutineIdCounter = new(int32)
-			*GoroutineIdCounter = 0
+			goroutineId = 0
 			wg.Add(1)
-			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, emptyLS, *GoroutineIdCounter)
+			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, emptyLS, goroutineId)
 			dumpLs, err := lsRet.MarshalJSON()
 			require.NoError(t, err)
 			for _, guardedAccess := range guardedAccessRet {

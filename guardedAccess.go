@@ -13,18 +13,18 @@ const (
 )
 
 type guardedAccess struct {
-	id          int
+	id          string
 	value       ssa.Value
 	opKind      opKind
 	lockset     *lockset
-	GoroutineId int32
+	GoroutineId string
 }
 
 type guardedAccessJSON struct {
 	Value       string
 	OpKind      opKind
 	Lockset     *lockset
-	GoroutineId int32
+	GoroutineId string
 }
 
 func (ga *guardedAccess) MarshalJSON() ([]byte, error) {

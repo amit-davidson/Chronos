@@ -1,24 +1,28 @@
 package main
 
-import (
-	"sync"
-)
+import "fmt"
 
-type ObjectA struct {
-	PropertyA map[string]int `json:"peropertya,omitempty"`
+func fibonacci(c, quit chan int) {
+	x, y := 0, 1
+	for {
+		select {
+		case c <- x:
+			x, y = y, x+y
+		case <-quit:
+			fmt.Println("quit")
+			return
+		}
+	}
 }
-
-var mutex1 = sync.Mutex{}
 
 func main() {
-	mutex1.Lock()
-	sa := &ObjectA{}
-	sa.PropertyA = map[string]int{"6": 6}
-	go fn2(sa)
-}
-
-//go:noinline
-func fn2(item *ObjectA) {
-	item.PropertyA = map[string]int{"7": 7}
-	mutex1.Unlock()
+	c := make(chan int)
+	quit := make(chan int)
+	go func() {
+		for i := 0; i < 10; i++ {
+			fmt.Println(<-c)
+		}
+		quit <- 0
+	}()
+	fibonacci(c, quit)
 }
