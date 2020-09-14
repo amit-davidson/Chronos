@@ -1,15 +1,1 @@
-{"ExistingLocks":{},"ExistingUnlocks":{"t0102":296}}
-{"Value":"t1","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t2","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"a","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t4","OpKind":1,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t6","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"a","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t7","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t8","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t9","OpKind":1,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t10","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t11","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
-{"Value":"t12","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}
+{"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{"t0102":296}},"GuardedAccess":[{"Value":"t1","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t2","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"a","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t4","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t6","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"a","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t7","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t8","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t9","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t10","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t11","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"0:int","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}},{"Value":"t12","OpKind":0,"Lockset":{"ExistingLocks":{},"ExistingUnlocks":{}}}]}

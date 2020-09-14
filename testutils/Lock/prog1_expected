@@ -1,3 +1,1 @@
-{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}}
-{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}}}
-{"Value":"5:int","OpKind":0,"Lockset":{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}}}
+{"Lockset":{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}},"GuardedAccess":[{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}}},{"Value":"5:int","OpKind":0,"Lockset":{"ExistingLocks":{"t061":94},"ExistingUnlocks":{}}}]}

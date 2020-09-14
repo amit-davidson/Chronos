@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"bufio"
@@ -79,15 +79,13 @@ func WriteFile(f *os.File, text []byte) error {
 	return nil
 }
 
-func UpdateFile(t *testing.T, path string, data []byte, update bool) {
-	if update {
-		f, err := CreateFile(path)
-		require.NoError(t, err)
-		err = WriteFile(f, data)
-		require.NoError(t, err)
-		err = f.Close()
-		require.NoError(t, err)
-	}
+func UpdateFile(t *testing.T, path string, data []byte) {
+	f, err := CreateFile(path)
+	require.NoError(t, err)
+	err = WriteFile(f, data)
+	require.NoError(t, err)
+	err = f.Close()
+	require.NoError(t, err)
 }
 
 func ReadFile(filePath string) ([]byte, error) {

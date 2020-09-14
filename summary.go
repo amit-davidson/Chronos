@@ -16,7 +16,7 @@ func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, value ssa.Value,
 func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId string) (*domain.Lockset, []*domain.Lockset, []*domain.GuardedAccess) {
 	deferredCalls := make([]*domain.Lockset, 0)
 	guardedAccesses := make([]*domain.GuardedAccess, 0)
-	instrs := FilterDebug(block.Instrs)
+	instrs := utils.FilterDebug(block.Instrs)
 	for _, ins := range instrs {
 		switch call := ins.(type) {
 		case *ssa.UnOp:
@@ -52,29 +52,29 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId stri
 			addGuardedAccess(&guardedAccesses, call.Val, domain.GuardAccessRead, ls, goroutineId)
 		case *ssa.Call:
 			callCommon := call.Common()
-			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
+			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				ls.UpdateLockSet(locks, nil)
 			}
-			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
+			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				ls.UpdateLockSet(nil, locks)
 			}
-			if IsCallToAny(callCommon, "delete") {
+			if utils.IsCallToAny(callCommon, "delete") {
 				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, ls, goroutineId)
 			}
-			if IsCallToAny(callCommon, "len") || IsCallToAny(callCommon, "cap") {
+			if utils.IsCallToAny(callCommon, "len") || utils.IsCallToAny(callCommon, "cap") {
 				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, ls, goroutineId)
 			}
-			if IsCallToAny(callCommon, "append") {
+			if utils.IsCallToAny(callCommon, "append") {
 				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, ls, goroutineId)
 				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessRead, ls, goroutineId)
 			}
-			if IsCallToAny(callCommon, "copy") {
+			if utils.IsCallToAny(callCommon, "copy") {
 				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, ls, goroutineId)
 				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessWrite, ls, goroutineId)
 			}
@@ -107,13 +107,13 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId stri
 			ls.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
 		case *ssa.Defer:
 			callCommon := call.Common()
-			if IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
+			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}
 				deferredCalls = append(deferredCalls, domain.NewLockSet(locks, nil))
 			}
-			if IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
+			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}

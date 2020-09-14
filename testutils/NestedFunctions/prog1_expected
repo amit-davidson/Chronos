@@ -1,5 +1,1 @@
-{"ExistingLocks":{"t087":137},"ExistingUnlocks":{"mutex149":248,"t0172":231}}
-{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":122,"t087":137},"ExistingUnlocks":{}}}
-{"Value":"5:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":122,"t087":137},"ExistingUnlocks":{}}}
-{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":122,"t0172":207,"t087":137},"ExistingUnlocks":{}}}
-{"Value":"6:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":122,"t0172":207,"t087":137},"ExistingUnlocks":{}}}
+{"Lockset":{"ExistingLocks":{"t087":137},"ExistingUnlocks":{"mutex149":248,"t0172":231}},"GuardedAccess":[{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":122,"t087":137},"ExistingUnlocks":{}}},{"Value":"5:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":122,"t087":137},"ExistingUnlocks":{}}},{"Value":"a","OpKind":1,"Lockset":{"ExistingLocks":{"mutex149":122,"t0172":207,"t087":137},"ExistingUnlocks":{}}},{"Value":"6:int","OpKind":0,"Lockset":{"ExistingLocks":{"mutex149":122,"t0172":207,"t087":137},"ExistingUnlocks":{}}}]}
