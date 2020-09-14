@@ -1,6 +1,8 @@
 package main
 
 import (
+	"StaticRaceDetector/testutils"
+	"StaticRaceDetector/utils"
 	"fmt"
 	"github.com/stretchr/testify/require"
 	"go/token"
@@ -21,10 +23,10 @@ func TestGetFunctionSummary(t *testing.T) {
 	}{
 		//{name: "Lock", testPath: "testutils/Lock/prog1.go", resPath: "testutils/Lock/prog1_expected"},
 		//{name: "LockAndUnlock", testPath: "testutils/LockAndUnlock/prog1.go", resPath: "testutils/LockAndUnlock/prog1_expected"},
-		//{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected"},
+		{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected"},
 		//{name: "LockAndUnlockIfMap", testPath: "testutils/LockAndUnlockIfMap/prog1.go", resPath: "testutils/LockAndUnlockIfMap/prog1_expected"},
 		//{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected"},
-		{name: "NestedFunctionsTest", testPath: "testutils/NestedFunctionsTest/prog1.go", resPath: "testutils/NestedFunctionsTest/prog1_expected"},
+		//{name: "NestedFunctionsTest", testPath: "testutils/NestedFunctionsTest/prog1.go", resPath: "testutils/NestedFunctionsTest/prog1_expected"},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -54,10 +56,7 @@ func TestGetFunctionSummary(t *testing.T) {
 
 			entryFunc := ssaPkg.Func("main")
 			emptyLS := newEmptyLockSet()
-			GoroutineIdCounter = new(int32)
-			goroutineId = 0
-			wg.Add(1)
-			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, emptyLS, goroutineId)
+			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, emptyLS, utils.GetUUID())
 			dumpLs, err := lsRet.MarshalJSON()
 			require.NoError(t, err)
 			for _, guardedAccess := range guardedAccessRet {
@@ -66,6 +65,7 @@ func TestGetFunctionSummary(t *testing.T) {
 				dumpLs = append(dumpLs, []byte{'\n'}...)
 				dumpLs = append(dumpLs, dumpGuardedAccess...)
 			}
+			testutils.WriteResult(lsRet, guardedAccessRet)
 			UpdateFile(t, tc.resPath, dumpLs, shouldUpdate)
 			expected, err := ReadFile(tc.resPath)
 			require.NoError(t, err)
