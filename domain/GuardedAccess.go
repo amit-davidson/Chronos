@@ -20,18 +20,23 @@ type GuardedAccess struct {
 	GoroutineId string
 }
 
-type guardedAccessJSON struct {
-	Value       string
+type GuardedAccessJSON struct {
+	Value       int
 	OpKind      OpKind
-	Lockset     *Lockset
+	Lockset     *LocksetJson
+	GoroutineId string
 }
 
-func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
-	dumpJson := guardedAccessJSON{}
-	dumpJson.Value = ga.Value.Name()
+func (ga *GuardedAccess) ToJson() GuardedAccessJSON {
+	dumpJson := GuardedAccessJSON{}
+	dumpJson.Value = int(ga.Value.Pos())
 	dumpJson.OpKind = ga.OpKind
-	dumpJson.Lockset = ga.Lockset
-	dump, err := json.Marshal(dumpJson)
+	dumpJson.GoroutineId = ga.GoroutineId
+	dumpJson.Lockset = ga.Lockset.ToJson()
+	return dumpJson
+}
+func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
+	dump, err := json.Marshal(ga.ToJson())
 	return dump, err
 }
 

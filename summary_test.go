@@ -66,11 +66,7 @@ func TestGetFunctionSummary(t *testing.T) {
 			if shouldUpdate {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
-			expected, err := utils.ReadFile(tc.resPath)
-			require.NoError(t, err)
-
-			require.Equal(t, expected, dump)
-			_, _ = lsRet, guardedAccessRet
+			testutils.CompareResult(t, tc.resPath, lsRet, guardedAccessRet)
 
 			config := &pointer.Config{
 				Mains: []*ssa.Package{ssaPkg},

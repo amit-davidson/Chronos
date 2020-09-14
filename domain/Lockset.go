@@ -11,7 +11,7 @@ type Lockset struct {
 }
 
 // Lockset name ans pos
-type locksetJson struct {
+type LocksetJson struct {
 	ExistingLocks   map[string]int
 	ExistingUnlocks map[string]int
 }
@@ -69,14 +69,17 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func (ls *Lockset) MarshalJSON() ([]byte, error) {
-	dumpJson := locksetJson{ExistingLocks: make(map[string]int, 0), ExistingUnlocks: make(map[string]int, 0)}
+func (ls *Lockset) ToJson() *LocksetJson {
+	dumpJson := &LocksetJson{ExistingLocks: make(map[string]int, 0), ExistingUnlocks: make(map[string]int, 0)}
 	for lockName, lock := range ls.ExistingLocks {
 		dumpJson.ExistingLocks[lockName] = int(lock.Pos())
 	}
 	for lockName, lock := range ls.ExistingUnlocks {
 		dumpJson.ExistingUnlocks[lockName] = int(lock.Pos())
 	}
-	dump, err := json.Marshal(dumpJson)
+	return dumpJson
+}
+func (ls *Lockset) MarshalJSON() ([]byte, error) {
+	dump, err := json.Marshal(ls.ToJson())
 	return dump, err
 }
