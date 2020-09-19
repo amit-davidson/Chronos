@@ -9,7 +9,7 @@ import (
 	"testing"
 )
 
-var shouldUpdate = true
+var shouldUpdate = false
 
 func TestGetFunctionSummary(t *testing.T) {
 	var testCases = []struct {
