@@ -15,7 +15,7 @@ type TestResult struct {
 
 type TestResultJSON struct {
 	Lockset       *domain.LocksetJson
-	GuardedAccess []*domain.GuardedAccessJSON
+	GuardedAccess []domain.GuardedAccessJSON
 }
 
 func WriteResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.GuardedAccess) {
@@ -43,7 +43,7 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 
 	require.Equal(t, ls.ToJSON(), testresult.Lockset)
 
-	expectedGuardedAccess := map[int][]*domain.GuardedAccessJSON{}
+	expectedGuardedAccess := map[int][]domain.GuardedAccessJSON{}
 	expectedGuardedAccessGoroutineIDsSet := map[int]int{}
 	for _, guardedAccess := range testresult.GuardedAccess {
 		if expectedGuardedAccessKey, ok := expectedGuardedAccessGoroutineIDsSet[guardedAccess.State.GoroutineID]; !ok {
@@ -74,10 +74,7 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 		require.Equal(t, len(actualGoroutineInstructions), len(expectedGoroutineInstructions)) // Same amount of instructions in each goroutine
 		for i := 0; i < len(expectedGuardedAccess[key]); i++ {
 			insr := actualGoroutineInstructions[i].ToJSON()
-			require.Equal(t, insr.Value, expectedGoroutineInstructions[i].Value)
-			require.Equal(t, insr.State.LocksetJson, expectedGoroutineInstructions[i].State.LocksetJson)
-			require.Equal(t, insr.State.Clock, expectedGoroutineInstructions[i].State.Clock)
-			require.Equal(t, insr.OpKind, expectedGoroutineInstructions[i].OpKind)
+			require.Equal(t, insr, expectedGoroutineInstructions[i])
 		}
 	}
 }
