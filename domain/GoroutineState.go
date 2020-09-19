@@ -3,22 +3,24 @@ package domain
 import "StaticRaceDetector/utils"
 
 type GoroutineState struct {
+	GoroutineID int
 	Clock VectorClock
 	Lockset *Lockset
-	GoroutineID string
 }
 
 type GoroutineStateJSON struct {
+	GoroutineID int
 	Clock VectorClock
 	LocksetJson *LocksetJson
-	GoroutineID string
 }
+
+var goroutineCounter = utils.NewCounter()
 
 func NewGoroutineState() *GoroutineState {
 	return &GoroutineState{
 		Clock:       VectorClock{},
 		Lockset:     NewEmptyLockSet(),
-		GoroutineID: utils.GetUUID(),
+		GoroutineID: goroutineCounter.GetNext(),
 	}
 }
 

@@ -4,7 +4,7 @@ import (
 	"math"
 )
 
-type VectorClock map[string]int
+type VectorClock map[int]int
 
 func (vc VectorClock) MergeClocks(clockToMerge VectorClock) {
 	for goroutine, existingTimestamp := range clockToMerge {
@@ -15,7 +15,7 @@ func (vc VectorClock) MergeClocks(clockToMerge VectorClock) {
 
 
 func (vc VectorClock) Copy() VectorClock {
-	copiedClock := make(map[string]int, 0)
+	copiedClock := make(map[int]int, 0)
 	for goroutine, timestamp := range vc {
 		copiedClock[goroutine] = timestamp
 	}

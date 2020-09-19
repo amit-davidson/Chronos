@@ -13,7 +13,7 @@ const (
 )
 
 type GuardedAccess struct {
-	ID     string
+	ID     int
 	Value  ssa.Value
 	State  *GoroutineState
 	OpKind OpKind
