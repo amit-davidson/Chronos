@@ -33,7 +33,7 @@ func TestGetFunctionSummary(t *testing.T) {
 			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, domain.NewGoroutineState())
 
 			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccessRet}
-			dump, err := json.Marshal(testresult)
+			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)
 			if shouldUpdate {
 				utils.UpdateFile(t, tc.resPath, dump)

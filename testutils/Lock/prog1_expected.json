@@ -1,0 +1,42 @@
+{
+	"Lockset": {
+		"ExistingLocks": {
+			"t01598535": 1598568
+		},
+		"ExistingUnlocks": {}
+	},
+	"GuardedAccess": [
+		{
+			"Value": 0,
+			"OpKind": 0,
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 1
+				},
+				"LocksetJson": {
+					"ExistingLocks": {
+						"t01598535": 1598568
+					},
+					"ExistingUnlocks": {}
+				}
+			}
+		},
+		{
+			"Value": 1598513,
+			"OpKind": 1,
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 2
+				},
+				"LocksetJson": {
+					"ExistingLocks": {
+						"t01598535": 1598568
+					},
+					"ExistingUnlocks": {}
+				}
+			}
+		}
+	]
+}
