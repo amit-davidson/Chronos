@@ -41,14 +41,14 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	err = json.Unmarshal(data, testresult)
 	require.NoError(t, err)
 
-	require.Equal(t, ls.ToJson(), testresult.Lockset)
+	require.Equal(t, ls.ToJSON(), testresult.Lockset)
 
 	expectedGuardedAccess := map[int][]*domain.GuardedAccessJSON{}
 	expectedGuardedAccessGoroutineIDsSet := map[string]int{}
 	for _, guardedAccess := range testresult.GuardedAccess {
-		if expectedGuardedAccessKey, ok := expectedGuardedAccessGoroutineIDsSet[guardedAccess.GoroutineId]; !ok {
+		if expectedGuardedAccessKey, ok := expectedGuardedAccessGoroutineIDsSet[guardedAccess.State.GoroutineID]; !ok {
 			guardedAccessPos := guardedAccess.Value
-			expectedGuardedAccessGoroutineIDsSet[guardedAccess.GoroutineId] = guardedAccessPos
+			expectedGuardedAccessGoroutineIDsSet[guardedAccess.State.GoroutineID] = guardedAccessPos
 			expectedGuardedAccess[guardedAccessPos] = append(expectedGuardedAccess[guardedAccessPos], guardedAccess)
 		} else {
 			expectedGuardedAccess[expectedGuardedAccessKey] = append(expectedGuardedAccess[expectedGuardedAccessKey], guardedAccess)
@@ -58,9 +58,9 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	actualGuardedAccess := map[int][]*domain.GuardedAccess{}
 	actualGuardedAccessGoroutineIDsSet := map[string]int{}
 	for _, guardedAccess := range ga {
-		if expectedGuardedAccessKey, ok := actualGuardedAccessGoroutineIDsSet[guardedAccess.GoroutineId]; !ok {
+		if expectedGuardedAccessKey, ok := actualGuardedAccessGoroutineIDsSet[guardedAccess.State.GoroutineID]; !ok {
 			guardedAccessPos := int(guardedAccess.Value.Pos())
-			actualGuardedAccessGoroutineIDsSet[guardedAccess.GoroutineId] = guardedAccessPos
+			actualGuardedAccessGoroutineIDsSet[guardedAccess.State.GoroutineID] = guardedAccessPos
 			actualGuardedAccess[guardedAccessPos] = append(actualGuardedAccess[guardedAccessPos], guardedAccess)
 		} else {
 			actualGuardedAccess[expectedGuardedAccessKey] = append(actualGuardedAccess[expectedGuardedAccessKey], guardedAccess)
@@ -73,9 +73,10 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 		actualGoroutineInstructions := actualGuardedAccess[key]
 		require.Equal(t, len(actualGoroutineInstructions), len(expectedGoroutineInstructions)) // Same amount of instructions in each goroutine
 		for i := 0; i < len(expectedGuardedAccess[key]); i++ {
-			insr := actualGoroutineInstructions[i].ToJson()
+			insr := actualGoroutineInstructions[i].ToJSON()
 			require.Equal(t, insr.Value, expectedGoroutineInstructions[i].Value)
-			require.Equal(t, insr.Lockset, expectedGoroutineInstructions[i].Lockset)
+			require.Equal(t, insr.State.LocksetJson, expectedGoroutineInstructions[i].State.LocksetJson)
+			require.Equal(t, insr.State.Clock, expectedGoroutineInstructions[i].State.Clock)
 			require.Equal(t, insr.OpKind, expectedGoroutineInstructions[i].OpKind)
 		}
 	}

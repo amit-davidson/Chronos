@@ -13,8 +13,9 @@ func main() {
 	}
 	a["1"] = make(map[string]interface{}, 0)
 	val := a["1"]
-	val.(map[string]interface{})["2"] = "3"
+	val.(map[string]interface{})["2"] = "2"
 	if rand.Int() > 0 {
 		mutex.Unlock()
 	}
+	a["2"] = make(map[string]interface{}, 0)
 }

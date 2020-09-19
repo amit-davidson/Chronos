@@ -37,7 +37,7 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 	for _, guardedAccesses := range positionsToGuardAccesses {
 		for _, guardedAccessesA := range guardedAccesses {
 			for _, guardedAccessesB := range guardedAccesses {
-				if !guardedAccessesA.Intersects(guardedAccessesB) {
+				if !guardedAccessesA.Intersects(guardedAccessesB) && guardedAccessesA.State.MayConcurrent(guardedAccessesB.State) {
 					valueA := guardedAccessesA.Value
 					valueB := guardedAccessesB.Value
 					label := fmt.Sprintf(" %s with pos:%s has race condition with %s pos:%s \n", valueA, prog.Fset.Position(valueA.Pos()), valueB, prog.Fset.Position(valueB.Pos()))

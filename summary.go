@@ -7,76 +7,75 @@ import (
 	"strconv"
 )
 
-var pkgNamesToCheck = []string{"pkg", "main"}
+var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions"}
 
-func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, value ssa.Value, kind domain.OpKind, currentLockset *domain.Lockset, goroutineId string) {
-	guardedAccessToAdd := &domain.GuardedAccess{ID: utils.GetUUID(), Value: value, OpKind: kind, Lockset: currentLockset.Copy(), GoroutineId: goroutineId}
+func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, value ssa.Value, kind domain.OpKind, GoroutineState *domain.GoroutineState) {
+	GoroutineState.Increment()
+	guardedAccessToAdd := &domain.GuardedAccess{ID: utils.GetUUID(), Value: value, OpKind: kind, State: GoroutineState.Copy()}
 	*guardedAccesses = append(*guardedAccesses, guardedAccessToAdd)
 }
-func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId string) (*domain.Lockset, []*domain.Lockset, []*domain.GuardedAccess) {
+func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineState) (*domain.GoroutineState, []*domain.Lockset, []*domain.GuardedAccess) {
 	deferredCalls := make([]*domain.Lockset, 0)
 	guardedAccesses := make([]*domain.GuardedAccess, 0)
 	instrs := utils.FilterDebug(block.Instrs)
 	for _, ins := range instrs {
 		switch call := ins.(type) {
 		case *ssa.UnOp:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Field:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.FieldAddr:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Index:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.IndexAddr:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Lookup:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Panic:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Range:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.TypeAssert:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
-		//case *ssa.Send:
-		//	addGuardedAccess(&guardedAccesses, call.X, read, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.BinOp:
-			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, ls, goroutineId)
-			addGuardedAccess(&guardedAccesses, call.Y, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.X, domain.GuardAccessRead, GoroutineState)
+			addGuardedAccess(&guardedAccesses, call.Y, domain.GuardAccessRead, GoroutineState)
 		case *ssa.If:
-			addGuardedAccess(&guardedAccesses, call.Cond, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.Cond, domain.GuardAccessRead, GoroutineState)
 		case *ssa.MapUpdate:
-			addGuardedAccess(&guardedAccesses, call.Map, domain.GuardAccessRead, ls, goroutineId)
-			addGuardedAccess(&guardedAccesses, call.Value, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.Map, domain.GuardAccessWrite, GoroutineState)
+			addGuardedAccess(&guardedAccesses, call.Value, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Store:
-			addGuardedAccess(&guardedAccesses, call.Addr, domain.GuardAccessWrite, ls, goroutineId)
-			addGuardedAccess(&guardedAccesses, call.Val, domain.GuardAccessRead, ls, goroutineId)
+			addGuardedAccess(&guardedAccesses, call.Val, domain.GuardAccessRead, GoroutineState)
+			addGuardedAccess(&guardedAccesses, call.Addr, domain.GuardAccessWrite, GoroutineState)
 		case *ssa.Call:
 			callCommon := call.Common()
 			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}
-				ls.UpdateLockSet(locks, nil)
+				GoroutineState.Lockset.UpdateLockSet(locks, nil)
 			}
 			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Unlock") {
 				receiver := callCommon.Args[0]
 				LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 				locks := map[string]*ssa.CallCommon{LockName: callCommon}
-				ls.UpdateLockSet(nil, locks)
+				GoroutineState.Lockset.UpdateLockSet(nil, locks)
 			}
 			if utils.IsCallToAny(callCommon, "delete") {
-				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, ls, goroutineId)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, GoroutineState)
 			}
 			if utils.IsCallToAny(callCommon, "len") || utils.IsCallToAny(callCommon, "cap") {
-				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, ls, goroutineId)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, GoroutineState)
 			}
 			if utils.IsCallToAny(callCommon, "append") {
-				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, ls, goroutineId)
-				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessRead, ls, goroutineId)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessRead, GoroutineState)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessWrite, GoroutineState)
 			}
 			if utils.IsCallToAny(callCommon, "copy") {
-				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, ls, goroutineId)
-				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessWrite, ls, goroutineId)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[0], domain.GuardAccessRead, GoroutineState)
+				addGuardedAccess(&guardedAccesses, callCommon.Args[1], domain.GuardAccessWrite, GoroutineState)
 			}
 			if function, isFunctionCall := callCommon.Value.(*ssa.Function); isFunctionCall {
 				pkgName := function.Pkg.Pkg.Path()
@@ -90,9 +89,9 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId stri
 				if !found {
 					continue
 				}
-				lsRet, guardedAccessesRet := GetFunctionSummary(function, ls, goroutineId)
+				lsRet, guardedAccessesRet := GetFunctionSummary(function, GoroutineState)
 				guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
-				ls.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
+				GoroutineState.Lockset.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
 			}
 			continue
 		case *ssa.Go:
@@ -102,9 +101,12 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId stri
 				function = callCommon.Value.(*ssa.MakeClosure).Fn.(*ssa.Function)
 			}
 
-			lsRet, guardedAccessesRet := GetFunctionSummary(function, domain.NewEmptyLockSet(), utils.GetUUID())
+			newState := domain.NewGoroutineState()
+			GoroutineState.Increment()
+			newState.Clock = GoroutineState.Clock
+			lsRet, guardedAccessesRet := GetFunctionSummary(function, newState.Copy())
 			guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
-			ls.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
+			GoroutineState.Lockset.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			if utils.IsCallToAny(callCommon, "(*sync.Mutex).Lock") {
@@ -122,10 +124,10 @@ func GetBlockSummary(block *ssa.BasicBlock, ls *domain.Lockset, goroutineId stri
 			continue
 		}
 	}
-	return ls, deferredCalls, guardedAccesses
+	return GoroutineState, deferredCalls, guardedAccesses
 }
 
-func GetFunctionSummary(fn *ssa.Function, ls *domain.Lockset, goroutineIdCounter string) (*domain.Lockset, []*domain.GuardedAccess) {
+func GetFunctionSummary(fn *ssa.Function, GoroutineState *domain.GoroutineState) (*domain.Lockset, []*domain.GuardedAccess) {
 	var conditionalBlocks = map[string]struct{}{
 		"if.then":     {},
 		"if.else":     {},
@@ -135,15 +137,17 @@ func GetFunctionSummary(fn *ssa.Function, ls *domain.Lockset, goroutineIdCounter
 	deferredCalls := make([]*domain.Lockset, 0)
 	guardedAccesses := make([]*domain.GuardedAccess, 0)
 	for _, block := range fn.Blocks {
-		lsRet, deferredCallsRet, guardedAccessesRet := GetBlockSummary(block, ls.Copy(), goroutineIdCounter)
+		// We copy the lockset since changes to it aren't determined outside
+		updatedGoroutineState, deferredCallsRet, guardedAccessesRet := GetBlockSummary(block, GoroutineState.Copy())
 		guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
+		GoroutineState.Clock = updatedGoroutineState.Clock
 		if _, ok := conditionalBlocks[block.Comment]; ok {
-			ls.UpdateLockSet(nil, lsRet.ExistingUnlocks) // Ignore locks in a condition branch since it's a must set.
+			GoroutineState.Lockset.UpdateLockSet(nil, updatedGoroutineState.Lockset.ExistingUnlocks) // Ignore locks in a condition branch since it's a must set.
 			for _, deferredCallRet := range deferredCallsRet {
 				deferredCalls = append(deferredCalls, domain.NewLockSet(nil, deferredCallRet.ExistingUnlocks))
 			}
 		} else {
-			ls.UpdateLockSet(lsRet.ExistingLocks, lsRet.ExistingUnlocks)
+			GoroutineState.Lockset.UpdateLockSet(updatedGoroutineState.Lockset.ExistingLocks, updatedGoroutineState.Lockset.ExistingUnlocks)
 			for _, deferredCallRet := range deferredCallsRet {
 				deferredCalls = append(deferredCalls, domain.NewLockSet(deferredCallRet.ExistingLocks, deferredCallRet.ExistingUnlocks))
 			}
@@ -151,7 +155,7 @@ func GetFunctionSummary(fn *ssa.Function, ls *domain.Lockset, goroutineIdCounter
 	}
 
 	for i := len(deferredCalls) - 1; i >= 0; i-- {
-		ls.UpdateLockSet(deferredCalls[i].ExistingLocks, deferredCalls[i].ExistingUnlocks)
+		GoroutineState.Lockset.UpdateLockSet(deferredCalls[i].ExistingLocks, deferredCalls[i].ExistingUnlocks)
 	}
-	return ls, guardedAccesses
+	return GoroutineState.Lockset, guardedAccesses
 }

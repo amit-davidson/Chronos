@@ -69,7 +69,7 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func (ls *Lockset) ToJson() *LocksetJson {
+func (ls *Lockset) ToJSON() *LocksetJson {
 	dumpJson := &LocksetJson{ExistingLocks: make(map[string]int, 0), ExistingUnlocks: make(map[string]int, 0)}
 	for lockName, lock := range ls.ExistingLocks {
 		dumpJson.ExistingLocks[lockName] = int(lock.Pos())
@@ -80,6 +80,6 @@ func (ls *Lockset) ToJson() *LocksetJson {
 	return dumpJson
 }
 func (ls *Lockset) MarshalJSON() ([]byte, error) {
-	dump, err := json.Marshal(ls.ToJson())
+	dump, err := json.Marshal(ls.ToJSON())
 	return dump, err
 }

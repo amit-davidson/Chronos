@@ -1,4 +1,4 @@
-package Lock
+package main
 
 import (
 	"sync"

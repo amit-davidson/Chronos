@@ -13,40 +13,37 @@ const (
 )
 
 type GuardedAccess struct {
-	ID          string
-	Value       ssa.Value
-	OpKind      OpKind
-	Lockset     *Lockset
-	GoroutineId string
+	ID     string
+	Value  ssa.Value
+	State  *GoroutineState
+	OpKind OpKind
 }
 
 type GuardedAccessJSON struct {
-	Value       int
-	OpKind      OpKind
-	Lockset     *LocksetJson
-	GoroutineId string
+	Value  int
+	OpKind OpKind
+	State  *GoroutineStateJSON
 }
 
-func (ga *GuardedAccess) ToJson() GuardedAccessJSON {
+func (ga *GuardedAccess) ToJSON() GuardedAccessJSON {
 	dumpJson := GuardedAccessJSON{}
 	dumpJson.Value = int(ga.Value.Pos())
 	dumpJson.OpKind = ga.OpKind
-	dumpJson.GoroutineId = ga.GoroutineId
-	dumpJson.Lockset = ga.Lockset.ToJson()
+	dumpJson.State = ga.State.ToJSON()
 	return dumpJson
 }
 func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
-	dump, err := json.Marshal(ga.ToJson())
+	dump, err := json.Marshal(ga.ToJSON())
 	return dump, err
 }
 
 func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
-	if ga.ID == gaToCompare.ID || ga.GoroutineId == gaToCompare.GoroutineId {
+	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {
 		return true
 	}
 	if ga.OpKind == GuardAccessWrite || gaToCompare.OpKind == GuardAccessWrite {
-		for _, lockA := range ga.Lockset.ExistingLocks {
-			for _, lockB := range gaToCompare.Lockset.ExistingLocks {
+		for _, lockA := range ga.State.Lockset.ExistingLocks {
+			for _, lockB := range gaToCompare.State.Lockset.ExistingLocks {
 				if lockA.Pos() == lockB.Pos() {
 					return true
 				}
