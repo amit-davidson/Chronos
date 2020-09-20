@@ -2,6 +2,7 @@ package domain
 
 import (
 	"encoding/json"
+	"go/token"
 	"golang.org/x/tools/go/ssa"
 )
 
@@ -14,12 +15,15 @@ const (
 
 type GuardedAccess struct {
 	ID     int
+	Pos    token.Pos
 	Value  ssa.Value
 	State  *GoroutineState
 	OpKind OpKind
 }
 
 type GuardedAccessJSON struct {
+	ID     int
+	Pos    token.Pos
 	Value  int
 	OpKind OpKind
 	State  *GoroutineStateJSON
@@ -27,6 +31,8 @@ type GuardedAccessJSON struct {
 
 func (ga *GuardedAccess) ToJSON() GuardedAccessJSON {
 	dumpJson := GuardedAccessJSON{}
+	dumpJson.ID = ga.ID
+	dumpJson.Pos = ga.Pos
 	dumpJson.Value = int(ga.Value.Pos())
 	dumpJson.OpKind = ga.OpKind
 	dumpJson.State = ga.State.ToJSON()

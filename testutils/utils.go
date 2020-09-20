@@ -69,7 +69,7 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	}
 
 	// Using assert to give a better incase the instruction check fails
-	assert.Equal(t, len(actualGuardedAccess), len(expectedGuardedAccess)) // Same amount of goroutines were generated
+	assert.Equal(t, len(expectedGuardedAccess), len(actualGuardedAccess)) // Same amount of goroutines were generated
 	for key := range expectedGuardedAccess {
 		expectedGoroutineInstructions := expectedGuardedAccess[key]
 		actualGoroutineInstructions := actualGuardedAccess[key]
