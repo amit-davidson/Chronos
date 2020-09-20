@@ -8,11 +8,11 @@ import (
 )
 
 var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions"}
-var guardedAccessCounter = utils.NewCounter()
+var GuardedAccessCounter = utils.NewCounter()
 
 func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, value ssa.Value, kind domain.OpKind, GoroutineState *domain.GoroutineState) {
 	GoroutineState.Increment()
-	guardedAccessToAdd := &domain.GuardedAccess{ID: guardedAccessCounter.GetNext(), Value: value, OpKind: kind, State: GoroutineState.Copy()}
+	guardedAccessToAdd := &domain.GuardedAccess{ID: GuardedAccessCounter.GetNext(), Value: value, OpKind: kind, State: GoroutineState.Copy()}
 	*guardedAccesses = append(*guardedAccesses, guardedAccessToAdd)
 }
 func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineState) (*domain.GoroutineState, []*domain.Lockset, []*domain.GuardedAccess) {

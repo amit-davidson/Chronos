@@ -10,9 +10,9 @@
 			"Value": 0,
 			"OpKind": 0,
 			"State": {
-				"GoroutineID": 2,
+				"GoroutineID": 1,
 				"Clock": {
-					"2": 1
+					"1": 1
 				},
 				"LocksetJson": {
 					"ExistingLocks": {},
@@ -26,9 +26,9 @@
 			"Value": 1598512,
 			"OpKind": 1,
 			"State": {
-				"GoroutineID": 2,
+				"GoroutineID": 1,
 				"Clock": {
-					"2": 2
+					"1": 2
 				},
 				"LocksetJson": {
 					"ExistingLocks": {},

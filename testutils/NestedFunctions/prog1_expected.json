@@ -13,9 +13,9 @@
 			"Value": 0,
 			"OpKind": 0,
 			"State": {
-				"GoroutineID": 5,
+				"GoroutineID": 1,
 				"Clock": {
-					"5": 1
+					"1": 1
 				},
 				"LocksetJson": {
 					"ExistingLocks": {
@@ -30,9 +30,9 @@
 			"Value": 1598513,
 			"OpKind": 1,
 			"State": {
-				"GoroutineID": 5,
+				"GoroutineID": 1,
 				"Clock": {
-					"5": 2
+					"1": 2
 				},
 				"LocksetJson": {
 					"ExistingLocks": {
@@ -47,9 +47,9 @@
 			"Value": 0,
 			"OpKind": 0,
 			"State": {
-				"GoroutineID": 5,
+				"GoroutineID": 1,
 				"Clock": {
-					"5": 3
+					"1": 3
 				},
 				"LocksetJson": {
 					"ExistingLocks": {
@@ -65,9 +65,9 @@
 			"Value": 1598513,
 			"OpKind": 1,
 			"State": {
-				"GoroutineID": 5,
+				"GoroutineID": 1,
 				"Clock": {
-					"5": 4
+					"1": 4
 				},
 				"LocksetJson": {
 					"ExistingLocks": {

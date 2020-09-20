@@ -14,13 +14,13 @@ type GoroutineStateJSON struct {
 	LocksetJson *LocksetJson
 }
 
-var goroutineCounter = utils.NewCounter()
+var GoroutineCounter = utils.NewCounter()
 
 func NewGoroutineState() *GoroutineState {
 	return &GoroutineState{
 		Clock:       VectorClock{},
 		Lockset:     NewEmptyLockSet(),
-		GoroutineID: goroutineCounter.GetNext(),
+		GoroutineID: GoroutineCounter.GetNext(),
 	}
 }
 
