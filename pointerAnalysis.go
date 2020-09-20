@@ -2,6 +2,7 @@ package main
 
 import (
 	"StaticRaceDetector/domain"
+	"StaticRaceDetector/utils"
 	"fmt"
 	"go/token"
 	"golang.org/x/tools/go/pointer"
@@ -41,24 +42,18 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 		for _, guardedAccessesA := range guardedAccesses {
 			for _, guardedAccessesB := range guardedAccesses {
 				if !guardedAccessesA.Intersects(guardedAccessesB) && guardedAccessesA.State.MayConcurrent(guardedAccessesB.State) {
-
-					foundRaceA, isAExist := foundDataRaces[guardedAccessesA.Value.Pos()]
-					isBExist := false
-					if !isAExist {
-						_, isBExist = foundRaceA[guardedAccessesB.Value.Pos()]
-					if !isAExist || (isAExist && !	isBExist) { // If item doesn't exist
-						if !isAExist {
-							foundDataRaces[guardedAccessesB.Value.Pos()] = make(map[token.Pos]struct{}, 0)
+					isExist := utils.DoubleKeyIsExist(guardedAccessesA.Pos, guardedAccessesB.Pos, foundDataRaces) || utils.DoubleKeyIsExist(guardedAccessesB.Pos, guardedAccessesA.Pos, foundDataRaces)
+					if !isExist { // If item doesn't exist
+						if _ , ok := foundDataRaces[guardedAccessesB.Pos]; !ok {
+							foundDataRaces[guardedAccessesB.Pos] = make(map[token.Pos]struct{}, 0)
 						}
-						foundDataRaces[guardedAccessesB.Value.Pos()][guardedAccessesA.Value.Pos()] = struct{}{}
+						foundDataRaces[guardedAccessesB.Pos][guardedAccessesA.Pos] = struct{}{}
 
 						label := fmt.Sprintf(" %s with pos:%s has race condition with %s pos:%s \n", guardedAccessesA.Value, prog.Fset.Position(guardedAccessesA.Pos), guardedAccessesB.Value, prog.Fset.Position(guardedAccessesB.Pos))
 						print(label)
-						}
 					}
 				}
 			}
 		}
 	}
-
 }

@@ -47,12 +47,13 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {
 		return true
 	}
-	if ga.OpKind == GuardAccessWrite || gaToCompare.OpKind == GuardAccessWrite {
-		for _, lockA := range ga.State.Lockset.ExistingLocks {
-			for _, lockB := range gaToCompare.State.Lockset.ExistingLocks {
-				if lockA.Pos() == lockB.Pos() {
-					return true
-				}
+	if ga.OpKind == GuardAccessRead && gaToCompare.OpKind == GuardAccessRead {
+		return true
+	}
+	for _, lockA := range ga.State.Lockset.ExistingLocks {
+		for _, lockB := range gaToCompare.State.Lockset.ExistingLocks {
+			if lockA.Pos() == lockB.Pos() {
+				return true
 			}
 		}
 	}

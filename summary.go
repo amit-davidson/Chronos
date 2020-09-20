@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions", "StaticRaceDetector/testutils/DataRaceSahdowedErr"}
+var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions", "StaticRaceDetector/testutils/DataRaceShadowedErr"}
 var GuardedAccessCounter = utils.NewCounter()
 
 func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, pos token.Pos ,value ssa.Value, kind domain.OpKind, GoroutineState *domain.GoroutineState) {
