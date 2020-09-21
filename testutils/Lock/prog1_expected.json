@@ -7,6 +7,8 @@
 	},
 	"GuardedAccess": [
 		{
+			"ID": 1,
+			"Pos": 1598572,
 			"Value": 0,
 			"OpKind": 0,
 			"State": {
@@ -23,6 +25,8 @@
 			}
 		},
 		{
+			"ID": 2,
+			"Pos": 1598572,
 			"Value": 1598513,
 			"OpKind": 1,
 			"State": {

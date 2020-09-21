@@ -22,7 +22,7 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 
 	positionsToGuardAccesses := map[token.Pos][]*domain.GuardedAccess{}
 	for _, guardedAccess := range accesses {
-		if pointer.CanPoint(guardedAccess.Value.Type()) {
+		if guardedAccess.Pos != token.NoPos && pointer.CanPoint(guardedAccess.Value.Type()) {
 			config.AddQuery(guardedAccess.Value)
 			// Multiple instructions for the same variable for example write and multiple reads
 			positionsToGuardAccesses[guardedAccess.Value.Pos()] = append(positionsToGuardAccesses[guardedAccess.Value.Pos()], guardedAccess)
