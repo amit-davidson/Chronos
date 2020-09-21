@@ -37,18 +37,14 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 		}
 	}
 
-	foundDataRaces := make(map[token.Pos]map[token.Pos]struct{}, 0) // All the data race where the key was already found to avoid duplicates
+	foundDataRaces := utils.NewDoubleKeyMap() // All the data race where the key was already found to avoid duplicates
 	for _, guardedAccesses := range positionsToGuardAccesses {
 		for _, guardedAccessesA := range guardedAccesses {
 			for _, guardedAccessesB := range guardedAccesses {
 				if !guardedAccessesA.Intersects(guardedAccessesB) && guardedAccessesA.State.MayConcurrent(guardedAccessesB.State) {
-					isExist := utils.DoubleKeyIsExist(guardedAccessesA.Pos, guardedAccessesB.Pos, foundDataRaces) || utils.DoubleKeyIsExist(guardedAccessesB.Pos, guardedAccessesA.Pos, foundDataRaces)
+					isExist := foundDataRaces.IsExist(guardedAccessesA.Pos, guardedAccessesB.Pos)
 					if !isExist { // If item doesn't exist
-						if _ , ok := foundDataRaces[guardedAccessesB.Pos]; !ok {
-							foundDataRaces[guardedAccessesB.Pos] = make(map[token.Pos]struct{}, 0)
-						}
-						foundDataRaces[guardedAccessesB.Pos][guardedAccessesA.Pos] = struct{}{}
-
+						foundDataRaces.Add(guardedAccessesA.Pos, guardedAccessesB.Pos)
 						label := fmt.Sprintf(" %s with pos:%s has race condition with %s pos:%s \n", guardedAccessesA.Value, prog.Fset.Position(guardedAccessesA.Pos), guardedAccessesB.Value, prog.Fset.Position(guardedAccessesB.Pos))
 						print(label)
 					}
