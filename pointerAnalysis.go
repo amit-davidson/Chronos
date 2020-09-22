@@ -15,6 +15,19 @@ import (
 // the positions for those values are merged. After all positions were merged, the algorithm runs and check if for a
 // given value (identified by a pos in the map) there are two guarded accesses that might conflict - W&W/R&W from two
 // different goroutines.
+// map1 : A->ga1, ga2, ga3
+//        B->ga4, ga5, ga6
+//        C->ga7, ga8, ga9
+//        D->ga10, ga11, ga12
+// Now that we know that B may point to A, we add it to it
+// map1 : A->ga1, ga2, ga3, ga4, ga5, ga6
+//        C->ga7, ga8, ga9
+//        D->ga10, ga11, ga12
+// And if A may point to D, then
+// map1 : C->ga7, ga8, ga9
+//        D->ga10, ga11, ga12, ga1, ga2, ga3, ga4, ga5, ga6
+// And then for pos all the guarded accesses are compared to see if data races might exist
+
 func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAccess) {
 	config := &pointer.Config{
 		Mains: []*ssa.Package{pkg},
