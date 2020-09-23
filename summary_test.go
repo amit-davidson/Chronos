@@ -37,8 +37,8 @@ func TestGetFunctionSummary(t *testing.T) {
 			require.NoError(t, err)
 
 			entryFunc := ssaPkg.Func("main")
-			lsRet, guardedAccessRet := GetFunctionSummary(entryFunc, domain.NewGoroutineState())
-
+			guardedAccessRet, goroutineState := GetFunctionSummary(entryFunc, domain.NewGoroutineState())
+			lsRet := goroutineState.Lockset
 			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccessRet}
 			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)

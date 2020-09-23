@@ -4,13 +4,13 @@ import "StaticRaceDetector/utils"
 
 type GoroutineState struct {
 	GoroutineID int
-	Clock VectorClock
-	Lockset *Lockset
+	Clock       VectorClock
+	Lockset     *Lockset
 }
 
 type GoroutineStateJSON struct {
 	GoroutineID int
-	Clock VectorClock
+	Clock       VectorClock
 	LocksetJson *LocksetJson
 }
 
@@ -47,4 +47,13 @@ func (gs *GoroutineState) ToJSON() *GoroutineStateJSON {
 	dumpJson.GoroutineID = gs.GoroutineID
 	dumpJson.Clock = gs.Clock
 	return &dumpJson
+}
+
+func (gs *GoroutineState) MergeStates(stateToMerge *GoroutineState, isConditional bool) {
+	gs.Clock = stateToMerge.Clock
+	if isConditional {
+		gs.Lockset.UpdateLockSet(nil, stateToMerge.Lockset.ExistingUnlocks)
+	} else {
+		gs.Lockset.UpdateLockSet(stateToMerge.Lockset.ExistingLocks, stateToMerge.Lockset.ExistingUnlocks)
+	}
 }

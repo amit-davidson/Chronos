@@ -42,7 +42,7 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	err = json.Unmarshal(data, testresult)
 	require.NoError(t, err)
 
-	require.Equal(t, ls.ToJSON(), testresult.Lockset)
+	require.Equal(t, testresult.Lockset, ls.ToJSON())
 
 	expectedGuardedAccess := map[int][]domain.GuardedAccessJSON{}
 	expectedGuardedAccessGoroutineIDsSet := map[int]int{}
