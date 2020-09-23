@@ -55,7 +55,6 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 				continue
 			}
 			positionsToGuardAccesses[allocPos] = append(positionsToGuardAccesses[allocPos], positionsToGuardAccesses[queryPos]...)
-			delete(positionsToGuardAccesses, queryPos)
 		}
 	}
 
