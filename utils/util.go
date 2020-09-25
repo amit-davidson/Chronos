@@ -11,7 +11,7 @@ import (
 	"testing"
 )
 
-func IsCallToAny(call *ssa.Function, names ...string) bool {
+func IsCallTo(call *ssa.Function, names ...string) bool {
 	fn, ok:= call.Object().(*types.Func)
 	if !ok {
 		return false
@@ -23,16 +23,6 @@ func IsCallToAny(call *ssa.Function, names ...string) bool {
 		}
 	}
 	return false
-}
-
-func FilterDebug(instr []ssa.Instruction) []ssa.Instruction {
-	var out []ssa.Instruction
-	for _, ins := range instr {
-		if _, ok := ins.(*ssa.DebugRef); !ok {
-			out = append(out, ins)
-		}
-	}
-	return out
 }
 
 func OpenFile(fileName string) (*os.File, error) {

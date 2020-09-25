@@ -63,8 +63,7 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 
 var GuardedAccessCounter = utils.NewCounter()
 
-func AddGuardedAccess(guardedAccesses *[]*GuardedAccess, pos token.Pos, value ssa.Value, kind OpKind, GoroutineState *GoroutineState) {
+func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, GoroutineState *GoroutineState) *GuardedAccess {
 	GoroutineState.Increment()
-	guardedAccessToAdd := &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, OpKind: kind, State: GoroutineState.Copy()}
-	*guardedAccesses = append(*guardedAccesses, guardedAccessToAdd)
+	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, OpKind: kind, State: GoroutineState.Copy()}
 }
