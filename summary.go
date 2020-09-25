@@ -127,24 +127,29 @@ func GetFunctionSummary(fn *ssa.Function, GoroutineState *domain.GoroutineState)
 		"select.body": {},
 	}
 
-	deferredFunctions := make([]*ssa.Function, 0)
+	deferredFunctions := make([]*domain.ConditionalFunction, 0)
 	guardedAccesses := make([]*domain.GuardedAccess, 0)
 	for _, block := range fn.Blocks {
 		deferredFunctionsRet, guardedAccessesRet, goroutineState := GetBlockSummary(block, GoroutineState.Copy())
 		guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
-		deferredFunctions = append(deferredFunctions, deferredFunctionsRet...)
 
 		if _, ok := conditionalBlocks[block.Comment]; ok {
 			GoroutineState.MergeStates(goroutineState, true) // Ignore locks in a condition branch since it's a must set.
+			for _, deferredFunctionRet := range deferredFunctionsRet {
+				deferredFunctions = append(deferredFunctions, &domain.ConditionalFunction{IsConditional: true, Function: deferredFunctionRet})
+			}
 		} else {
 			GoroutineState.MergeStates(goroutineState, false)
+			for _, deferredFunctionRet := range deferredFunctionsRet {
+				deferredFunctions = append(deferredFunctions, &domain.ConditionalFunction{IsConditional: false, Function: deferredFunctionRet})
+			}
 		}
 	}
 
 	for i := len(deferredFunctions) - 1; i >= 0; i-- {
-		res, GoroutineStateRet := GetFunctionSummary(deferredFunctions[i], GoroutineState.Copy())
+		res, GoroutineStateRet := GetFunctionSummary(deferredFunctions[i].Function, GoroutineState.Copy())
 		guardedAccesses = append(guardedAccesses, res...)
-		GoroutineState.MergeStates(GoroutineStateRet, false)
+		GoroutineState.MergeStates(GoroutineStateRet, deferredFunctions[i].IsConditional)
 	}
 	return guardedAccesses, GoroutineState
 }
