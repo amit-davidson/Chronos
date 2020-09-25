@@ -2,20 +2,14 @@ package main
 
 import (
 	"StaticRaceDetector/domain"
+	"StaticRaceDetector/ssaUtils"
 	"StaticRaceDetector/utils"
-	"go/token"
 	"golang.org/x/tools/go/ssa"
 	"strconv"
 )
 
-var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/Lock", "StaticRaceDetector/testutils/LockAndUnlock", "StaticRaceDetector/testutils/LockAndUnlockIfBranch", "StaticRaceDetector/testutils/DeferredLockAndUnlockIfBranch", "StaticRaceDetector/testutils/LockAndUnlockIfMap", "StaticRaceDetector/testutils/DataRaceMap", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/DataRaceProperty"}
-var GuardedAccessCounter = utils.NewCounter()
+var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/Lock", "StaticRaceDetector/testutils/LockAndUnlock", "StaticRaceDetector/testutils/LockAndUnlockIfBranch", "StaticRaceDetector/testutils/DeferredLockAndUnlockIfBranch", "StaticRaceDetector/testutils/LockAndUnlockIfMap", "StaticRaceDetector/testutils/DataRaceMap", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/DataRaceProperty", "StaticRaceDetector/testutils/NestedDeferWithLockAndUnlock", "StaticRaceDetector/testutils/NestedDeferWithLockAndUnlockAndGoroutine", "StaticRaceDetector/testutils/LogDataRace"}
 
-func addGuardedAccess(guardedAccesses *[]*domain.GuardedAccess, pos token.Pos, value ssa.Value, kind domain.OpKind, GoroutineState *domain.GoroutineState) {
-	GoroutineState.Increment()
-	guardedAccessToAdd := &domain.GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, OpKind: kind, State: GoroutineState.Copy()}
-	*guardedAccesses = append(*guardedAccesses, guardedAccessToAdd)
-}
 func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineState) ([]*ssa.CallCommon, []*domain.GuardedAccess, *domain.GoroutineState) {
 	deferredFunctions := make([]*ssa.CallCommon, 0)
 	guardedAccesses := make([]*domain.GuardedAccess, 0)
@@ -23,34 +17,34 @@ func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineStat
 	for _, ins := range instrs {
 		switch call := ins.(type) {
 		case *ssa.UnOp:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Field:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.FieldAddr:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Index:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.IndexAddr:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Lookup:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Panic:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Range:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.TypeAssert:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
 		case *ssa.BinOp:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Y, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.X, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Y, domain.GuardAccessRead, GoroutineState)
 		case *ssa.If:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Cond, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Cond, domain.GuardAccessRead, GoroutineState)
 		case *ssa.MapUpdate:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Map, domain.GuardAccessWrite, GoroutineState)
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Value, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Map, domain.GuardAccessWrite, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Value, domain.GuardAccessRead, GoroutineState)
 		case *ssa.Store:
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Val, domain.GuardAccessRead, GoroutineState)
-			addGuardedAccess(&guardedAccesses, call.Pos(), call.Addr, domain.GuardAccessWrite, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Val, domain.GuardAccessRead, GoroutineState)
+			domain.AddGuardedAccess(&guardedAccesses, call.Pos(), call.Addr, domain.GuardAccessWrite, GoroutineState)
 		case *ssa.Call:
 			callCommon := call.Common()
 			guardedAccessesRet, guardedState := GetFunctionSummary(callCommon, GoroutineState.Copy())
@@ -61,6 +55,7 @@ func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineStat
 			GoroutineState.Increment()
 			newState := domain.NewGoroutineState()
 			newState.Clock = GoroutineState.Clock
+			newState.Lockset = GoroutineState.Lockset
 			guardedAccessesRet, _ := GetFunctionSummary(callCommon, newState.Copy())
 			guardedAccesses = append(guardedAccesses, guardedAccessesRet...)
 		case *ssa.Defer:
@@ -93,22 +88,9 @@ func GetFunctionSummary(callCommon *ssa.CallCommon, GoroutineState *domain.Gorou
 		GoroutineState.Lockset.UpdateLockSet(nil, locks)
 		return guardedAccesses, GoroutineState
 	}
-	if utils.IsCallToAny(callCommon, "delete") {
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[0], domain.GuardAccessWrite, GoroutineState)
-		return guardedAccesses, GoroutineState
-	}
-	if utils.IsCallToAny(callCommon, "len") || utils.IsCallToAny(callCommon, "cap") {
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[0], domain.GuardAccessRead, GoroutineState)
-		return guardedAccesses, GoroutineState
-	}
-	if utils.IsCallToAny(callCommon, "append") {
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[1], domain.GuardAccessRead, GoroutineState)
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[0], domain.GuardAccessWrite, GoroutineState)
-		return guardedAccesses, GoroutineState
-	}
-	if utils.IsCallToAny(callCommon, "copy") {
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[0], domain.GuardAccessRead, GoroutineState)
-		addGuardedAccess(&guardedAccesses, callCommon.Pos(), callCommon.Args[1], domain.GuardAccessWrite, GoroutineState)
+	switch call := callCommon.Value.(type) {
+	case *ssa.Builtin:
+		ssaUtils.HandleBuiltin(&guardedAccesses, GoroutineState, call, callCommon.Args)
 		return guardedAccesses, GoroutineState
 	}
 

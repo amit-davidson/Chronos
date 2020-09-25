@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"StaticRaceDetector/utils"
 	"encoding/json"
 	"go/token"
 	"golang.org/x/tools/go/ssa"
@@ -58,4 +59,12 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 		}
 	}
 	return false
+}
+
+var GuardedAccessCounter = utils.NewCounter()
+
+func AddGuardedAccess(guardedAccesses *[]*GuardedAccess, pos token.Pos, value ssa.Value, kind OpKind, GoroutineState *GoroutineState) {
+	GoroutineState.Increment()
+	guardedAccessToAdd := &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, OpKind: kind, State: GoroutineState.Copy()}
+	*guardedAccesses = append(*guardedAccesses, guardedAccessToAdd)
 }

@@ -115,5 +115,4 @@ func DoubleKeyIsExist(pos1 token.Pos, pos2 token.Pos, dict map[token.Pos]map[tok
 		return false
 	}
 	return true
-
 }
