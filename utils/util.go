@@ -8,11 +8,13 @@ import (
 	"golang.org/x/tools/go/ssa"
 	"io/ioutil"
 	"os"
+	"runtime"
+	"strings"
 	"testing"
 )
 
 func IsCallTo(call *ssa.Function, names ...string) bool {
-	fn, ok:= call.Object().(*types.Func)
+	fn, ok := call.Object().(*types.Func)
 	if !ok {
 		return false
 	}
@@ -23,6 +25,11 @@ func IsCallTo(call *ssa.Function, names ...string) bool {
 		}
 	}
 	return false
+}
+func GetTopPackageName() string {
+	pc, _, _, _ := runtime.Caller(2)
+	parts := strings.Split(runtime.FuncForPC(pc).Name(), "/")
+	return parts[0]
 }
 
 func OpenFile(fileName string) (*os.File, error) {

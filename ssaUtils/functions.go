@@ -5,6 +5,7 @@ import (
 	"StaticRaceDetector/utils"
 	"golang.org/x/tools/go/ssa"
 	"strconv"
+	"strings"
 )
 
 func HandleBuiltin(GoroutineState *domain.GoroutineState, callCommon *ssa.Builtin, args []ssa.Value) ([]*domain.GuardedAccess, *domain.GoroutineState) {
@@ -23,8 +24,6 @@ func HandleBuiltin(GoroutineState *domain.GoroutineState, callCommon *ssa.Builti
 	}
 	return guardedAccesses, GoroutineState
 }
-
-var pkgNamesToCheck = []string{"pkg", "main", "StaticRaceDetector/testutils/NestedFunctions", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/Lock", "StaticRaceDetector/testutils/LockAndUnlock", "StaticRaceDetector/testutils/LockAndUnlockIfBranch", "StaticRaceDetector/testutils/DeferredLockAndUnlockIfBranch", "StaticRaceDetector/testutils/LockAndUnlockIfMap", "StaticRaceDetector/testutils/DataRaceMap", "StaticRaceDetector/testutils/DataRaceShadowedErr", "StaticRaceDetector/testutils/DataRaceProperty", "StaticRaceDetector/testutils/NestedDeferWithLockAndUnlock", "StaticRaceDetector/testutils/NestedDeferWithLockAndUnlockAndGoroutine", "StaticRaceDetector/testutils/LogDataRace"}
 
 func GetBlockSummary(block *ssa.BasicBlock, GoroutineState *domain.GoroutineState) ([]*ssa.CallCommon, []*domain.GuardedAccess, *domain.GoroutineState) {
 	deferredFunctions := make([]*ssa.CallCommon, 0)
@@ -105,15 +104,9 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) ([]
 		"select.body": {},
 	}
 
-	pkgName := fn.Pkg.Pkg.Path()
-	found := false
-	for _, pkgNameToCheck := range pkgNamesToCheck {
-		if pkgName == pkgNameToCheck {
-			found = true
-			break
-		}
-	}
-	if !found {
+	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
+	packageToCheck := utils.GetTopPackageName() // The top package of the code. Any function under it is ok.
+	if !strings.Contains(pkgName, packageToCheck) {
 		return guardedAccesses, GoroutineState
 	}
 
