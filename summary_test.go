@@ -2,6 +2,7 @@ package main
 
 import (
 	"StaticRaceDetector/domain"
+	"StaticRaceDetector/ssaUtils"
 	"StaticRaceDetector/testutils"
 	"StaticRaceDetector/utils"
 	"encoding/json"
@@ -42,7 +43,7 @@ func TestGetFunctionSummary(t *testing.T) {
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
-			guardedAccessRet, goroutineState := GetFunctionSummary(&entryCallCommon, domain.NewGoroutineState())
+			guardedAccessRet, goroutineState := ssaUtils.GetSummary(&entryCallCommon, domain.NewGoroutineState())
 			lsRet := goroutineState.Lockset
 			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccessRet}
 			dump, err := json.MarshalIndent(testresult, "", "\t")

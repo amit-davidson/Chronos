@@ -11,35 +11,18 @@ import (
 	"testing"
 )
 
-func IsCallToAny(call *ssa.CallCommon, names ...string) bool {
-	q := CallName(call, false)
+func IsCallToAny(call *ssa.Function, names ...string) bool {
+	fn, ok:= call.Object().(*types.Func)
+	if !ok {
+		return false
+	}
+	q := fn.FullName()
 	for _, name := range names {
 		if q == name {
 			return true
 		}
 	}
 	return false
-}
-
-func CallName(call *ssa.CallCommon, short bool) string {
-	if call.IsInvoke() {
-		return ""
-	}
-	switch v := call.Value.(type) {
-	case *ssa.Function:
-		fn, ok := v.Object().(*types.Func)
-		if !ok {
-			return ""
-		}
-		if short {
-			return fn.Name()
-		} else {
-			return fn.FullName()
-		}
-	case *ssa.Builtin:
-		return v.Name()
-	}
-	return ""
 }
 
 func FilterDebug(instr []ssa.Instruction) []ssa.Instruction {
