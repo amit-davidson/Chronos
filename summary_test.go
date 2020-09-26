@@ -47,7 +47,7 @@ func TestGetFunctionSummary(t *testing.T) {
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			guardedAccesses := make([]*domain.GuardedAccess, 0)
-			goroutineState := ssaUtils.GetSummary(&guardedAccesses, domain.NewGoroutineState(), &entryCallCommon)
+			goroutineState := ssaUtils.GetSummary(&guardedAccesses, domain.NewEmptyGoroutineState(), &entryCallCommon)
 			lsRet := goroutineState.Lockset
 			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccesses}
 			dump, err := json.MarshalIndent(testresult, "", "\t")

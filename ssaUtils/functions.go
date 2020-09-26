@@ -9,7 +9,7 @@ import (
 )
 
 func GetSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.GoroutineState {
-	if callCommon.IsInvoke() { // Interface (abstract methods) isn't handled
+	if callCommon.IsInvoke() { // abstract methods (of interfaces) aren't handled
 		return GoroutineState
 	}
 
@@ -122,10 +122,7 @@ func GetBlockSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *d
 			GoroutineState.MergeStates(guardedState, false)
 		case *ssa.Go:
 			callCommon := call.Common()
-			GoroutineState.Increment()
-			newState := domain.NewGoroutineState()
-			newState.Clock = GoroutineState.Clock
-			newState.Lockset = GoroutineState.Lockset
+			newState := domain.NewGoroutineExecutionState(GoroutineState)
 			_ = GetSummary(guardedAccesses, newState.Copy(), callCommon)
 		case *ssa.Defer:
 			callCommon := call.Common()

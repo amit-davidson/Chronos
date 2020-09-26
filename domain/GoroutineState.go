@@ -16,10 +16,19 @@ type GoroutineStateJSON struct {
 
 var GoroutineCounter = utils.NewCounter()
 
-func NewGoroutineState() *GoroutineState {
+func NewEmptyGoroutineState() *GoroutineState {
 	return &GoroutineState{
 		Clock:       VectorClock{},
 		Lockset:     NewEmptyLockSet(),
+		GoroutineID: GoroutineCounter.GetNext(),
+	}
+}
+
+func NewGoroutineExecutionState(state *GoroutineState) *GoroutineState {
+	state.Increment()
+	return &GoroutineState{
+		Clock:       state.Clock,
+		Lockset:     state.Lockset,
 		GoroutineID: GoroutineCounter.GetNext(),
 	}
 }
