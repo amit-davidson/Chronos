@@ -4,7 +4,6 @@ import (
 	"StaticRaceDetector/domain"
 	"StaticRaceDetector/utils"
 	"golang.org/x/tools/go/ssa"
-	"strconv"
 	"strings"
 )
 
@@ -21,18 +20,10 @@ func GetSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *domain
 		return HandleFunction(guardedAccesses, GoroutineState, fn)
 	case *ssa.Function:
 		if utils.IsCallTo(call, "(*sync.Mutex).Lock") {
-			receiver := callCommon.Args[0]
-			LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
-			locks := map[string]*ssa.CallCommon{LockName: callCommon}
-			GoroutineState.Lockset.UpdateLockSet(locks, nil)
-			return GoroutineState
+			return AddLock(GoroutineState, callCommon, false)
 		}
 		if utils.IsCallTo(call, "(*sync.Mutex).Unlock") {
-			receiver := callCommon.Args[0]
-			LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
-			locks := map[string]*ssa.CallCommon{LockName: callCommon}
-			GoroutineState.Lockset.UpdateLockSet(nil, locks)
-			return GoroutineState
+			return AddLock(GoroutineState, callCommon, true)
 		}
 		return HandleFunction(guardedAccesses, GoroutineState, call)
 	case ssa.Instruction:
