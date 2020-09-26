@@ -174,8 +174,9 @@ func GetSummary(callCommon *ssa.CallCommon, GoroutineState *domain.GoroutineStat
 			return guardedAccesses, GoroutineState
 		}
 		return HandleFunction(GoroutineState, call)
-	default:
-		guardedAccesses = append(guardedAccesses, HandleInstruction(call.(ssa.Instruction), GoroutineState)...)
+	case ssa.Instruction:
+		guardedAccesses = append(guardedAccesses, HandleInstruction(call, GoroutineState)...)
 		return guardedAccesses, GoroutineState
 	}
+	return guardedAccesses, GoroutineState
 }
