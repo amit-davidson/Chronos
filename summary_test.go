@@ -11,29 +11,36 @@ import (
 	"testing"
 )
 
-var shouldUpdate = false
+const (
+	updateAll = iota
+	notUpdateAll
+	testSelective
+)
+
+var shouldUpdateAll = testSelective
 
 func TestGetFunctionSummary(t *testing.T) {
 	var testCases = []struct {
-		name     string
-		testPath string
-		resPath  string
+		name         string
+		testPath     string
+		resPath      string
+		shouldUpdate bool
 	}{
-		{name: "Lock", testPath: "testutils/Lock/prog1.go", resPath: "testutils/Lock/prog1_expected.json"},
-		{name: "LockAndUnlock", testPath: "testutils/LockAndUnlock/prog1.go", resPath: "testutils/LockAndUnlock/prog1_expected.json"},
-		{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected.json"},
-		{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json"},
-		{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json"},
-		{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json"},
-		{name: "LockAndUnlockIfMap", testPath: "testutils/LockAndUnlockIfMap/prog1.go", resPath: "testutils/LockAndUnlockIfMap/prog1_expected.json"},
-		{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected.json"},
-		{name: "DataRaceMap", testPath: "testutils/DataRaceMap/prog1.go", resPath: "testutils/DataRaceMap/prog1_expected.json"},
-		{name: "DataRaceShadowedErr", testPath: "testutils/DataRaceShadowedErr/prog1.go", resPath: "testutils/DataRaceShadowedErr/prog1_expected.json"},
-		{name: "DataRaceProperty", testPath: "testutils/DataRaceProperty/prog1.go", resPath: "testutils/DataRaceProperty/prog1_expected.json"},
-		{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json"},
-		{name: "DataRaceWithSameFunction", testPath: "testutils/DataRaceWithSameFunction/prog1.go", resPath: "testutils/DataRaceWithSameFunction/prog1_expected.json"},
-		{name: "StructMethod", testPath: "testutils/StructMethod/prog1.go", resPath: "testutils/StructMethod/prog1_expected.json"},
-		//{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json"},
+		{name: "Lock", testPath: "testutils/Lock/prog1.go", resPath: "testutils/Lock/prog1_expected.json", shouldUpdate: false},
+		{name: "LockAndUnlock", testPath: "testutils/LockAndUnlock/prog1.go", resPath: "testutils/LockAndUnlock/prog1_expected.json", shouldUpdate: false},
+		{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
+		{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
+		{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false},
+		{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false},
+		{name: "LockAndUnlockIfMap", testPath: "testutils/LockAndUnlockIfMap/prog1.go", resPath: "testutils/LockAndUnlockIfMap/prog1_expected.json", shouldUpdate: false},
+		{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceMap", testPath: "testutils/DataRaceMap/prog1.go", resPath: "testutils/DataRaceMap/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceShadowedErr", testPath: "testutils/DataRaceShadowedErr/prog1.go", resPath: "testutils/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceProperty", testPath: "testutils/DataRaceProperty/prog1.go", resPath: "testutils/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceWithSameFunction", testPath: "testutils/DataRaceWithSameFunction/prog1.go", resPath: "testutils/DataRaceWithSameFunction/prog1_expected.json", shouldUpdate: false},
+		{name: "StructMethod", testPath: "testutils/StructMethod/prog1.go", resPath: "testutils/StructMethod/prog1_expected.json", shouldUpdate: false},
+		//{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -42,20 +49,18 @@ func TestGetFunctionSummary(t *testing.T) {
 
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
-			//ssaUtils.SetGlobalProgram(ssaProg)
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			guardedAccesses := make([]*domain.GuardedAccess, 0)
-			goroutineState := ssaUtils.GetSummary(&guardedAccesses, domain.NewEmptyGoroutineState(), &entryCallCommon)
-			lsRet := goroutineState.Lockset
-			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccesses}
+			goroutineState := ssaUtils.HandleCallCommon(&guardedAccesses, domain.NewEmptyGoroutineState(), &entryCallCommon)
+			testresult := testutils.TestResult{Lockset: goroutineState.Lockset, GuardedAccess: guardedAccesses}
 			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)
-			if shouldUpdate {
+			if shouldUpdateAll == updateAll || shouldUpdateAll == testSelective && tc.shouldUpdate {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
-			testutils.CompareResult(t, tc.resPath, lsRet, guardedAccesses)
+			testutils.CompareResult(t, tc.resPath, goroutineState.Lockset, guardedAccesses)
 			Analysis(ssaPkg, ssaProg, guardedAccesses)
 		})
 	}

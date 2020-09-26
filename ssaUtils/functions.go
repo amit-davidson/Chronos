@@ -7,7 +7,13 @@ import (
 	"strings"
 )
 
-func GetSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.GoroutineState {
+var conditionalBlocks = map[string]struct{}{
+	"if.then":     {},
+	"if.else":     {},
+	"select.body": {},
+}
+
+func HandleCallCommon(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.GoroutineState {
 	if callCommon.IsInvoke() { // abstract methods (of interfaces) aren't handled
 		return GoroutineState
 	}
@@ -109,12 +115,12 @@ func GetBlockSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *d
 		switch call := ins.(type) {
 		case *ssa.Call:
 			callCommon := call.Common()
-			guardedState := GetSummary(guardedAccesses, GoroutineState.Copy(), callCommon)
+			guardedState := HandleCallCommon(guardedAccesses, GoroutineState.Copy(), callCommon)
 			GoroutineState.MergeStates(guardedState, false)
 		case *ssa.Go:
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(GoroutineState)
-			_ = GetSummary(guardedAccesses, newState.Copy(), callCommon)
+			_ = HandleCallCommon(guardedAccesses, newState.Copy(), callCommon)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			deferredFunctions = append(deferredFunctions, callCommon)
@@ -126,12 +132,6 @@ func GetBlockSummary(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *d
 }
 
 func HandleFunction(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *domain.GoroutineState, fn *ssa.Function) *domain.GoroutineState {
-	var conditionalBlocks = map[string]struct{}{
-		"if.then":     {},
-		"if.else":     {},
-		"select.body": {},
-	}
-
 	pkgName := fn.Pkg.Pkg.Path()                // Used to guard against entering standard library packages
 	packageToCheck := utils.GetTopPackageName() // The top package of the code. Any function under it is ok.
 	if !strings.Contains(pkgName, packageToCheck) {
@@ -156,7 +156,7 @@ func HandleFunction(guardedAccesses *[]*domain.GuardedAccess, GoroutineState *do
 	}
 
 	for i := len(deferredFunctions) - 1; i >= 0; i-- {
-		GoroutineStateRet := GetSummary(guardedAccesses, GoroutineState.Copy(), deferredFunctions[i].Function)
+		GoroutineStateRet := HandleCallCommon(guardedAccesses, GoroutineState.Copy(), deferredFunctions[i].Function)
 		GoroutineState.MergeStates(GoroutineStateRet, deferredFunctions[i].IsConditional)
 	}
 	return GoroutineState
