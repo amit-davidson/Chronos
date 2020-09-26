@@ -32,6 +32,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "DataRaceProperty", testPath: "testutils/DataRaceProperty/prog1.go", resPath: "testutils/DataRaceProperty/prog1_expected.json"},
 		{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json"},
 		{name: "DataRaceWithSameFunction", testPath: "testutils/DataRaceWithSameFunction/prog1.go", resPath: "testutils/DataRaceWithSameFunction/prog1_expected.json"},
+		{name: "StructMethod", testPath: "testutils/StructMethod/prog1.go", resPath: "testutils/StructMethod/prog1_expected.json"},
 		//{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json"},
 	}
 	for _, tc := range testCases {
@@ -45,16 +46,17 @@ func TestGetFunctionSummary(t *testing.T) {
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
-			guardedAccessRet, goroutineState := ssaUtils.GetSummary(&entryCallCommon, domain.NewGoroutineState())
+			guardedAccesses := make([]*domain.GuardedAccess, 0)
+			goroutineState := ssaUtils.GetSummary(&guardedAccesses, domain.NewGoroutineState(), &entryCallCommon)
 			lsRet := goroutineState.Lockset
-			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccessRet}
+			testresult := testutils.TestResult{Lockset: lsRet, GuardedAccess: guardedAccesses}
 			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)
 			if shouldUpdate {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
-			testutils.CompareResult(t, tc.resPath, lsRet, guardedAccessRet)
-			Analysis(ssaPkg, ssaProg, guardedAccessRet)
+			testutils.CompareResult(t, tc.resPath, lsRet, guardedAccesses)
+			Analysis(ssaPkg, ssaProg, guardedAccesses)
 		})
 	}
 }
