@@ -30,7 +30,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "DataRaceMap", testPath: "testutils/DataRaceMap/prog1.go", resPath: "testutils/DataRaceMap/prog1_expected.json"},
 		{name: "DataRaceShadowedErr", testPath: "testutils/DataRaceShadowedErr/prog1.go", resPath: "testutils/DataRaceShadowedErr/prog1_expected.json"},
 		{name: "DataRaceProperty", testPath: "testutils/DataRaceProperty/prog1.go", resPath: "testutils/DataRaceProperty/prog1_expected.json"},
-		//{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json"},
+		{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json"},
 		//{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json"},
 	}
 	for _, tc := range testCases {
@@ -38,8 +38,9 @@ func TestGetFunctionSummary(t *testing.T) {
 			domain.GoroutineCounter.Reset()
 			domain.GuardedAccessCounter.Reset()
 
-			ssaProg, ssaPkg, err := utils.LoadPackage(tc.testPath)
+			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
+			//ssaUtils.SetGlobalProgram(ssaProg)
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
