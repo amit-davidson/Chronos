@@ -26,17 +26,17 @@ func TestGetFunctionSummary(t *testing.T) {
 		resPath      string
 		shouldUpdate bool
 	}{
-		//{name: "Lock", testPath: "testutils/Lock/prog1.go", resPath: "testutils/Lock/prog1_expected.json", shouldUpdate: false},
+		{name: "Lock", testPath: "testutils/Lock/prog1.go", resPath: "testutils/Lock/prog1_expected.json", shouldUpdate: false},
 		//{name: "LockAndUnlock", testPath: "testutils/LockAndUnlock/prog1.go", resPath: "testutils/LockAndUnlock/prog1_expected.json", shouldUpdate: false},
 		//{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
 		//{name: "ElseIf", testPath: "testutils/ElseIf/prog1.go", resPath: "testutils/ElseIf/prog1_expected.json", shouldUpdate: false},
-		//{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false}, // Not tested
-		//{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false}, // Not tested
-		//{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false}, // Not tested
+		//{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false}, // Not defer yet
+		//{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false}, // Not defer yet
+		//{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false}, // Not defer yet
 		//{name: "LockAndUnlockIfMap", testPath: "testutils/LockAndUnlockIfMap/prog1.go", resPath: "testutils/LockAndUnlockIfMap/prog1_expected.json", shouldUpdate: false},
-		//{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceMap", testPath: "testutils/DataRaceMap/prog1.go", resPath: "testutils/DataRaceMap/prog1_expected.json", shouldUpdate: true},
-		//{name: "ForLoop", testPath: "testutils/ForLoop/prog1.go", resPath: "testutils/ForLoop/prog1_expected.json", shouldUpdate: true},
+		//{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected.json", shouldUpdate: false}, // Need to implement a struct since the map are per function
+		//{name: "DataRaceMap", testPath: "testutils/DataRaceMap/prog1.go", resPath: "testutils/DataRaceMap/prog1_expected.json", shouldUpdate: false},
+		//{name: "ForLoop", testPath: "testutils/ForLoop/prog1.go", resPath: "testutils/ForLoop/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceShadowedErr", testPath: "testutils/DataRaceShadowedErr/prog1.go", resPath: "testutils/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceProperty", testPath: "testutils/DataRaceProperty/prog1.go", resPath: "testutils/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceWithOnlyAlloc", testPath: "testutils/DataRaceWithOnlyAlloc/prog1.go", resPath: "testutils/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},

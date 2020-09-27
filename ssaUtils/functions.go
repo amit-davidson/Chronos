@@ -206,6 +206,7 @@ func calculateBlocksState(block *ssa.BasicBlock) *domain.FunctionState {
 
 	// If we didn't visit this node before, then calculate the function state up to this point, and fix the guarded accesses
 	// If we already did, then just return the functionsState
+	var prevState *domain.FunctionState
 	prevState, wasThisBlockComputed := ComputedBlockIDsToSummaries[block.Index]
 	if !wasThisBlockComputed {
 		// Aggregate all previous state

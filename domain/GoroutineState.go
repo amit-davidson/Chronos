@@ -10,7 +10,6 @@ type GoroutineState struct {
 type GoroutineStateJSON struct {
 	GoroutineID int
 	Clock       VectorClock
-	//LocksetJson *LocksetJson
 }
 
 var GoroutineCounter = utils.NewCounter()
