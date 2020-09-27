@@ -14,17 +14,17 @@
 			"Pos": 1598615,
 			"Value": 0,
 			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"mutex11598523": 1598596,
+					"t01598561": 1598611
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 1
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"mutex11598523": 1598596,
-						"t01598561": 1598611
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		},
@@ -33,17 +33,17 @@
 			"Pos": 1598615,
 			"Value": 1598513,
 			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"mutex11598523": 1598596,
+					"t01598561": 1598611
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 2
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"mutex11598523": 1598596,
-						"t01598561": 1598611
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		},
@@ -52,18 +52,16 @@
 			"Pos": 1598685,
 			"Value": 0,
 			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"t01598646": 1598681
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 3
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"mutex11598523": 1598596,
-						"t01598561": 1598611,
-						"t01598646": 1598681
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		},
@@ -72,18 +70,16 @@
 			"Pos": 1598685,
 			"Value": 1598513,
 			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"t01598646": 1598681
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 4
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"mutex11598523": 1598596,
-						"t01598561": 1598611,
-						"t01598646": 1598681
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		}

@@ -11,16 +11,16 @@
 			"Pos": 1598572,
 			"Value": 0,
 			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"t01598535": 1598568
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 1
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"t01598535": 1598568
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		},
@@ -29,16 +29,16 @@
 			"Pos": 1598572,
 			"Value": 1598513,
 			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"t01598535": 1598568
+				},
+				"ExistingUnlocks": {}
+			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 2
-				},
-				"LocksetJson": {
-					"ExistingLocks": {
-						"t01598535": 1598568
-					},
-					"ExistingUnlocks": {}
 				}
 			}
 		}

@@ -54,6 +54,42 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon
 	}
 }
 
+func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
+	i := make(map[string]*ssa.CallCommon)
+	for a := range mapA {
+		for b := range mapB {
+			if a == b {
+				i[a] = mapA[a]
+			}
+		}
+	}
+	return i
+}
+
+func Union(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
+	i := make(map[string]*ssa.CallCommon)
+	for a := range mapA {
+		i[a] = mapA[a]
+	}
+	for b := range mapB {
+		i[b] = mapB[b]
+	}
+	return i
+}
+
+func (ls *Lockset) MergeBlockLockset(locksetToMerge *Lockset) {
+	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
+	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
+
+	for unlockName, _ := range unlocks { // If there's a lock in one branch and an unlock in second, then unlock wins
+		if _, ok := locks[unlockName]; ok {
+			delete(locks, unlockName)
+		}
+	}
+	ls.ExistingLocks = locks
+	ls.ExistingUnlocks = unlocks
+}
+
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewEmptyLockSet()
 	newLocks := make(map[string]*ssa.CallCommon)

@@ -16,10 +16,7 @@
 				"Clock": {
 					"1": 1
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -32,10 +29,7 @@
 				"Clock": {
 					"1": 2
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -48,10 +42,7 @@
 				"Clock": {
 					"1": 3
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -64,10 +55,7 @@
 				"Clock": {
 					"1": 4
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -80,10 +68,7 @@
 				"Clock": {
 					"1": 5
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -96,10 +81,7 @@
 				"Clock": {
 					"1": 6
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -112,10 +94,7 @@
 				"Clock": {
 					"1": 7
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -128,10 +107,7 @@
 				"Clock": {
 					"1": 8
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -144,12 +120,7 @@
 				"Clock": {
 					"1": 9
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {
-						"t01829642": 1829745
-					}
-				}
+				"LocksetJson": null
 			}
 		},
 		{
@@ -162,12 +133,7 @@
 				"Clock": {
 					"1": 10
 				},
-				"LocksetJson": {
-					"ExistingLocks": {},
-					"ExistingUnlocks": {
-						"t01829642": 1829745
-					}
-				}
+				"LocksetJson": null
 			}
 		}
 	]

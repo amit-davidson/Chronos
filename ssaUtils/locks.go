@@ -6,14 +6,13 @@ import (
 	"strconv"
 )
 
-func AddLock(GoroutineState *domain.GoroutineState, call *ssa.CallCommon, isUnlock bool) *domain.GoroutineState {
+func AddLock(funcState *domain.FunctionState, call *ssa.CallCommon, isUnlock bool) {
 	receiver := call.Args[0]
 	LockName := receiver.Name() + strconv.Itoa(int(receiver.Pos()))
 	lock := map[string]*ssa.CallCommon{LockName: call}
 	if isUnlock {
-		GoroutineState.Lockset.UpdateLockSet(nil, lock)
+		funcState.Lockset.UpdateLockSet(nil, lock)
 	} else {
-		GoroutineState.Lockset.UpdateLockSet(lock, nil)
+		funcState.Lockset.UpdateLockSet(lock, nil)
 	}
-	return GoroutineState
 }

@@ -73,7 +73,7 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	for key := range expectedGuardedAccess {
 		expectedGoroutineInstructions := expectedGuardedAccess[key]
 		actualGoroutineInstructions := actualGuardedAccess[key]
-		assert.Equal(t, len(actualGoroutineInstructions), len(expectedGoroutineInstructions)) // Same amount of instructions in each goroutine
+		assert.Equal(t, len(expectedGoroutineInstructions), len(actualGoroutineInstructions)) // Same amount of instructions in each goroutine
 		for i := 0; i < len(expectedGuardedAccess[key]); i++ {
 			insr := actualGoroutineInstructions[i].ToJSON()
 			require.Equal(t, expectedGoroutineInstructions[i], insr)
