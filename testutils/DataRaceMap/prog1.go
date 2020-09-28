@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func main() {
 	c := make(chan bool)
 	m := make(map[string]string)
@@ -10,7 +8,4 @@ func main() {
 		c <- true
 	}()
 	m["2"] = "b" // Second conflicting access.
-	for k, v := range m {
-		fmt.Println(k, v)
-	}
 }

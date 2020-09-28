@@ -7,12 +7,6 @@ import (
 	"strings"
 )
 
-var conditionalBlocks = map[string]struct{}{
-	"if.then":     {},
-	"if.else":     {},
-	"select.body": {},
-}
-
 func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.FunctionState {
 	funcState := domain.GetEmptyFunctionState()
 	if callCommon.IsInvoke() { // abstract methods (of interfaces) aren't handled
@@ -123,7 +117,7 @@ func GetBlockSummary(GoroutineState *domain.GoroutineState, block *ssa.BasicBloc
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(GoroutineState)
 			funcStateRet := HandleCallCommon(newState.Copy(), callCommon)
-			funcState.MergeStates(funcStateRet)
+			funcState.MergeStatesAfterGoroutine(funcStateRet)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			funcState.DeferredFunctions = append(funcState.DeferredFunctions, callCommon)
@@ -145,8 +139,8 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *do
 	//deferredFunctions := make([]*domain.FunctionWithBlock, 0)
 
 	//deferredNodesToBlockLocksets := make(map[int]*domain.Lockset, 0)
-	getBlocksSummaries(GoroutineState, fn.Blocks[0])
-	funcState = calculateBlocksState(fn.Blocks[len(fn.Blocks)-1])
+	cfg := newCFG()
+	funcState = cfg.getBlocksSummaries(GoroutineState, fn.Blocks[0])
 	//nodesToBlockLocksets := make(map[int]*domain.Lockset, 0)
 	//for _, block := range fn.Blocks {
 	//	funcState = GetBlockSummary(GoroutineState, block)
@@ -164,64 +158,4 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *do
 	//}
 	//calculateFuncState(fn.Blocks[0], nodesToBlockLocksets, deferredNodesToBlockLocksets)
 	return funcState
-}
-
-var BlockIDsToSummaries = make(map[int]*domain.FunctionState, 0)
-var ComputedBlockIDsToSummaries = make(map[int]*domain.FunctionState, 0)
-var visitedBlocks = make(map[int]struct{}, 0) // In cyclic graph, visited edges weren't necessarily calculated
-var LastBlock *ssa.BasicBlock
-
-func getBlocksSummaries(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) {
-	_, isVisited := BlockIDsToSummaries[block.Index]
-	if isVisited {
-		return
-	}
-	funcState := GetBlockSummary(goroutineState, block)
-	BlockIDsToSummaries[block.Index] = funcState
-	if len(block.Succs) == 0 {
-		LastBlock = block
-		return
-	}
-	for _, blockToExecute := range block.Succs {
-		getBlocksSummaries(goroutineState, blockToExecute)
-	}
-}
-
-func calculateBlocksState(block *ssa.BasicBlock) *domain.FunctionState {
-	currBlockState := BlockIDsToSummaries[block.Index]
-	_, isVisitedBefore := visitedBlocks[block.Index]
-	if isVisitedBefore {
-		prevState, wasThisBlockComputed := ComputedBlockIDsToSummaries[block.Index]
-		if wasThisBlockComputed {
-			return prevState
-		}
-		return domain.GetEmptyFunctionState()
-	}
-	visitedBlocks[block.Index] = struct{}{}
-
-	if len(block.Preds) == 0 {
-		ComputedBlockIDsToSummaries[block.Index] = currBlockState
-		return currBlockState
-	}
-
-	// If we didn't visit this node before, then calculate the function state up to this point, and fix the guarded accesses
-	// If we already did, then just return the functionsState
-	var prevState *domain.FunctionState
-	prevState, wasThisBlockComputed := ComputedBlockIDsToSummaries[block.Index]
-	if !wasThisBlockComputed {
-		// Aggregate all previous state
-		newPrevState := domain.GetEmptyFunctionState()
-		for _, blockToExecute := range block.Preds {
-			blockState := calculateBlocksState(blockToExecute)
-			newPrevState.MergeBlockStates(blockState)
-		}
-		// Fix guarded accesses
-		currBlockState.FixGuardedAccesses(newPrevState.Lockset)
-
-		// Since prevState is the aggregation of all previous state, currBlockState is merged into it since it came later
-		newPrevState.MergeStates(currBlockState)
-		ComputedBlockIDsToSummaries[block.Index] = newPrevState
-		prevState = newPrevState
-	}
-	return prevState
 }

@@ -22,7 +22,13 @@ func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState) {
 	funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
 }
 
-func (funcState *FunctionState) FixGuardedAccesses(prevLockset *Lockset) {
+func (funcState *FunctionState) MergeStatesAfterGoroutine(funcStateToMerge *FunctionState) {
+	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
+	funcState.DeferredFunctions = append(funcState.DeferredFunctions, funcStateToMerge.DeferredFunctions...)
+	//funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
+}
+
+func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(prevLockset *Lockset) {
 	for _, guardedAccess := range funcState.GuardedAccesses {
 		tempLockset := prevLockset.Copy()
 		tempLockset.UpdateLockSet(guardedAccess.Lockset.ExistingLocks, guardedAccess.Lockset.ExistingUnlocks)
@@ -42,6 +48,16 @@ func (funcState *FunctionState) MergeBlockGuardedAccess(GuardedAccesses []*Guard
 			funcState.GuardedAccesses = append(funcState.GuardedAccesses, guardedAccessA)
 		}
 	}
+}
+
+func (funcState *FunctionState) Copy() *FunctionState {
+	newFunctionState := GetEmptyFunctionState()
+	newFunctionState.Lockset = funcState.Lockset.Copy()
+	for _, guardedAccessToCopy := range funcState.GuardedAccesses {
+		newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, guardedAccessToCopy)
+	}
+	newFunctionState.DeferredFunctions = funcState.DeferredFunctions
+	return newFunctionState
 }
 
 func contains(GuardedAccesses []*GuardedAccess, GuardedAccessToCheck *GuardedAccess) bool {
