@@ -24,6 +24,5 @@ func main() {
 			a=7
 			defer mutex.Unlock()
 		}()
-		//defer mutex.Unlock()
 	}()
 }

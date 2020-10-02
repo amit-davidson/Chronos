@@ -17,6 +17,7 @@ func main() {
 		a = 6
 	}()
 	defer func() {
+		defer mutex.Lock()
 		defer mutex.Unlock()
 	}()
 }

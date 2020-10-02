@@ -1,18 +1,16 @@
 package domain
 
-import "golang.org/x/tools/go/ssa"
-
 type FunctionState struct {
 	GuardedAccesses   []*GuardedAccess
 	Lockset           *Lockset
-	DeferredFunctions []*ssa.CallCommon
+	DeferredFunctions []*DeferFunction
 }
 
 func GetEmptyFunctionState() *FunctionState {
 	return &FunctionState{
 		GuardedAccesses:   make([]*GuardedAccess, 0),
 		Lockset:           NewEmptyLockSet(),
-		DeferredFunctions: make([]*ssa.CallCommon, 0),
+		DeferredFunctions: make([]*DeferFunction, 0),
 	}
 }
 
@@ -21,6 +19,15 @@ func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState) {
 	funcState.DeferredFunctions = append(funcState.DeferredFunctions, funcStateToMerge.DeferredFunctions...)
 	funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
 }
+
+//func MergeDefers(funcStateToMerge *FunctionState, blockIndex int) []*DeferFunction {
+//	deferFunctions := make([]*DeferFunction, 0)
+//	for i := len(funcStateToMerge.DeferredFunctions) - 1; i >= 0; i-- {
+//		deferredFunction := &DeferFunction{Function: funcStateToMerge.DeferredFunctions[i], BlockIndex:blockIndex}
+//		deferFunctions = append(deferFunctions, deferredFunction)
+//	}
+//	return deferFunctions
+//}
 
 func (funcState *FunctionState) MergeStatesAfterGoroutine(funcStateToMerge *FunctionState) {
 	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)

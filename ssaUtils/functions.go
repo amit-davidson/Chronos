@@ -120,7 +120,8 @@ func GetBlockSummary(GoroutineState *domain.GoroutineState, block *ssa.BasicBloc
 			funcState.MergeStatesAfterGoroutine(funcStateRet)
 		case *ssa.Defer:
 			callCommon := call.Common()
-			funcState.DeferredFunctions = append(funcState.DeferredFunctions, callCommon)
+			deferFunction :=  &domain.DeferFunction{Function: callCommon, BlockIndex:block.Index}
+			funcState.DeferredFunctions = append(funcState.DeferredFunctions, deferFunction)
 		default:
 			HandleInstruction(funcState, GoroutineState, ins)
 		}
@@ -141,21 +142,12 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *do
 	//deferredNodesToBlockLocksets := make(map[int]*domain.Lockset, 0)
 	cfg := newCFG()
 	funcState = cfg.getBlocksSummaries(GoroutineState, fn.Blocks[0])
-	//nodesToBlockLocksets := make(map[int]*domain.Lockset, 0)
-	//for _, block := range fn.Blocks {
-	//	funcState = GetBlockSummary(GoroutineState, block)
-	//
-	//	nodesToBlockLocksets[block.Index] = funcState.Lockset
-	//
-	//	for _, deferredFunctionRet := range funcState.DeferredFunctions {
-	//		deferredFunctions = append(deferredFunctions, &domain.FunctionWithBlock{BlockIndex: block.Index, Function: deferredFunctionRet})
-	//	}
-	//}
-	//
-	//for i := len(deferredFunctions) - 1; i >= 0; i-- {
-	//	funcState := HandleCallCommon(GoroutineState, deferredFunctions[i].Function)
-	//	deferredNodesToBlockLocksets[deferredFunctions[i].BlockIndex] = funcState.Lockset
-	//}
-	//calculateFuncState(fn.Blocks[0], nodesToBlockLocksets, deferredNodesToBlockLocksets)
+	deferredMap := make(map[int][]*domain.DeferFunction, 0)
+	for _, block := range funcState.DeferredFunctions {
+		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
+	}
+	cfg.DeferredFunctions = deferredMap
+	funcStateDefers := cfg.getDefersSummaries(GoroutineState, cfg.lastBlock)
+	funcState.MergeStates(funcStateDefers)
 	return funcState
 }
