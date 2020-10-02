@@ -2,14 +2,15 @@ package ssaUtils
 
 import (
 	"fmt"
+	"go/types"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/ssa/ssautil"
 )
 
-//var GlobalProgram *ssa.Program
-//
-//var typesCache = make(map[*types.Interface][]types.Type, 0)
+var GlobalProgram *ssa.Program
+
+var typesCache = make(map[*types.Interface][]types.Type, 0)
 
 func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	conf1 := packages.Config{
@@ -25,9 +26,9 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	ssaPkg := ssaPkgs[0]
 	return ssaProg, ssaPkg, nil
 }
-//func SetGlobalProgram(prog *ssa.Program) () {
-//	GlobalProgram = prog
-//}
+func SetGlobalProgram(prog *ssa.Program) () {
+	GlobalProgram = prog
+}
 //func MapConcreteToInterface() {
 //	for _, typ1 := range GlobalProgram.RuntimeTypes() {
 //		for _, typ2 := range GlobalProgram.RuntimeTypes() {
@@ -50,20 +51,20 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 //	}
 //}
 
-//func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {
-//	implementors := make([]types.Type, 0)
-//	methodImplementations := make([]*ssa.Function, 0)
-//	recvInterface := recv.(*types.Interface)
-//	for _, typ1 := range GlobalProgram.RuntimeTypes() {
-//		if types.Implements(typ1, recvInterface) {
-//			implementors = append(implementors, typ1)
-//		}
-//	}
-//	typesCache[recvInterface] = implementors
-//	for _, implementor := range implementors {
-//		setMethods := GlobalProgram.MethodSets.MethodSet(implementor)
-//		structMethod := setMethods.Lookup(method.Pkg(), method.Name())
-//		methodImplementations = append(methodImplementations, GlobalProgram.MethodValue(structMethod))
-//	}
-//	return methodImplementations
-//}
+func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {
+	implementors := make([]types.Type, 0)
+	methodImplementations := make([]*ssa.Function, 0)
+	recvInterface := recv.(*types.Interface)
+	for _, typ1 := range GlobalProgram.RuntimeTypes() {
+		if types.Implements(typ1, recvInterface) {
+			implementors = append(implementors, typ1)
+		}
+	}
+	typesCache[recvInterface] = implementors
+	for _, implementor := range implementors {
+		setMethods := GlobalProgram.MethodSets.MethodSet(implementor)
+		structMethod := setMethods.Lookup(method.Pkg(), method.Name())
+		methodImplementations = append(methodImplementations, GlobalProgram.MethodValue(structMethod))
+	}
+	return methodImplementations
+}

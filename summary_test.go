@@ -31,9 +31,9 @@ func TestGetFunctionSummary(t *testing.T) {
 		//{name: "LockAndUnlockIfBranch", testPath: "testutils/LockAndUnlockIfBranch/prog1.go", resPath: "testutils/LockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
 		//{name: "ElseIf", testPath: "testutils/ElseIf/prog1.go", resPath: "testutils/ElseIf/prog1_expected.json", shouldUpdate: false},
 		//{name: "LockInBothBranches", testPath: "testutils/LockInBothBranches/prog1.go", resPath: "t/estutils/LockInBothBranches/prog1_expected.json", shouldUpdate: false},
-		{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false},
+		//{name: "DeferredLockAndUnlockIfBranch", testPath: "testutils/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "testutils/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
+		//{name: "NestedDeferWithLockAndUnlock", testPath: "testutils/NestedDeferWithLockAndUnlock/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false},
+		//{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "testutils/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false},
 		//{name: "LockAndUnlockIfMap", testPath: "testutils/LockAndUnlockIfMap/prog1.go", resPath: "testutils/LockAndUnlockIfMap/prog1_expected.json", shouldUpdate: false},
 		//{name: "NestedFunctions", testPath: "testutils/NestedFunctions/prog1.go", resPath: "testutils/NestedFunctions/prog1_expected.json", shouldUpdate: false},
 		//{name: "NestedConditionWithLockInAllBranches", testPath: "testutils/NestedConditionWithLockInAllBranches/prog1.go", resPath: "testutils/NestedConditionWithLockInAllBranches/prog1_expected.json", shouldUpdate: false},
@@ -46,6 +46,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		//{name: "DataRaceWithSameFunction", testPath: "testutils/DataRaceWithSameFunction/prog1.go", resPath: "testutils/DataRaceWithSameFunction/prog1_expected.json", shouldUpdate: false},
 		//{name: "StructMethod", testPath: "testutils/StructMethod/prog1.go", resPath: "testutils/StructMethod/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
+		{name: "InterfaceWithLock", testPath: "testutils/InterfaceWithLock/prog1.go", resPath: "testutils/InterfaceWithLock/prog1_expected.json", shouldUpdate: true},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
@@ -55,6 +56,7 @@ func TestGetFunctionSummary(t *testing.T) {
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			_ = ssaProg
 			require.NoError(t, err)
+			ssaUtils.SetGlobalProgram(ssaProg)
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}

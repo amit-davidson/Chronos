@@ -10,6 +10,14 @@ import (
 func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.FunctionState {
 	funcState := domain.GetEmptyFunctionState()
 	if callCommon.IsInvoke() { // abstract methods (of interfaces) aren't handled
+		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
+		if len(impls) > 0 {
+			funcState = HandleFunction(GoroutineState, impls[0])
+			for _, impl := range impls[1:] {
+				funcstateRet := HandleFunction(GoroutineState, impl)
+				funcState.MergeBlockStates(funcstateRet)
+			}
+		}
 		return funcState
 	}
 
@@ -120,7 +128,7 @@ func GetBlockSummary(GoroutineState *domain.GoroutineState, block *ssa.BasicBloc
 			funcState.MergeStatesAfterGoroutine(funcStateRet)
 		case *ssa.Defer:
 			callCommon := call.Common()
-			deferFunction :=  &domain.DeferFunction{Function: callCommon, BlockIndex:block.Index}
+			deferFunction := &domain.DeferFunction{Function: callCommon, BlockIndex: block.Index}
 			funcState.DeferredFunctions = append(funcState.DeferredFunctions, deferFunction)
 		default:
 			HandleInstruction(funcState, GoroutineState, ins)
@@ -137,9 +145,6 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *do
 		return funcState
 	}
 
-	//deferredFunctions := make([]*domain.FunctionWithBlock, 0)
-
-	//deferredNodesToBlockLocksets := make(map[int]*domain.Lockset, 0)
 	cfg := newCFG()
 	funcState = cfg.getBlocksSummaries(GoroutineState, fn.Blocks[0])
 	deferredMap := make(map[int][]*domain.DeferFunction, 0)
