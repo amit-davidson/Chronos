@@ -1,7 +1,7 @@
 {
 	"Lockset": {
 		"ExistingLocks": {
-			"t01598535": 1598568
+			"1598535": 1598568
 		},
 		"ExistingUnlocks": {}
 	},
@@ -13,7 +13,7 @@
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"t01598535": 1598568
+					"1598535": 1598568
 				},
 				"ExistingUnlocks": {}
 			},
@@ -31,7 +31,7 @@
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"t01598535": 1598568
+					"1598535": 1598568
 				},
 				"ExistingUnlocks": {}
 			},
