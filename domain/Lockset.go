@@ -16,17 +16,10 @@ type LocksetJson struct {
 	ExistingUnlocks map[string]int
 }
 
-func NewEmptyLockSet() *Lockset {
+func NewLockset() *Lockset {
 	return &Lockset{
 		ExistingLocks:   make(map[string]*ssa.CallCommon, 0),
 		ExistingUnlocks: make(map[string]*ssa.CallCommon, 0),
-	}
-}
-
-func NewLockSet(locks, unlocks map[string]*ssa.CallCommon) *Lockset {
-	return &Lockset{
-		ExistingLocks:   locks,
-		ExistingUnlocks: unlocks,
 	}
 }
 
@@ -54,30 +47,7 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon
 	}
 }
 
-func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
-	for a := range mapA {
-		for b := range mapB {
-			if a == b {
-				i[a] = mapA[a]
-			}
-		}
-	}
-	return i
-}
-
-func Union(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
-	for a := range mapA {
-		i[a] = mapA[a]
-	}
-	for b := range mapB {
-		i[b] = mapB[b]
-	}
-	return i
-}
-
-func (ls *Lockset) MergeBlockLockset(locksetToMerge *Lockset) {
+func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
 	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
 
@@ -91,7 +61,7 @@ func (ls *Lockset) MergeBlockLockset(locksetToMerge *Lockset) {
 }
 
 func (ls *Lockset) Copy() *Lockset {
-	newLs := NewEmptyLockSet()
+	newLs := NewLockset()
 	newLocks := make(map[string]*ssa.CallCommon)
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
@@ -118,4 +88,27 @@ func (ls *Lockset) ToJSON() *LocksetJson {
 func (ls *Lockset) MarshalJSON() ([]byte, error) {
 	dump, err := json.Marshal(ls.ToJSON())
 	return dump, err
+}
+
+func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
+	i := make(map[string]*ssa.CallCommon)
+	for a := range mapA {
+		for b := range mapB {
+			if a == b {
+				i[a] = mapA[a]
+			}
+		}
+	}
+	return i
+}
+
+func Union(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
+	i := make(map[string]*ssa.CallCommon)
+	for a := range mapA {
+		i[a] = mapA[a]
+	}
+	for b := range mapB {
+		i[b] = mapB[b]
+	}
+	return i
 }

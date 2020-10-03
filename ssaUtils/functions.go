@@ -9,13 +9,13 @@ import (
 
 func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.FunctionState {
 	funcState := domain.GetEmptyFunctionState()
-	if callCommon.IsInvoke() { // abstract methods (of interfaces) aren't handled
+	if callCommon.IsInvoke() {
 		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(GoroutineState, impls[0])
 			for _, impl := range impls[1:] {
 				funcstateRet := HandleFunction(GoroutineState, impl)
-				funcState.MergeBlockStates(funcstateRet)
+				funcState.MergeBranchState(funcstateRet)
 			}
 		}
 		return funcState
@@ -137,6 +137,18 @@ func GetBlockSummary(GoroutineState *domain.GoroutineState, block *ssa.BasicBloc
 	return funcState
 }
 
+func (cfg *CFG) runDefers(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) *domain.FunctionState {
+	defers := cfg.DeferredFunctions[block.Index]
+	calculatedState := domain.GetEmptyFunctionState()
+	for i := len(defers) - 1; i >= 0; i-- {
+		retState := HandleCallCommon(goroutineState, defers[i].Function)
+		retState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
+		calculatedState.MergeStates(retState)
+	}
+	return calculatedState
+
+}
+
 func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *domain.FunctionState {
 	funcState := domain.GetEmptyFunctionState()
 	pkgName := fn.Pkg.Pkg.Path()                // Used to guard against entering standard library packages
@@ -145,14 +157,11 @@ func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *do
 		return funcState
 	}
 
-	cfg := newCFG()
-	funcState = cfg.getBlocksSummaries(GoroutineState, fn.Blocks[0])
-	deferredMap := make(map[int][]*domain.DeferFunction, 0)
-	for _, block := range funcState.DeferredFunctions {
-		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
-	}
-	cfg.DeferredFunctions = deferredMap
-	funcStateDefers := cfg.getDefersSummaries(GoroutineState, cfg.lastBlock)
+	// regular
+	funcState, lastBlock := CalculateBlocks(GoroutineState, fn.Blocks[0])
+
+	// Defer
+	funcStateDefers := CalculateDefers(GoroutineState, lastBlock, funcState.DeferredFunctions)
 	funcState.MergeStates(funcStateDefers)
 	return funcState
 }

@@ -55,7 +55,6 @@ func TestGetFunctionSummary(t *testing.T) {
 			domain.GuardedAccessCounter.Reset()
 
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
-			_ = ssaProg
 			require.NoError(t, err)
 			ssaUtils.SetGlobalProgram(ssaProg)
 
