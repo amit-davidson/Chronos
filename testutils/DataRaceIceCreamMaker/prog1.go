@@ -1,7 +1,6 @@
 package main
 
 type IceCreamMaker interface {
-	// Hello greets a customer
 	Hello()
 }
 

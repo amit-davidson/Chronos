@@ -47,6 +47,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "StructMethod", testPath: "testutils/StructMethod/prog1.go", resPath: "testutils/StructMethod/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceIceCreamMaker", testPath: "testutils/DataRaceIceCreamMaker/prog1.go", resPath: "testutils/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
 		{name: "InterfaceWithLock", testPath: "testutils/InterfaceWithLock/prog1.go", resPath: "testutils/InterfaceWithLock/prog1_expected.json", shouldUpdate: false},
+		{name: "NestedInterface", testPath: "testutils/NestedInterface/prog1.go", resPath: "testutils/NestedInterface/prog1_expected.json", shouldUpdate: false},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {

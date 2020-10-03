@@ -10,7 +10,7 @@ import (
 
 var GlobalProgram *ssa.Program
 
-var typesCache = make(map[*types.Interface][]types.Type, 0)
+var typesCache = make(map[*types.Interface][]*ssa.Function, 0)
 
 func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	conf1 := packages.Config{
@@ -29,42 +29,28 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 func SetGlobalProgram(prog *ssa.Program) () {
 	GlobalProgram = prog
 }
-//func MapConcreteToInterface() {
-//	for _, typ1 := range GlobalProgram.RuntimeTypes() {
-//		for _, typ2 := range GlobalProgram.RuntimeTypes() {
-//			typ1Interface, isType1Interface := typ1.Underlying().(*types.Interface)
-//			typ2Interface, isType2Interface := typ2.Underlying().(*types.Interface)
-//			name1 := typ1.String()
-//			_ = name1
-//			name2 := typ2.String()
-//			_ = name2
-//			if strings.Contains(name1, "Jerry") && strings.Contains(name2, "IceCreamMaker") {
-//				fmt.Print("a")
-//			}
-//			if isType1Interface && types.Implements(typ2, typ1Interface) {
-//				typesCache[typ1Interface] = append(typesCache[typ1Interface], typ2)
-//			}
-//			if isType2Interface && types.Implements(typ1, typ2Interface) {
-//				typesCache[typ2Interface] = append(typesCache[typ2Interface], typ1)
-//			}
-//		}
-//	}
-//}
 
 func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {
-	implementors := make([]types.Type, 0)
 	methodImplementations := make([]*ssa.Function, 0)
 	recvInterface := recv.(*types.Interface)
-	for _, typ1 := range GlobalProgram.RuntimeTypes() {
-		if types.Implements(typ1, recvInterface) {
-			implementors = append(implementors, typ1)
+
+	if methodImplementations, ok := typesCache[recvInterface]; ok {
+		return methodImplementations
+	}
+
+	implementors := make([]types.Type, 0)
+	for _, typ := range GlobalProgram.RuntimeTypes() {
+		if types.Implements(typ, recvInterface) {
+			implementors = append(implementors, typ)
 		}
 	}
-	typesCache[recvInterface] = implementors
+
 	for _, implementor := range implementors {
 		setMethods := GlobalProgram.MethodSets.MethodSet(implementor)
 		structMethod := setMethods.Lookup(method.Pkg(), method.Name())
 		methodImplementations = append(methodImplementations, GlobalProgram.MethodValue(structMethod))
 	}
+
+	typesCache[recvInterface] = methodImplementations
 	return methodImplementations
 }
