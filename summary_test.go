@@ -163,6 +163,9 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "TestRaceIntRWClosures", testPath: "e2e-tests/stdlib/TestRaceIntRWClosures/prog1.go", resPath: "e2e-tests/stdlib/TestRaceIntRWClosures/prog1_expected.json", shouldUpdate: false},
 		{name: "TestRaceIntRWGlobalFuncs", testPath: "e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go", resPath: "e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceComp", testPath: "e2e-tests/stdlib/TestNoRaceComp/prog1.go", resPath: "e2e-tests/stdlib/TestNoRaceComp/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceComp2", testPath: "e2e-tests/stdlib/TestRaceComp2/prog1.go", resPath: "e2e-tests/stdlib/TestRaceComp2/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect1", testPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1.go", resPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceUnaddressableMapLen", testPath: "e2e-tests/stdlib/TestRaceUnaddressableMapLen/prog1.go", resPath: "e2e-tests/stdlib/TestRaceUnaddressableMapLen/prog1_expected.json", shouldUpdate: false},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
