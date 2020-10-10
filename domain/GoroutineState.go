@@ -5,6 +5,7 @@ import "StaticRaceDetector/utils"
 type GoroutineState struct {
 	GoroutineID int
 	Clock       VectorClock
+	StackTrace  *utils.Stack
 }
 
 type GoroutineStateJSON struct {
@@ -18,6 +19,7 @@ func NewEmptyGoroutineState() *GoroutineState {
 	return &GoroutineState{
 		Clock:       VectorClock{},
 		GoroutineID: GoroutineCounter.GetNext(),
+		StackTrace:  utils.NewStack(),
 	}
 }
 
@@ -26,6 +28,7 @@ func NewGoroutineExecutionState(state *GoroutineState) *GoroutineState {
 	return &GoroutineState{
 		Clock:       state.Clock,
 		GoroutineID: GoroutineCounter.GetNext(),
+		StackTrace:  state.StackTrace,
 	}
 }
 
@@ -43,7 +46,7 @@ func (gs *GoroutineState) MayConcurrent(state *GoroutineState) bool {
 	return !(isBefore || isAfter)
 }
 func (gs *GoroutineState) Copy() *GoroutineState {
-	return &GoroutineState{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy()}
+	return &GoroutineState{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy(), StackTrace: gs.StackTrace}
 }
 
 func (gs *GoroutineState) ToJSON() *GoroutineStateJSON {

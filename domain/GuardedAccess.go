@@ -15,13 +15,25 @@ const (
 	GuardAccessWrite
 )
 
+func (op OpKind) String() string {
+	switch op {
+	case GuardAccessRead:
+		return "Read"
+	case GuardAccessWrite:
+		return "Write"
+	default:
+		return "Unknown op type"
+	}
+}
+
 type GuardedAccess struct {
-	ID      int
-	Pos     token.Pos
-	Value   ssa.Value
-	State   *GoroutineState
-	Lockset *Lockset
-	OpKind  OpKind
+	ID         int
+	Pos        token.Pos
+	Stacktrace []int
+	Value      ssa.Value
+	State      *GoroutineState
+	Lockset    *Lockset
+	OpKind     OpKind
 }
 
 type GuardedAccessJSON struct {
@@ -68,7 +80,6 @@ func FilterStructs(valueA, valueB ssa.Value) bool {
 	return false
 }
 
-
 func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {
 		return true
@@ -91,9 +102,20 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	return false
 }
 
+func(ga *GuardedAccess) GetStackTrace(prog *ssa.Program) string {
+	stack := ""
+	for _, pos := range ga.Stacktrace {
+		calculatedPos := prog.Fset.Position(token.Pos(pos))
+		stack += calculatedPos.String()
+		stack += " ->\n"
+	}
+	return stack
+}
+
 var GuardedAccessCounter = utils.NewCounter()
 
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, goroutineState *GoroutineState) *GuardedAccess {
 	goroutineState.Increment()
-	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, Lockset: lockset.Copy(), OpKind: kind, State: goroutineState.Copy()}
+	stackTrace := goroutineState.StackTrace.GetAllItems()
+	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: goroutineState.Copy()}
 }

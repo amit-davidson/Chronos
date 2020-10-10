@@ -164,7 +164,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "TestRaceIntRWGlobalFuncs", testPath: "e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go", resPath: "e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceComp", testPath: "e2e-tests/stdlib/TestNoRaceComp/prog1.go", resPath: "e2e-tests/stdlib/TestNoRaceComp/prog1_expected.json", shouldUpdate: false},
 		{name: "TestRaceComp2", testPath: "e2e-tests/stdlib/TestRaceComp2/prog1.go", resPath: "e2e-tests/stdlib/TestRaceComp2/prog1_expected.json", shouldUpdate: false},
-		{name: "TestRaceSelect1", testPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1.go", resPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestRaceSelect1", testPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1.go", resPath: "e2e-tests/stdlibNoSuccess/TestRaceSelect1/prog1_expected.json", shouldUpdate: false},
 		{name: "TestRaceUnaddressableMapLen", testPath: "e2e-tests/stdlib/TestRaceUnaddressableMapLen/prog1.go", resPath: "e2e-tests/stdlib/TestRaceUnaddressableMapLen/prog1_expected.json", shouldUpdate: false},
 	}
 	for _, tc := range testCases {
@@ -178,7 +178,7 @@ func TestGetFunctionSummary(t *testing.T) {
 
 			entryFunc := ssaPkg.Func("main")
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
-			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyGoroutineState(), &entryCallCommon)
+			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyGoroutineState(), &entryCallCommon, entryFunc.Pos())
 			testresult := testutils.TestResult{Lockset: functionState.Lockset, GuardedAccess: functionState.GuardedAccesses}
 			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)

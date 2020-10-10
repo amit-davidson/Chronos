@@ -3,11 +3,15 @@ package ssaUtils
 import (
 	"StaticRaceDetector/domain"
 	"StaticRaceDetector/utils"
+	"go/token"
 	"golang.org/x/tools/go/ssa"
 	"strings"
 )
 
-func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon) *domain.FunctionState {
+func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.CallCommon, pos token.Pos) *domain.FunctionState {
+	GoroutineState.StackTrace.Push(int(pos))
+	defer GoroutineState.StackTrace.Pop()
+
 	funcState := domain.GetEmptyFunctionState()
 	if callCommon.IsInvoke() {
 		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
@@ -126,12 +130,12 @@ func GetBlockSummary(GoroutineState *domain.GoroutineState, block *ssa.BasicBloc
 		switch call := ins.(type) {
 		case *ssa.Call:
 			callCommon := call.Common()
-			funcStateRet := HandleCallCommon(GoroutineState, callCommon)
+			funcStateRet := HandleCallCommon(GoroutineState, callCommon, callCommon.Pos())
 			funcState.MergeStates(funcStateRet)
 		case *ssa.Go:
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(GoroutineState)
-			funcStateRet := HandleCallCommon(newState.Copy(), callCommon)
+			funcStateRet := HandleCallCommon(newState.Copy(), callCommon, callCommon.Pos())
 			funcState.MergeStatesAfterGoroutine(funcStateRet)
 		case *ssa.Defer:
 			callCommon := call.Common()
@@ -148,7 +152,7 @@ func (cfg *CFG) runDefers(goroutineState *domain.GoroutineState, block *ssa.Basi
 	defers := cfg.DeferredFunctions[block.Index]
 	calculatedState := domain.GetEmptyFunctionState()
 	for i := len(defers) - 1; i >= 0; i-- {
-		retState := HandleCallCommon(goroutineState, defers[i].Function)
+		retState := HandleCallCommon(goroutineState, defers[i].Function, defers[i].Function.Pos())
 		retState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
 		calculatedState.MergeStates(retState)
 	}

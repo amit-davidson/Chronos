@@ -9,7 +9,6 @@ import (
 	"golang.org/x/tools/go/ssa"
 )
 
-
 // Analysis starts by mapping between positions of the guard accesses (values inside) to the guard accesses themselves.
 // Then it analyzes all the values inside values inside, and check if some of the values might alias each other. If so,
 // the positions for those values are merged. After all positions were merged, the algorithm runs and check if for a
@@ -64,13 +63,23 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 			for _, guardedAccessesB := range guardedAccesses {
 				if !guardedAccessesA.Intersects(guardedAccessesB) && guardedAccessesA.State.MayConcurrent(guardedAccessesB.State) {
 					isExist := foundDataRaces.IsExist(guardedAccessesA.Pos, guardedAccessesB.Pos)
-					if !isExist { // If item doesn't exist
+					if !isExist {
 						foundDataRaces.Add(guardedAccessesA.Pos, guardedAccessesB.Pos)
-						label := fmt.Sprintf(" %s with pos:%s has race condition with %s pos:%s \n", guardedAccessesA.Value, prog.Fset.Position(guardedAccessesA.Pos), guardedAccessesB.Value, prog.Fset.Position(guardedAccessesB.Pos))
+						label := getMessage(guardedAccessesA, guardedAccessesB, prog)
 						print(label)
+						print("=========================\n")
 					}
 				}
 			}
 		}
 	}
+}
+
+func getMessage(guardedAccessesA, guardedAccessesB *domain.GuardedAccess, prog *ssa.Program) string {
+	stackA := guardedAccessesA.GetStackTrace(prog)
+	stackA += prog.Fset.Position(guardedAccessesA.Pos).String()
+	stackB := guardedAccessesB.GetStackTrace(prog)
+	stackB += prog.Fset.Position(guardedAccessesB.Pos).String()
+	label := fmt.Sprintf(" %s:\n%s\n \n %s:\n%s \n", guardedAccessesA.OpKind, stackA, guardedAccessesB.OpKind, stackB)
+	return label
 }
