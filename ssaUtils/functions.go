@@ -23,7 +23,7 @@ func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.Cal
 
 	switch call := callCommon.Value.(type) {
 	case *ssa.Builtin:
-		HandleBuiltin(funcState, GoroutineState, call, callCommon.Args)
+		HandleBuiltin(funcState, GoroutineState, callCommon)
 		return funcState
 	case *ssa.MakeClosure:
 		fn := callCommon.Value.(*ssa.MakeClosure).Fn.(*ssa.Function)
@@ -48,18 +48,20 @@ func HandleCallCommon(GoroutineState *domain.GoroutineState, callCommon *ssa.Cal
 	return funcState
 }
 
-func HandleBuiltin(functionState *domain.FunctionState, GoroutineState *domain.GoroutineState, callCommon *ssa.Builtin, args []ssa.Value) {
+func HandleBuiltin(functionState *domain.FunctionState, GoroutineState *domain.GoroutineState, call *ssa.CallCommon) {
+	callCommon := call.Value.(*ssa.Builtin)
+	args := call.Args
 	switch name := callCommon.Name(); name {
 	case "delete":
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[0], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[0], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
 	case "cap", "len":
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[0], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[0], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
 	case "append":
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[1], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[0], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[1], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[0], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
 	case "copy":
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[0], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
-		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(callCommon.Pos(), args[1], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[0], domain.GuardAccessRead, functionState.Lockset, GoroutineState))
+		functionState.GuardedAccesses = append(functionState.GuardedAccesses, domain.AddGuardedAccess(call.Pos(), args[1], domain.GuardAccessWrite, functionState.Lockset, GoroutineState))
 	}
 }
 
@@ -69,10 +71,10 @@ func HandleInstruction(functionState *domain.FunctionState, GoroutineState *doma
 		guardedAccess := domain.AddGuardedAccess(call.Pos(), call.X, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
 		functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
 	case *ssa.Field:
-		guardedAccess := domain.AddGuardedAccess(call.Pos(), call.X, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
+		guardedAccess := domain.AddGuardedAccess(call.Pos(), call, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
 		functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
 	case *ssa.FieldAddr:
-		guardedAccess := domain.AddGuardedAccess(call.Pos(), call.X, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
+		guardedAccess := domain.AddGuardedAccess(call.Pos(), call, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
 		functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
 	case *ssa.Index:
 		guardedAccess := domain.AddGuardedAccess(call.Pos(), call.X, domain.GuardAccessRead, functionState.Lockset, GoroutineState)

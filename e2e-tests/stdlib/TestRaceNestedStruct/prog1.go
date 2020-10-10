@@ -8,10 +8,12 @@ func main() {
 		x X
 	}
 	c := make(chan Y)
-	var y Y
+	var t Y
 	go func() {
-		c <- y
+		c <- t
 	}()
-	y.x.y = 42
-	<-c
+	//time.Sleep(2*time.Second)
+	t.x.y = 42
+	val := <-c
+	_ = val
 }

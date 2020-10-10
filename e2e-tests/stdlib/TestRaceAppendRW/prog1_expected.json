@@ -138,7 +138,7 @@
 		},
 		{
 			"ID": 9,
-			"Pos": 0,
+			"Pos": 132,
 			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
@@ -155,7 +155,7 @@
 		},
 		{
 			"ID": 10,
-			"Pos": 0,
+			"Pos": 132,
 			"Value": 133,
 			"OpKind": 1,
 			"LocksetJson": {

@@ -7,7 +7,7 @@
 		{
 			"ID": 1,
 			"Pos": 191,
-			"Value": 178,
+			"Value": 191,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -104,7 +104,7 @@
 		{
 			"ID": 7,
 			"Pos": 0,
-			"Value": 252,
+			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -172,7 +172,7 @@
 		{
 			"ID": 11,
 			"Pos": 283,
-			"Value": 178,
+			"Value": 283,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

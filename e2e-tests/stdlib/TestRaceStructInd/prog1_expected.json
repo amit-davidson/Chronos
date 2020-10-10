@@ -107,7 +107,7 @@
 		{
 			"ID": 7,
 			"Pos": 157,
-			"Value": 89,
+			"Value": 157,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

@@ -72,8 +72,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": 144,
-			"Value": 110,
+			"Pos": 173,
+			"Value": 173,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -88,8 +88,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": 146,
-			"Value": 144,
+			"Pos": 175,
+			"Value": 175,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -104,7 +104,7 @@
 		},
 		{
 			"ID": 7,
-			"Pos": 146,
+			"Pos": 175,
 			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
@@ -120,8 +120,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": 146,
-			"Value": 146,
+			"Pos": 175,
+			"Value": 175,
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -136,7 +136,7 @@
 		},
 		{
 			"ID": 9,
-			"Pos": 156,
+			"Pos": 192,
 			"Value": 87,
 			"OpKind": 0,
 			"LocksetJson": {
@@ -152,8 +152,8 @@
 		},
 		{
 			"ID": 10,
-			"Pos": 154,
-			"Value": 156,
+			"Pos": 190,
+			"Value": 192,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -163,6 +163,54 @@
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 9
+				}
+			}
+		},
+		{
+			"ID": 11,
+			"Pos": 183,
+			"Value": 190,
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 10
+				}
+			}
+		},
+		{
+			"ID": 12,
+			"Pos": 183,
+			"Value": 183,
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 11
+				}
+			}
+		},
+		{
+			"ID": 13,
+			"Pos": 199,
+			"Value": 183,
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 12
 				}
 			}
 		}

@@ -70,7 +70,7 @@
 		},
 		{
 			"ID": 5,
-			"Pos": 0,
+			"Pos": 75,
 			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
@@ -86,7 +86,7 @@
 		},
 		{
 			"ID": 6,
-			"Pos": 0,
+			"Pos": 75,
 			"Value": 76,
 			"OpKind": 1,
 			"LocksetJson": {
@@ -150,7 +150,7 @@
 		},
 		{
 			"ID": 10,
-			"Pos": 0,
+			"Pos": 123,
 			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
@@ -321,6 +321,22 @@
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 21
+				}
+			}
+		},
+		{
+			"ID": 21,
+			"Pos": 162,
+			"Value": 138,
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 22
 				}
 			}
 		}

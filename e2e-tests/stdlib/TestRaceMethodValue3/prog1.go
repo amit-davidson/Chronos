@@ -1,4 +1,4 @@
-package main
+	package main
 
 type Inter interface {
 	Foo(x int)

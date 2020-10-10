@@ -57,7 +57,7 @@
 		{
 			"ID": 4,
 			"Pos": 1598654,
-			"Value": 1598617,
+			"Value": 1598654,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
@@ -148,7 +148,7 @@
 		{
 			"ID": 9,
 			"Pos": 1598654,
-			"Value": 1598617,
+			"Value": 1598654,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
@@ -205,7 +205,7 @@
 		{
 			"ID": 12,
 			"Pos": 1598906,
-			"Value": 1598848,
+			"Value": 1598906,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

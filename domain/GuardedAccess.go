@@ -4,6 +4,7 @@ import (
 	"StaticRaceDetector/utils"
 	"encoding/json"
 	"go/token"
+	"go/types"
 	"golang.org/x/tools/go/ssa"
 )
 
@@ -47,6 +48,27 @@ func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
 	return dump, err
 }
 
+func FilterStructs(valueA, valueB ssa.Value) bool {
+	fieldAddrA, okA := valueA.(*ssa.FieldAddr)
+	fieldAddrB, okB := valueB.(*ssa.FieldAddr)
+	//isOnlyOneField := okA && !okB || okB && !okA
+	//if isOnlyOneField { // If a field points to a struct
+	//	return true
+	//}
+
+	isBothField := okA && okB
+	if isBothField {
+		fieldA := fieldAddrA.X.Type().Underlying().(*types.Pointer).Elem().Underlying().(*types.Struct).Field(fieldAddrA.Field)
+		fieldB := fieldAddrB.X.Type().Underlying().(*types.Pointer).Elem().Underlying().(*types.Struct).Field(fieldAddrB.Field)
+		if fieldA != fieldB { // If same struct but different fields
+			return true
+		}
+	}
+
+	return false
+}
+
+
 func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {
 		return true
@@ -54,6 +76,11 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.OpKind == GuardAccessRead && gaToCompare.OpKind == GuardAccessRead {
 		return true
 	}
+
+	if FilterStructs(ga.Value, gaToCompare.Value) {
+		return true
+	}
+
 	for lockA := range ga.Lockset.ExistingLocks {
 		for lockB := range gaToCompare.Lockset.ExistingLocks {
 			if lockA == lockB {

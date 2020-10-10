@@ -641,6 +641,22 @@
 					"1": 27
 				}
 			}
+		},
+		{
+			"ID": 40,
+			"Pos": 2140123,
+			"Value": 2140130,
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 28
+				}
+			}
 		}
 	]
 }
