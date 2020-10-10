@@ -110,6 +110,11 @@ func HandleInstruction(functionState *domain.FunctionState, GoroutineState *doma
 		functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
 		guardedAccess = domain.AddGuardedAccess(call.Pos(), call.Addr, domain.GuardAccessWrite, functionState.Lockset, GoroutineState)
 		functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
+	case *ssa.Return:
+		for _, retValue := range call.Results {
+			guardedAccess := domain.AddGuardedAccess(call.Pos(), retValue, domain.GuardAccessRead, functionState.Lockset, GoroutineState)
+			functionState.GuardedAccesses = append(functionState.GuardedAccesses, guardedAccess)
+		}
 	}
 }
 
@@ -151,6 +156,9 @@ func (cfg *CFG) runDefers(goroutineState *domain.GoroutineState, block *ssa.Basi
 
 func HandleFunction(GoroutineState *domain.GoroutineState, fn *ssa.Function) *domain.FunctionState {
 	funcState := domain.GetEmptyFunctionState()
+	if fn.Pkg == nil {
+		return funcState
+	}
 	pkgName := fn.Pkg.Pkg.Path()                // Used to guard against entering standard library packages
 	packageToCheck := utils.GetTopPackageName() // The top package of the code. Any function under it is ok.
 	if !strings.Contains(pkgName, packageToCheck) {

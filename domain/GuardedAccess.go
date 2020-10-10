@@ -54,9 +54,9 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.OpKind == GuardAccessRead && gaToCompare.OpKind == GuardAccessRead {
 		return true
 	}
-	for _, lockA := range ga.Lockset.ExistingLocks {
-		for _, lockB := range gaToCompare.Lockset.ExistingLocks {
-			if lockA.Pos() == lockB.Pos() {
+	for lockA := range ga.Lockset.ExistingLocks {
+		for lockB := range gaToCompare.Lockset.ExistingLocks {
+			if lockA == lockB {
 				return true
 			}
 		}
