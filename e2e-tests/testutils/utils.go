@@ -33,8 +33,8 @@ func CompareResult(t *testing.T, path string, ls *domain.Lockset, ga []*domain.G
 	err = json.Unmarshal(data, testresult)
 	require.NoError(t, err)
 
-	require.Equal(t, testresult.Lockset, ls.ToJSON())
-	require.Equal(t, len(testresult.GuardedAccess), len(ga))
+	assert.Equal(t, testresult.Lockset, ls.ToJSON())
+	assert.Equal(t, len(testresult.GuardedAccess), len(ga))
 	for i := range ga {
 		insr := ga[i].ToJSON()
 		assert.Equal(t, testresult.GuardedAccess[i], insr)

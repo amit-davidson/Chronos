@@ -153,8 +153,8 @@
 		},
 		{
 			"ID": 10,
-			"Pos": 205,
-			"Value": 171,
+			"Pos": 0,
+			"Value": 109,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -169,9 +169,9 @@
 		},
 		{
 			"ID": 11,
-			"Pos": 205,
-			"Value": 0,
-			"OpKind": 0,
+			"Pos": 0,
+			"Value": 109,
+			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -185,8 +185,8 @@
 		},
 		{
 			"ID": 12,
-			"Pos": 0,
-			"Value": 205,
+			"Pos": 205,
+			"Value": 171,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -201,8 +201,8 @@
 		},
 		{
 			"ID": 13,
-			"Pos": 225,
-			"Value": 225,
+			"Pos": 205,
+			"Value": 0,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -218,7 +218,7 @@
 		{
 			"ID": 14,
 			"Pos": 0,
-			"Value": 109,
+			"Value": 205,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -233,9 +233,9 @@
 		},
 		{
 			"ID": 15,
-			"Pos": 0,
-			"Value": 109,
-			"OpKind": 1,
+			"Pos": 225,
+			"Value": 225,
+			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -249,8 +249,8 @@
 		},
 		{
 			"ID": 16,
-			"Pos": 249,
-			"Value": 171,
+			"Pos": 0,
+			"Value": 109,
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -267,7 +267,7 @@
 			"ID": 17,
 			"Pos": 0,
 			"Value": 109,
-			"OpKind": 0,
+			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -281,9 +281,9 @@
 		},
 		{
 			"ID": 18,
-			"Pos": 0,
-			"Value": 109,
-			"OpKind": 1,
+			"Pos": 249,
+			"Value": 171,
+			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}

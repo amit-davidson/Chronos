@@ -6,6 +6,7 @@ import (
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/ssa/ssautil"
+	"sort"
 )
 
 var GlobalProgram *ssa.Program
@@ -44,13 +45,33 @@ func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Functi
 			implementors = append(implementors, typ)
 		}
 	}
-
 	for _, implementor := range implementors {
 		setMethods := GlobalProgram.MethodSets.MethodSet(implementor)
-		structMethod := setMethods.Lookup(method.Pkg(), method.Name())
-		methodImplementations = append(methodImplementations, GlobalProgram.MethodValue(structMethod))
+		method := setMethods.Lookup(method.Pkg(), method.Name())
+		methodImpl := GlobalProgram.MethodValue(method)
+		if methodImpl.Synthetic == "" {
+			methodImplementations = append(methodImplementations, methodImpl)
+		}
 	}
 
-	typesCache[recvInterface] = methodImplementations
-	return methodImplementations
+	// Sort by pos to enter previous implementations first. This make the search deterministic and easier for debugging
+	sortedImplementations := sortMethodImplementations(methodImplementations)
+	typesCache[recvInterface] = sortedImplementations
+	return sortedImplementations
+}
+
+func sortMethodImplementations(methodImplementations []*ssa.Function) []*ssa.Function {
+	posSlice := make([]int, 0)
+	sortedImplementations := make([]*ssa.Function, 0)
+	implMap := make(map[int]*ssa.Function, 0)
+	for _, methodImplementation := range methodImplementations {
+		pos := methodImplementation.Pos()
+		implMap[int(pos)] = methodImplementation
+		posSlice = append(posSlice, int(pos))
+	}
+	sort.Ints(posSlice)
+	for _, pos := range posSlice {
+		sortedImplementations = append(sortedImplementations, implMap[pos])
+	}
+	return sortedImplementations
 }
