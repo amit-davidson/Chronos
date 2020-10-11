@@ -31,7 +31,7 @@ type GuardedAccess struct {
 	Pos        token.Pos
 	Stacktrace []int
 	Value      ssa.Value
-	State      *GoroutineState
+	State      *Context
 	Lockset    *Lockset
 	OpKind     OpKind
 }
@@ -42,7 +42,7 @@ type GuardedAccessJSON struct {
 	Value       int
 	OpKind      OpKind
 	LocksetJson *LocksetJson
-	State       *GoroutineStateJSON
+	State       *ContextJSON
 }
 
 func (ga *GuardedAccess) ToJSON() GuardedAccessJSON {
@@ -114,8 +114,8 @@ func(ga *GuardedAccess) GetStackTrace(prog *ssa.Program) string {
 
 var GuardedAccessCounter = utils.NewCounter()
 
-func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, goroutineState *GoroutineState) *GuardedAccess {
-	goroutineState.Increment()
-	stackTrace := goroutineState.StackTrace.GetAllItems()
-	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: goroutineState.Copy()}
+func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, Context *Context) *GuardedAccess {
+	Context.Increment()
+	stackTrace := Context.StackTrace.GetAllItems()
+	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: Context.Copy()}
 }

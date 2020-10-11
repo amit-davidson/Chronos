@@ -8,7 +8,7 @@ import (
 type CFG struct {
 	ComputedBlockIDsToSummaries  map[int]*domain.FunctionState
 	lastBlock                    *ssa.BasicBlock
-	getSummary                   func(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) *domain.FunctionState
+	getSummary                   func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState
 	calculateMergedBranchesState func(blocks []*ssa.BasicBlock) *domain.FunctionState
 	getNextBlocks                func(block *ssa.BasicBlock) []*ssa.BasicBlock
 	getPreviousBlocks            func(block *ssa.BasicBlock) []*ssa.BasicBlock
@@ -51,10 +51,10 @@ func (cfg *CFG) mergePredBlocks(blocks []*ssa.BasicBlock) *domain.FunctionState 
 	return state
 }
 
-func CalculateBlocks(GoroutineState *domain.GoroutineState, startBlock *ssa.BasicBlock) (*domain.FunctionState, *ssa.BasicBlock) {
+func CalculateBlocks(Context *domain.Context, startBlock *ssa.BasicBlock) (*domain.FunctionState, *ssa.BasicBlock) {
 	cfgDown := newCFG()
-	cfgDown.getSummary = func(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) *domain.FunctionState {
-		return GetBlockSummary(goroutineState, block)
+	cfgDown.getSummary = func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
+		return GetBlockSummary(Context, block)
 	}
 	cfgDown.calculateMergedBranchesState = func(blocks []*ssa.BasicBlock) *domain.FunctionState {
 		return cfgDown.mergePredBlocks(blocks)
@@ -65,12 +65,12 @@ func CalculateBlocks(GoroutineState *domain.GoroutineState, startBlock *ssa.Basi
 	cfgDown.getPreviousBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
 		return block.Preds
 	}
-	cfgDown.traverseGraph(GoroutineState, startBlock)
+	cfgDown.traverseGraph(Context, startBlock)
 	funcState := cfgDown.ComputedBlockIDsToSummaries[cfgDown.lastBlock.Index]
 	return funcState, cfgDown.lastBlock
 }
 
-func CalculateDefers(GoroutineState *domain.GoroutineState, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
+func CalculateDefers(Context *domain.Context, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
 	deferredMap := make(map[int][]*domain.DeferFunction, 0)
 	for _, block := range deferredFunctions {
 		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
@@ -78,8 +78,8 @@ func CalculateDefers(GoroutineState *domain.GoroutineState, startBlock *ssa.Basi
 
 	cfgUp := newCFG()
 	cfgUp.DeferredFunctions = deferredMap
-	cfgUp.getSummary = func(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) *domain.FunctionState {
-		return cfgUp.runDefers(goroutineState, block)
+	cfgUp.getSummary = func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
+		return cfgUp.runDefers(Context, block)
 	}
 	cfgUp.calculateMergedBranchesState = func(blocks []*ssa.BasicBlock) *domain.FunctionState {
 		return cfgUp.mergeSuccsBlocks(blocks)
@@ -90,12 +90,12 @@ func CalculateDefers(GoroutineState *domain.GoroutineState, startBlock *ssa.Basi
 	cfgUp.getPreviousBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
 		return block.Succs
 	}
-	cfgUp.traverseGraph(GoroutineState, startBlock)
+	cfgUp.traverseGraph(Context, startBlock)
 	funcState := cfgUp.ComputedBlockIDsToSummaries[cfgUp.lastBlock.Index]
 	return funcState
 }
 
-func (cfg *CFG) traverseGraph(goroutineState *domain.GoroutineState, block *ssa.BasicBlock) {
+func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
 	nextBlocks := cfg.getNextBlocks(block)
 	prevBlocks := cfg.getPreviousBlocks(block)
 
@@ -111,11 +111,11 @@ func (cfg *CFG) traverseGraph(goroutineState *domain.GoroutineState, block *ssa.
 	}
 
 	var calculatedState *domain.FunctionState
-	currBlockState := cfg.getSummary(goroutineState, block)
+	currBlockState := cfg.getSummary(Context, block)
 	if len(prevBlocks) > 0 {
 		calculatedState = cfg.calculateMergedBranchesState(prevBlocks)
 		currBlockState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
-		calculatedState.MergeStates(currBlockState)
+		calculatedState.MergeStates(currBlockState, true)
 	} else {
 		calculatedState = currBlockState
 	}
@@ -128,6 +128,6 @@ func (cfg *CFG) traverseGraph(goroutineState *domain.GoroutineState, block *ssa.
 	}
 
 	for _, blockToExecute := range nextBlocks {
-		cfg.traverseGraph(goroutineState, blockToExecute)
+		cfg.traverseGraph(Context, blockToExecute)
 	}
 }

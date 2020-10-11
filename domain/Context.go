@@ -2,41 +2,41 @@ package domain
 
 import "StaticRaceDetector/utils"
 
-type GoroutineState struct {
+type Context struct {
 	GoroutineID int
 	Clock       VectorClock
 	StackTrace  *utils.Stack
 }
 
-type GoroutineStateJSON struct {
+type ContextJSON struct {
 	GoroutineID int
 	Clock       VectorClock
 }
 
 var GoroutineCounter = utils.NewCounter()
 
-func NewEmptyGoroutineState() *GoroutineState {
-	return &GoroutineState{
+func NewEmptyContext() *Context {
+	return &Context{
 		Clock:       VectorClock{},
 		GoroutineID: GoroutineCounter.GetNext(),
 		StackTrace:  utils.NewStack(),
 	}
 }
 
-func NewGoroutineExecutionState(state *GoroutineState) *GoroutineState {
+func NewGoroutineExecutionState(state *Context) *Context {
 	state.Increment()
-	return &GoroutineState{
+	return &Context{
 		Clock:       state.Clock,
 		GoroutineID: GoroutineCounter.GetNext(),
 		StackTrace:  state.StackTrace,
 	}
 }
 
-func (gs *GoroutineState) Increment() {
+func (gs *Context) Increment() {
 	gs.Clock[gs.GoroutineID] += 1
 }
 
-func (gs *GoroutineState) MayConcurrent(state *GoroutineState) bool {
+func (gs *Context) MayConcurrent(state *Context) bool {
 	timestampAidA, _ := gs.Clock[gs.GoroutineID]
 	timestampAidB, _ := state.Clock[gs.GoroutineID]
 	timestampBidA, _ := gs.Clock[state.GoroutineID]
@@ -45,12 +45,12 @@ func (gs *GoroutineState) MayConcurrent(state *GoroutineState) bool {
 	isAfter := timestampBidB <= timestampBidA && timestampAidB < timestampAidA
 	return !(isBefore || isAfter)
 }
-func (gs *GoroutineState) Copy() *GoroutineState {
-	return &GoroutineState{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy(), StackTrace: gs.StackTrace}
+func (gs *Context) Copy() *Context {
+	return &Context{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy(), StackTrace: gs.StackTrace}
 }
 
-func (gs *GoroutineState) ToJSON() *GoroutineStateJSON {
-	dumpJson := GoroutineStateJSON{}
+func (gs *Context) ToJSON() *ContextJSON {
+	dumpJson := ContextJSON{}
 	dumpJson.GoroutineID = gs.GoroutineID
 	dumpJson.Clock = gs.Clock
 	return &dumpJson

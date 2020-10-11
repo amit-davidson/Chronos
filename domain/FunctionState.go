@@ -14,15 +14,12 @@ func GetEmptyFunctionState() *FunctionState {
 	}
 }
 
-func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState) {
+func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState, shouldMergeLockset bool) {
 	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
 	funcState.DeferredFunctions = append(funcState.DeferredFunctions, funcStateToMerge.DeferredFunctions...)
-	funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
-}
-
-func (funcState *FunctionState) MergeStatesAfterGoroutine(funcStateToMerge *FunctionState) {
-	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
-	funcState.DeferredFunctions = append(funcState.DeferredFunctions, funcStateToMerge.DeferredFunctions...)
+	if shouldMergeLockset {
+		funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
+	}
 }
 
 func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(prevLockset *Lockset) {
@@ -34,12 +31,12 @@ func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(prevLockset *Lo
 }
 
 func (funcState *FunctionState) MergeBranchState(funcStateToMerge *FunctionState) {
-	funcState.MergeBranchesGuardedAccess(funcStateToMerge.GuardedAccesses)
+	funcState.RemoveDuplicateGuardedAccess(funcStateToMerge.GuardedAccesses)
 	funcState.DeferredFunctions = append(funcState.DeferredFunctions, funcStateToMerge.DeferredFunctions...)
 	funcState.Lockset.MergeBranchesLockset(funcStateToMerge.Lockset)
 }
 
-func (funcState *FunctionState) MergeBranchesGuardedAccess(GuardedAccesses []*GuardedAccess) {
+func (funcState *FunctionState) RemoveDuplicateGuardedAccess(GuardedAccesses []*GuardedAccess) {
 	for _, guardedAccessA := range GuardedAccesses {
 		if !contains(funcState.GuardedAccesses, guardedAccessA) {
 			funcState.GuardedAccesses = append(funcState.GuardedAccesses, guardedAccessA)
