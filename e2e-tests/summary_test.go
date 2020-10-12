@@ -170,14 +170,14 @@ func TestGetFunctionSummary(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			domain.GoroutineCounter.Reset()
-			domain.GuardedAccessCounter.Reset()
-
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 			ssaUtils.SetGlobalProgram(ssaProg)
 
 			entryFunc := ssaPkg.Func("main")
+
+			domain.GoroutineCounter.Reset()
+			domain.GuardedAccessCounter.Reset()
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
 			testresult := testutils.TestResult{Lockset: functionState.Lockset, GuardedAccess: functionState.GuardedAccesses}

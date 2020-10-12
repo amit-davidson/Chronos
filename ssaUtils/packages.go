@@ -2,6 +2,7 @@ package ssaUtils
 
 import (
 	"fmt"
+	"errors"
 	"go/types"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
@@ -21,6 +22,9 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	pkgs, err := packages.Load(&conf1, loadQuery)
 	if err != nil {
 		return nil, nil, err
+	}
+	if len(pkgs) == 0 {
+		return nil, nil, errors.New(fmt.Sprintf("Cannot load the given file: %s", path))
 	}
 	ssaProg, ssaPkgs := ssautil.AllPackages(pkgs, 0)
 	ssaProg.Build()
