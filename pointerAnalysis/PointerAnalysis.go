@@ -82,6 +82,6 @@ func getMessage(guardedAccessA, guardedAccessB *domain.GuardedAccess, prog *ssa.
 	stackA += prog.Fset.Position(guardedAccessA.Pos).String()
 	stackB := ssaUtils.GetStackTrace(prog, guardedAccessB)
 	stackB += prog.Fset.Position(guardedAccessB.Pos).String()
-	label := fmt.Sprintf(" %s:\n%s\n \n %s:\n%s \n", guardedAccessA.OpKind, stackA, guardedAccessB.OpKind, stackB)
+	label := fmt.Sprintf(" %s:\n%s\n \n %s:\n%s \n", "Access1", stackA, "Access2", stackB)
 	return label
 }
