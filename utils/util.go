@@ -3,7 +3,6 @@ package utils
 import (
 	"bufio"
 	"github.com/stretchr/testify/require"
-	"go/token"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
 	"io/ioutil"
@@ -83,16 +82,4 @@ func ReadFile(filePath string) ([]byte, error) {
 		return nil, err
 	}
 	return content, err
-}
-
-func DoubleKeyIsExist(pos1 token.Pos, pos2 token.Pos, dict map[token.Pos]map[token.Pos]struct{}) bool {
-	foundRaceA, isAExist := dict[pos1]
-	if !isAExist {
-		return false
-	}
-	_, isBExist := foundRaceA[pos2]
-	if !isBExist {
-		return false
-	}
-	return true
 }

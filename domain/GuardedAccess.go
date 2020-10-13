@@ -102,16 +102,6 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	return false
 }
 
-func(ga *GuardedAccess) GetStackTrace(prog *ssa.Program) string {
-	stack := ""
-	for _, pos := range ga.Stacktrace {
-		calculatedPos := prog.Fset.Position(token.Pos(pos))
-		stack += calculatedPos.String()
-		stack += " ->\n"
-	}
-	return stack
-}
-
 var GuardedAccessCounter = utils.NewCounter()
 
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, Context *Context) *GuardedAccess {

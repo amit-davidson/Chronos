@@ -51,7 +51,7 @@ func (cfg *CFG) mergePredBlocks(blocks []*ssa.BasicBlock) *domain.FunctionState 
 	return state
 }
 
-func CalculateBlocks(Context *domain.Context, startBlock *ssa.BasicBlock) (*domain.FunctionState, *ssa.BasicBlock) {
+func GetBlocksSummary(Context *domain.Context, startBlock *ssa.BasicBlock) (*domain.FunctionState, *ssa.BasicBlock) {
 	cfgDown := newCFG()
 	cfgDown.getSummary = func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
 		return GetBlockSummary(Context, block)
@@ -70,7 +70,7 @@ func CalculateBlocks(Context *domain.Context, startBlock *ssa.BasicBlock) (*doma
 	return funcState, cfgDown.lastBlock
 }
 
-func CalculateDefers(Context *domain.Context, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
+func GetDefersSummary(Context *domain.Context, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
 	deferredMap := make(map[int][]*domain.DeferFunction, 0)
 	for _, block := range deferredFunctions {
 		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
