@@ -41,6 +41,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		{name: "MultipleLocksNoRace", testPath: "locksAndUnlocks/MultipleLocksNoRace/prog1.go", resPath: "locksAndUnlocks/MultipleLocksNoRace/prog1_expected.json", shouldUpdate: false},
 		{name: "MultipleLocksRace", testPath: "locksAndUnlocks/MultipleLocksRace/prog1.go", resPath: "locksAndUnlocks/MultipleLocksRace/prog1_expected.json", shouldUpdate: false},
 		{name: "NestedFunctions", testPath: "general/NestedFunctions/prog1.go", resPath: "general/NestedFunctions/prog1_expected.json", shouldUpdate: false},
+		{name: "Simple", testPath: "general/Simple/prog1.go", resPath: "general/Simple/prog1_expected.json", shouldUpdate: false},
 		{name: "NestedConditionWithLockInAllBranches", testPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go", resPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceMap", testPath: "general/DataRaceMap/prog1.go", resPath: "general/DataRaceMap/prog1_expected.json", shouldUpdate: false},
 		//{name: "ForLoop", testPath: "unsupported/ForLoop/prog1.go", resPath: "unsupported/ForLoop/prog1_expected.json", shouldUpdate: false},

@@ -35,7 +35,7 @@ Support:
 
 Limitations:
 - Analysis of panics, for loops, goto and recursion.
-- Synchronization using channels, waitgroups, once, cond.
+- Synchronization using channels, waitgroups, once, cond and atomic.
 - Big programs.
 
 ## Credits:
