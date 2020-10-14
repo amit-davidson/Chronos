@@ -1,9 +1,9 @@
 package main
 
 import (
-	"StaticRaceDetector/domain"
-	"StaticRaceDetector/pointerAnalysis"
-	"StaticRaceDetector/ssaUtils"
+	"Miranda/domain"
+	"Miranda/pointerAnalysis"
+	"Miranda/ssaUtils"
 	"flag"
 	"fmt"
 	"golang.org/x/tools/go/ssa"

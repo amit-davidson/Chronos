@@ -1,11 +1,11 @@
 package e2e_tests
 
 import (
-	"StaticRaceDetector/domain"
-	"StaticRaceDetector/e2e-tests/testutils"
-	"StaticRaceDetector/pointerAnalysis"
-	"StaticRaceDetector/ssaUtils"
-	"StaticRaceDetector/utils"
+	"Miranda/domain"
+	"Miranda/e2e-tests/testutils"
+	"Miranda/pointerAnalysis"
+	"Miranda/ssaUtils"
+	"Miranda/utils"
 	"encoding/json"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"

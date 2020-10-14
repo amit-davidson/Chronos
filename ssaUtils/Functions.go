@@ -1,8 +1,8 @@
 package ssaUtils
 
 import (
-	"StaticRaceDetector/domain"
-	"StaticRaceDetector/utils"
+	"Miranda/domain"
+	"Miranda/utils"
 	"go/token"
 	"golang.org/x/tools/go/ssa"
 	"strings"

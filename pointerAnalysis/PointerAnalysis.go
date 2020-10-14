@@ -1,9 +1,9 @@
 package pointerAnalysis
 
 import (
-	"StaticRaceDetector/domain"
-	"StaticRaceDetector/ssaUtils"
-	"StaticRaceDetector/utils"
+	"Miranda/domain"
+	"Miranda/ssaUtils"
+	"Miranda/utils"
 	"fmt"
 	"go/token"
 	"golang.org/x/tools/go/pointer"

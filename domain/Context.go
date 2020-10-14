@@ -1,6 +1,6 @@
 package domain
 
-import "StaticRaceDetector/utils"
+import "Miranda/utils"
 
 type Context struct {
 	GoroutineID int

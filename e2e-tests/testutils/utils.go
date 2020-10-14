@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"StaticRaceDetector/domain"
-	"StaticRaceDetector/utils"
+	"Miranda/domain"
+	"Miranda/utils"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

@@ -1,7 +1,7 @@
 package ssaUtils
 
 import (
-	"StaticRaceDetector/domain"
+	"Miranda/domain"
 	"golang.org/x/tools/go/ssa"
 	"strconv"
 )

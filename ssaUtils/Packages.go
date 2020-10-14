@@ -1,7 +1,7 @@
 package ssaUtils
 
 import (
-	"StaticRaceDetector/domain"
+	"Miranda/domain"
 	"errors"
 	"fmt"
 	"go/token"

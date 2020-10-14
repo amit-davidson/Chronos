@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"StaticRaceDetector/utils"
+	"Miranda/utils"
 	"encoding/json"
 	"go/token"
 	"go/types"
