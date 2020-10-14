@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"Miranda/domain"
-	"Miranda/utils"
+	"Chronos/domain"
+	"Chronos/utils"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

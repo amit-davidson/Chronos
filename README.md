@@ -1,4 +1,4 @@
-# Miranda
+# Chronos
 <p align="center">
     <img src="https://i.imgur.com/AhLyxVh.jpeg" width="150" height="225">
 </p>
@@ -8,15 +8,15 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-Miranda is a static race detector for the golang language written in golang.
+Chronos is a static race detector for the golang language written in golang.
 
 ## Quick Start:
 ```
-go get -u -v github.com/amitdavidson234/Miranda
+go get -u -v github.com/amitdavidson234/Chronos
 ```
 
 ```
-Miranda --file <path>
+Chronos --file <path>
 ```
 
 ## Example:
@@ -35,7 +35,7 @@ Support:
 
 Limitations:
 - Analysis of panics, for loops, goto and recursion.
-- Synchronization detection using channels, waitgroups, once, cond.
+- Synchronization using channels, waitgroups, once, cond.
 - Big programs.
 
 ## Credits:

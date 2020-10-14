@@ -1,11 +1,11 @@
 package e2e_tests
 
 import (
-	"Miranda/domain"
-	"Miranda/e2e-tests/testutils"
-	"Miranda/pointerAnalysis"
-	"Miranda/ssaUtils"
-	"Miranda/utils"
+	"Chronos/domain"
+	"Chronos/e2e-tests/testutils"
+	"Chronos/pointerAnalysis"
+	"Chronos/ssaUtils"
+	"Chronos/utils"
 	"encoding/json"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"

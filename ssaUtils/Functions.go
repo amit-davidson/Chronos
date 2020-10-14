@@ -1,8 +1,8 @@
 package ssaUtils
 
 import (
-	"Miranda/domain"
-	"Miranda/utils"
+	"Chronos/domain"
+	"Chronos/utils"
 	"go/token"
 	"golang.org/x/tools/go/ssa"
 	"strings"

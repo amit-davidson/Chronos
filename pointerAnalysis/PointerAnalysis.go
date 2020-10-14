@@ -1,9 +1,9 @@
 package pointerAnalysis
 
 import (
-	"Miranda/domain"
-	"Miranda/ssaUtils"
-	"Miranda/utils"
+	"Chronos/domain"
+	"Chronos/ssaUtils"
+	"Chronos/utils"
 	"fmt"
 	"go/token"
 	"golang.org/x/tools/go/pointer"

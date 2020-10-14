@@ -1,9 +1,9 @@
 package main
 
 import (
-	"Miranda/domain"
-	"Miranda/pointerAnalysis"
-	"Miranda/ssaUtils"
+	"Chronos/domain"
+	"Chronos/pointerAnalysis"
+	"Chronos/ssaUtils"
 	"flag"
 	"fmt"
 	"golang.org/x/tools/go/ssa"

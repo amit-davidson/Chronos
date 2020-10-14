@@ -1,6 +1,6 @@
 package domain
 
-import "Miranda/utils"
+import "Chronos/utils"
 
 type Context struct {
 	GoroutineID int

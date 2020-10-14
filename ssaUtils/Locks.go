@@ -1,7 +1,7 @@
 package ssaUtils
 
 import (
-	"Miranda/domain"
+	"Chronos/domain"
 	"golang.org/x/tools/go/ssa"
 	"strconv"
 )

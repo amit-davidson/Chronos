@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"Miranda/utils"
+	"Chronos/utils"
 	"encoding/json"
 	"go/token"
 	"go/types"

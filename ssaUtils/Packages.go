@@ -1,7 +1,7 @@
 package ssaUtils
 
 import (
-	"Miranda/domain"
+	"Chronos/domain"
 	"errors"
 	"fmt"
 	"go/token"
