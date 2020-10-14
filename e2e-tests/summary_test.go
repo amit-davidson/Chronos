@@ -7,8 +7,10 @@ import (
 	"Chronos/ssaUtils"
 	"Chronos/utils"
 	"encoding/json"
+	"fmt"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"
+	"os"
 	"testing"
 )
 
@@ -185,7 +187,11 @@ func TestGetFunctionSummary(t *testing.T) {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
 			testutils.CompareResult(t, tc.resPath, functionState.Lockset, functionState.GuardedAccesses)
-			pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+			err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+			if err != nil {
+				fmt.Printf("Error in analysis:%s\n", err)
+				os.Exit(1)
+			}
 		})
 	}
 }

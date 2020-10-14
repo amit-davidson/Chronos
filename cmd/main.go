@@ -27,6 +27,10 @@ func main() {
 	entryFunc := ssaPkg.Func("main")
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
-	pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+	err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+	if err != nil {
+		fmt.Printf("Error in analysis:%s\n", err)
+		os.Exit(1)
+	}
 
 }

@@ -83,3 +83,25 @@ func ReadFile(filePath string) ([]byte, error) {
 	}
 	return content, err
 }
+
+func ReadLineByNumber(filePath string, lineNumber int) (string, error) {
+	f, err := OpenFile(filePath)
+	if err != nil {
+		return "", err
+	}
+
+	scanner := bufio.NewScanner(f)
+	line := ""
+	for i := 1; scanner.Scan(); i++ {
+		if i == lineNumber {
+			line = scanner.Text()
+			break
+		}
+	}
+
+	err = f.Close()
+	if err != nil {
+		return "", err
+	}
+	return line, err
+}

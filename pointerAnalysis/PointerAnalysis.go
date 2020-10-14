@@ -8,6 +8,12 @@ import (
 	"go/token"
 	"golang.org/x/tools/go/pointer"
 	"golang.org/x/tools/go/ssa"
+	"strings"
+	"unicode"
+)
+
+const (
+	spacePrefixCount = 8
 )
 
 // Analysis starts by mapping between positions of the guard accesses (values inside) to the guard accesses themselves.
@@ -28,7 +34,7 @@ import (
 //        D->ga10, ga11, ga12, ga1, ga2, ga3, ga4, ga5, ga6
 // And then for pos all the guarded accesses are compared to see if data races might exist
 
-func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAccess) {
+func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAccess) error {
 	config := &pointer.Config{
 		Mains: []*ssa.Package{pkg},
 	}
@@ -44,7 +50,7 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 
 	result, err := pointer.Analyze(config)
 	if err != nil {
-		panic(err) // internal error in pointer analysis
+		return err // internal error in pointer analysis
 	}
 
 	// Join instructions of variables that may point to each other.
@@ -67,7 +73,10 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 					isExist := foundDataRaces.IsExist(guardedAccessA.Pos, guardedAccessB.Pos)
 					if !isExist {
 						foundDataRaces.Add(guardedAccessA.Pos, guardedAccessB.Pos)
-						label := getMessage(guardedAccessA, guardedAccessB, prog)
+						label, err := getMessage(guardedAccessA, guardedAccessB, prog)
+						if err != nil {
+							return err
+						}
 						print(label)
 						print("=========================\n")
 					}
@@ -75,13 +84,38 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 			}
 		}
 	}
+	return nil
 }
 
-func getMessage(guardedAccessA, guardedAccessB *domain.GuardedAccess, prog *ssa.Program) string {
+func getMessage(guardedAccessA, guardedAccessB *domain.GuardedAccess, prog *ssa.Program) (string, error) {
+	message := "Potential race condition:\n"
+	messageA, err := getMessageByLine(guardedAccessA, prog)
+	if err != nil {
+		return "", err
+	}
+	messageB, err := getMessageByLine(guardedAccessB, prog)
+	if err != nil {
+		return "", err
+	}
+	message += fmt.Sprintf(" %s:\n%s\n \n %s:\n%s \n", "Access1", messageA, "Access2", messageB)
+	return message, nil
+}
+
+func getMessageByLine(guardedAccessA *domain.GuardedAccess, prog *ssa.Program) (string, error) {
+	message := ""
+	posA := prog.Fset.Position(guardedAccessA.Pos)
+	lineA, err := utils.ReadLineByNumber(posA.Filename, posA.Line)
+	trimmedA := strings.TrimLeftFunc(lineA, unicode.IsSpace)
+	message += strings.Repeat(" ", spacePrefixCount) + trimmedA
+
+	removedSpaces := len(lineA) - len(trimmedA)
+	posToAddArrow := posA.Column - removedSpaces
+	message += "\n" + strings.Repeat(" ", posToAddArrow+spacePrefixCount-1) + "^" + "\n"
 	stackA := ssaUtils.GetStackTrace(prog, guardedAccessA)
-	stackA += prog.Fset.Position(guardedAccessA.Pos).String()
-	stackB := ssaUtils.GetStackTrace(prog, guardedAccessB)
-	stackB += prog.Fset.Position(guardedAccessB.Pos).String()
-	label := fmt.Sprintf(" %s:\n%s\n \n %s:\n%s \n", "Access1", stackA, "Access2", stackB)
-	return label
+	if err != nil {
+		return "", err
+	}
+	stackA += posA.String()
+	message += stackA
+	return message, nil
 }

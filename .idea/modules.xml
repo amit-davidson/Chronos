@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../Miranda/.idea/Miranda.iml" filepath="$PROJECT_DIR$/../Miranda/.idea/Miranda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Chronos.iml" filepath="$PROJECT_DIR$/.idea/Chronos.iml" />
     </modules>
   </component>
 </project>
