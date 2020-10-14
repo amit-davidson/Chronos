@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	file := flag.String("file", "", "The file containing the entry point of the function")
+	file := flag.String("file", "", "The file containing the entry point of the function - main.go")
 	flag.Parse()
 	if *file == "" {
 		fmt.Printf("Please provide a file to load\n")
