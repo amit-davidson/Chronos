@@ -52,3 +52,8 @@ Jan Wen, J., Jhala, R., &amp; Lerner, S. (n.d.). RELAY: Static Race Detection on
     <img src="https://i.imgur.com/VdP7r8B.png" width="543" height="330">
 </p>
 <hr style="border:2px solid gray"> </hr>
+<p float="left">
+    <img src="https://i.imgur.com/app5tBc.png" width="283" height="450">
+    <img src="https://i.imgur.com/jtiqKaP.png" width="525" height="360">
+</p>
+<hr style="border:2px solid gray"> </hr>

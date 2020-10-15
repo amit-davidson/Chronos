@@ -1,4 +1,4 @@
-package pkg
+package main
 
 import (
 	"math/rand"
