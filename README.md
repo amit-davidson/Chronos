@@ -29,18 +29,18 @@ chronos --file <main_path>
 ## Features:
 Support:
 - Detects races on pointers passed around the program.
-- Analysis of conditional branches, nested functions, interfaces and defers.
-- Synchronization using mutex and goroutines start.
+- Analysis of conditional branches, nested functions, interfaces, and defers.
+- Synchronization using mutex and goroutines starts.
 
 Limitations:
 - Big programs. (Due to stack overflow)
-- Analysis of panics, for loops, goto, recursion and select.
+- Analysis of panics, for loops, goto, recursion, and select.
 - Synchronization using channels, waitgroups, once, cond and atomic.
 
 ## Chronos vs go race:
-When compared to go builtin dynamic race detector, Chronos managed to report 244/403 = 60.5% of go race tests. This can be explained by Chronos partial support with the Go's features.
+When compared to go builtin dynamic race detector, Chronos managed to report 244/403 = 60.5% of go race tests. This can be explained by Chronos partial support with Go's features. Also, it reported false positives in cases where context/path/flow sensitivity was required.
   
-In contrast, go race fails to report cases where Chronos succeeds thanks to his static nature. Mostly because race conditions appear in unexpected production workloads which are hard to produce in dev. 
+In contrast, go race fails to report cases where Chronos succeeds thanks to his static nature. Mostly because race conditions appear in unexpected production workloads, which are hard to produce in dev. 
 
 
 ## Credits:
