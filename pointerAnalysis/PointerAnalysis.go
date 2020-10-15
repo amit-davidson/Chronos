@@ -64,7 +64,7 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 			positionsToGuardAccesses[allocPos] = append(positionsToGuardAccesses[allocPos], positionsToGuardAccesses[queryPos]...)
 		}
 	}
-
+	messages := make([]string, 0)
 	foundDataRaces := utils.NewDoubleKeyMap() // To avoid reporting on the same pair of positions more then once. Can happen if for the same place we read and then write.
 	for _, guardedAccesses := range positionsToGuardAccesses {
 		for _, guardedAccessA := range guardedAccesses {
@@ -77,12 +77,20 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 						if err != nil {
 							return err
 						}
-						print(label)
-						print("=========================\n")
+						messages = append(messages, label)
 					}
 				}
 			}
 		}
+	}
+	if len(messages) == 0 {
+		print("No data races found\n")
+		return nil
+	}
+	print(messages[0])
+	for _, message := range messages[1:] {
+		print("=========================\n")
+		print(message)
 	}
 	return nil
 }
