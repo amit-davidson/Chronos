@@ -11,11 +11,16 @@
 Chronos is a static race detector for the golang language written in golang.
 
 ## Quick Start:
+Download the package
 ```
 go get -u -v github.com/amitdavidson234/Chronos
 ```
+Compile the program
+```
+cd cmd && go build -o chronos
+```
 
-Compile the program and pass it the path to the entry point of the program - main.go
+Pass the program entry point - main.go
 ```
 chronos --file <main_path>
 ```
@@ -38,11 +43,13 @@ Limitations:
 - Synchronization using channels, waitgroups, once, cond and atomic.
 
 ## Chronos vs go race:
-When compared to go builtin dynamic race detector, Chronos managed to report 244/403 = 60.5% of go race tests. This can be explained by Chronos partial support with Go's features. Also, it reported false positives in cases where context/path/flow sensitivity was required.
-  
-In contrast, go race fails to report cases where Chronos succeeds thanks to his static nature. Mostly because race conditions appear in unexpected production workloads, which are hard to produce in dev. 
+Chronos successfully reports cases where go race fails thanks to his static nature. Mostly because race conditions appear in unexpected production workloads, which are hard to produce in dev.
+In addition, go race is having trouble with short programs where without contrived synchronization the program may exit too quickly.
+ 
+In contrast, Chronos managed to report only 244/403 = 60.5% of go race test cases. This can be explained by Chronos partial support with Go's features so this number will increase in the future. 
+Also, it lacked due to his static nature where context/path/flow sensitivity was required.
 
-
+Therefore, I suggest using both according the strengths and weaknesses of each of the race detectors.
 ## Credits:
 Jan Wen, J., Jhala, R., &amp; Lerner, S. (n.d.). RELAY: Static Race Detection on Millions of Lines of Code. Retrieved from https://cseweb.ucsd.edu/~lerner/papers/relay.pdf
 
