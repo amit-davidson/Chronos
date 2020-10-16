@@ -2,14 +2,19 @@
 	"Lockset": {
 		"ExistingLocks": {},
 		"ExistingUnlocks": {
-			"1829643": 1829769
+			"1829644": {
+				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go",
+				"Offset": 216,
+				"Line": 19,
+				"Column": 21
+			}
 		}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": 1829680,
-			"Value": 1829677,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:13:16",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:13:13",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -24,8 +29,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": 1829680,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:13:16",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -40,8 +45,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": 0,
-			"Value": 1829680,
+			"Pos": "-",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:13:16",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -56,8 +61,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": 1829824,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:24:4",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -73,8 +78,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": 1829824,
-			"Value": 1829604,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:24:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:8:5",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -90,12 +95,17 @@
 		},
 		{
 			"ID": 6,
-			"Pos": 1829743,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:18:3",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1829643": 1829738
+					"1829644": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go",
+						"Offset": 185,
+						"Line": 17,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},
@@ -108,12 +118,17 @@
 		},
 		{
 			"ID": 7,
-			"Pos": 1829743,
-			"Value": 1829604,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:18:3",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:8:5",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1829643": 1829738
+					"1829644": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go",
+						"Offset": 185,
+						"Line": 17,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},

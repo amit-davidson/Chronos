@@ -181,7 +181,7 @@ func TestGetFunctionSummary(t *testing.T) {
 			domain.GuardedAccessCounter.Reset()
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
-			testresult := testutils.TestResult{Lockset: functionState.Lockset, GuardedAccess: functionState.GuardedAccesses}
+			testresult := testutils.NewTestResult(functionState.Lockset, functionState.GuardedAccesses)
 			dump, err := json.MarshalIndent(testresult, "", "\t")
 			require.NoError(t, err)
 			if shouldUpdateAll == updateAll || shouldUpdateAll == testSelective && tc.shouldUpdate {

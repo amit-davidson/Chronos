@@ -1,23 +1,48 @@
 {
 	"Lockset": {
 		"ExistingLocks": {
-			"1598561": 1598611
+			"1598561": {
+				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+				"Offset": 136,
+				"Line": 13,
+				"Column": 13
+			}
 		},
 		"ExistingUnlocks": {
-			"1598523": 1598722,
-			"1598646": 1598705
+			"1598523": {
+				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+				"Offset": 247,
+				"Line": 24,
+				"Column": 15
+			},
+			"1598646": {
+				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+				"Offset": 230,
+				"Line": 23,
+				"Column": 15
+			}
 		}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": 1598615,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:14:2",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598523": 1598596,
-					"1598561": 1598611
+					"1598523": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 121,
+						"Line": 12,
+						"Column": 13
+					},
+					"1598561": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 136,
+						"Line": 13,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},
@@ -30,13 +55,23 @@
 		},
 		{
 			"ID": 2,
-			"Pos": 1598615,
-			"Value": 1598513,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:14:2",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:7:5",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598523": 1598596,
-					"1598561": 1598611
+					"1598523": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 121,
+						"Line": 12,
+						"Column": 13
+					},
+					"1598561": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 136,
+						"Line": 13,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},
@@ -49,12 +84,17 @@
 		},
 		{
 			"ID": 3,
-			"Pos": 1598685,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:22:2",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598646": 1598681
+					"1598646": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 206,
+						"Line": 21,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},
@@ -67,12 +107,17 @@
 		},
 		{
 			"ID": 4,
-			"Pos": 1598685,
-			"Value": 1598513,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:22:2",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go:7:5",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598646": 1598681
+					"1598646": {
+						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/NestedFunctions/prog1.go",
+						"Offset": 206,
+						"Line": 21,
+						"Column": 13
+					}
 				},
 				"ExistingUnlocks": {}
 			},

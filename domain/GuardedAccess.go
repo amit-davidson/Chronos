@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"encoding/json"
 	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"go/types"
@@ -34,30 +33,6 @@ type GuardedAccess struct {
 	State      *Context
 	Lockset    *Lockset
 	OpKind     OpKind
-}
-
-type GuardedAccessJSON struct {
-	ID          int
-	Pos         token.Pos
-	Value       int
-	OpKind      OpKind
-	LocksetJson *LocksetJson
-	State       *ContextJSON
-}
-
-func (ga *GuardedAccess) ToJSON() GuardedAccessJSON {
-	dumpJson := GuardedAccessJSON{}
-	dumpJson.ID = ga.ID
-	dumpJson.Pos = ga.Pos
-	dumpJson.Value = int(ga.Value.Pos())
-	dumpJson.OpKind = ga.OpKind
-	dumpJson.LocksetJson = ga.Lockset.ToJSON()
-	dumpJson.State = ga.State.ToJSON()
-	return dumpJson
-}
-func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
-	dump, err := json.Marshal(ga.ToJSON())
-	return dump, err
 }
 
 func FilterStructs(valueA, valueB ssa.Value) bool {

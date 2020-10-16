@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": 2961402,
-			"Value": 2961402,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -23,8 +23,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": 2961402,
-			"Value": 2961428,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:30",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -40,8 +40,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": 2961402,
-			"Value": 2961402,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:12:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -57,8 +57,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": 0,
-			"Value": 2961469,
+			"Pos": "-",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:15:7",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -74,8 +74,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": 0,
-			"Value": 2961469,
+			"Pos": "-",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:15:7",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -91,8 +91,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": 2961568,
-			"Value": 2961469,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:6",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:15:7",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -109,8 +109,8 @@
 		},
 		{
 			"ID": 7,
-			"Pos": 2961570,
-			"Value": 2961570,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:8",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:8",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -127,8 +127,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": 2961570,
-			"Value": 2961570,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:8",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:8",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -145,8 +145,8 @@
 		},
 		{
 			"ID": 9,
-			"Pos": 2961575,
-			"Value": 2961570,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:13",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:8",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -163,8 +163,8 @@
 		},
 		{
 			"ID": 10,
-			"Pos": 2961575,
-			"Value": 2961617,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:13",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:55",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -181,8 +181,8 @@
 		},
 		{
 			"ID": 11,
-			"Pos": 0,
-			"Value": 2961575,
+			"Pos": "-",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:19:13",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -199,8 +199,8 @@
 		},
 		{
 			"ID": 12,
-			"Pos": 0,
-			"Value": 2961675,
+			"Pos": "-",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceProperty/prog1.go:20:54",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -217,8 +217,8 @@
 		},
 		{
 			"ID": 13,
-			"Pos": 0,
-			"Value": 0,
+			"Pos": "-",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -235,8 +235,8 @@
 		},
 		{
 			"ID": 14,
-			"Pos": 0,
-			"Value": 0,
+			"Pos": "-",
+			"Value": "-",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},

@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": 119,
-			"Value": 119,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:12:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:12:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -23,8 +23,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": 119,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:12:4",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -40,8 +40,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": 119,
-			"Value": 119,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:12:4",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:12:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -57,8 +57,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": 222,
-			"Value": 222,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -73,8 +73,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": 222,
-			"Value": 0,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Value": "-",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -89,8 +89,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": 222,
-			"Value": 222,
+			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
