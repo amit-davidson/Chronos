@@ -1,11 +1,11 @@
 package e2e_tests
 
 import (
-	"Chronos/domain"
-	"Chronos/e2e-tests/testutils"
-	"Chronos/pointerAnalysis"
-	"Chronos/ssaUtils"
-	"Chronos/utils"
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
+	"github.com/amit-davidson/Chronos/pointerAnalysis"
+	"github.com/amit-davidson/Chronos/ssaUtils"
+	"github.com/amit-davidson/Chronos/utils"
 	"encoding/json"
 	"fmt"
 	"github.com/stretchr/testify/require"

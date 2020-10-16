@@ -1,8 +1,8 @@
 package domain
 
 import (
-	"Chronos/utils"
 	"encoding/json"
+	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"go/types"
 	"golang.org/x/tools/go/ssa"

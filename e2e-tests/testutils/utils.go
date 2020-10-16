@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"Chronos/domain"
-	"Chronos/utils"
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/utils"
 	"encoding/json"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

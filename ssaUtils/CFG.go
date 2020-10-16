@@ -1,7 +1,7 @@
 package ssaUtils
 
 import (
-	"Chronos/domain"
+	"github.com/amit-davidson/Chronos/domain"
 	"golang.org/x/tools/go/ssa"
 )
 

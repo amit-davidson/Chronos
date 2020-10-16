@@ -1,9 +1,9 @@
 package ssaUtils
 
 import (
-	"Chronos/domain"
 	"errors"
 	"fmt"
+	"github.com/amit-davidson/Chronos/domain"
 	"go/token"
 	"go/types"
 	"golang.org/x/tools/go/packages"

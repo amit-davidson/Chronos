@@ -1,11 +1,11 @@
 package main
 
 import (
-	"Chronos/domain"
-	"Chronos/pointerAnalysis"
-	"Chronos/ssaUtils"
 	"flag"
 	"fmt"
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/pointerAnalysis"
+	"github.com/amit-davidson/Chronos/ssaUtils"
 	"golang.org/x/tools/go/ssa"
 	"os"
 )

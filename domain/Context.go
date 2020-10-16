@@ -1,6 +1,6 @@
 package domain
 
-import "Chronos/utils"
+import "github.com/amit-davidson/Chronos/utils"
 
 type Context struct {
 	GoroutineID int

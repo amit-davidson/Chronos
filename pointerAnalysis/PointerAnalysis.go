@@ -1,10 +1,10 @@
 package pointerAnalysis
 
 import (
-	"Chronos/domain"
-	"Chronos/ssaUtils"
-	"Chronos/utils"
 	"fmt"
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/ssaUtils"
+	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"golang.org/x/tools/go/pointer"
 	"golang.org/x/tools/go/ssa"
