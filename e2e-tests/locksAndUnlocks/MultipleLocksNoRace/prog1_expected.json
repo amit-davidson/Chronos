@@ -2,19 +2,14 @@
 	"Lockset": {
 		"ExistingLocks": {},
 		"ExistingUnlocks": {
-			"1598527": {
-				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-				"Offset": 158,
-				"Line": 14,
-				"Column": 18
-			}
+			"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:14:18"
 		}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -29,8 +24,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -45,8 +40,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:10:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:10:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -61,8 +56,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:12",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:12",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -77,8 +72,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -93,17 +88,12 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:15:3",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:15:3",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 138,
-						"Line": 13,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:13:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -117,17 +107,12 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:15:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:15:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 138,
-						"Line": 13,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:13:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -141,17 +126,12 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:16:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:16:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 138,
-						"Line": 13,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:13:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -165,17 +145,12 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:20:3",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:20:3",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 209,
-						"Line": 19,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:19:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -189,17 +164,12 @@
 		},
 		{
 			"ID": 10,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:20:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:20:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:9:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 209,
-						"Line": 19,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:19:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -213,18 +183,13 @@
 		},
 		{
 			"ID": 11,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:22:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:22:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {
-					"1598527": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go",
-						"Offset": 231,
-						"Line": 21,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:21:12"
 				}
 			},
 			"State": {
@@ -237,8 +202,8 @@
 		},
 		{
 			"ID": 12,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -253,8 +218,8 @@
 		},
 		{
 			"ID": 13,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:24:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -269,8 +234,8 @@
 		},
 		{
 			"ID": 14,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:11:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -285,8 +250,8 @@
 		},
 		{
 			"ID": 15,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:25:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

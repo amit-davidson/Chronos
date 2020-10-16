@@ -1,27 +1,17 @@
 {
 	"Lockset": {
 		"ExistingLocks": {
-			"1598654": {
-				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-				"Offset": 210,
-				"Line": 17,
-				"Column": 10
-			}
+			"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 		},
 		"ExistingUnlocks": {
-			"1598549": {
-				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-				"Offset": 243,
-				"Line": 20,
-				"Column": 11
-			}
+			"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:20:11"
 		}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:12",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:12",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -36,8 +26,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -52,8 +42,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -68,8 +58,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -84,8 +74,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:9:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:9:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -100,17 +90,12 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:12:3",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:12:3",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598549": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 125,
-						"Line": 11,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:11:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -124,17 +109,12 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:12:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:12:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598549": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 125,
-						"Line": 11,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:11:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -148,18 +128,13 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:14:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:14:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {
-					"1598549": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 148,
-						"Line": 13,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:13:12"
 				}
 			},
 			"State": {
@@ -172,17 +147,12 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:18:3",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:18:3",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598654": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 210,
-						"Line": 17,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -195,17 +165,12 @@
 		},
 		{
 			"ID": 10,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:19:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:19:3",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598654": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 210,
-						"Line": 17,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -218,17 +183,12 @@
 		},
 		{
 			"ID": 11,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:8:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598654": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 210,
-						"Line": 17,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -241,25 +201,15 @@
 		},
 		{
 			"ID": 12,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:6:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598654": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 210,
-						"Line": 17,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 				},
 				"ExistingUnlocks": {
-					"1598549": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 243,
-						"Line": 20,
-						"Column": 11
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:20:11"
 				}
 			},
 			"State": {
@@ -271,25 +221,15 @@
 		},
 		{
 			"ID": 13,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:21:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598654": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 210,
-						"Line": 17,
-						"Column": 10
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:16:11": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:17:10"
 				},
 				"ExistingUnlocks": {
-					"1598549": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go",
-						"Offset": 243,
-						"Line": 20,
-						"Column": 11
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:7:6": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceFuncUnlock/prog1.go:20:11"
 				}
 			},
 			"State": {

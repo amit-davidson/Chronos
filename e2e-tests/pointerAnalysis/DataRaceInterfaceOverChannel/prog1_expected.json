@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:26:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:22:5",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:26:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:22:5",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,8 +22,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:12",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:22:5",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:12",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:22:5",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -39,8 +39,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:10",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:12",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:18:12",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -56,8 +56,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -73,8 +73,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -90,8 +90,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -107,8 +107,8 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -123,8 +123,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -139,8 +139,8 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},

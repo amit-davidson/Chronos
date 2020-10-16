@@ -38,10 +38,6 @@ type GuardedAccess struct {
 func FilterStructs(valueA, valueB ssa.Value) bool {
 	fieldAddrA, okA := valueA.(*ssa.FieldAddr)
 	fieldAddrB, okB := valueB.(*ssa.FieldAddr)
-	//isOnlyOneField := okA && !okB || okB && !okA
-	//if isOnlyOneField { // If a field points to a struct
-	//	return true
-	//}
 
 	isBothField := okA && okB
 	if isBothField {

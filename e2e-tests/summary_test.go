@@ -20,9 +20,9 @@ const (
 	testSelective
 )
 
-var shouldUpdateAll = testSelective
+var shouldUpdateAll = updateAll
 
-func TestGetFunctionSummary(t *testing.T) {
+func TestE2E(t *testing.T) {
 	var testCases = []struct {
 		name         string
 		testPath     string

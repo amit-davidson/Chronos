@@ -1,29 +1,19 @@
 {
 	"Lockset": {
 		"ExistingLocks": {
-			"1598767": {
-				"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-				"Offset": 205,
-				"Line": 19,
-				"Column": 12
-			}
+			"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 		},
 		"ExistingUnlocks": {}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -36,17 +26,12 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -59,17 +44,12 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -82,17 +62,12 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 264,
-						"Line": 24,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:24:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -105,17 +80,12 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 264,
-						"Line": 24,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:24:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -128,17 +98,12 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 264,
-						"Line": 24,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:24:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -151,17 +116,12 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -174,17 +134,12 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -197,17 +152,12 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"1598767": {
-						"Filename": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go",
-						"Offset": 205,
-						"Line": 19,
-						"Column": 12
-					}
+					"github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:28:5": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:19:12"
 				},
 				"ExistingUnlocks": {}
 			},

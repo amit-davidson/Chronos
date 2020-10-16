@@ -22,7 +22,11 @@ func main() {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-	ssaUtils.SetGlobals(ssaProg, ssaPkg)
+	err = ssaUtils.SetGlobals(ssaProg, ssaPkg)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
 	entryFunc := ssaPkg.Func("main")
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}

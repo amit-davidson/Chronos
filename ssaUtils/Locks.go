@@ -2,14 +2,14 @@ package ssaUtils
 
 import (
 	"github.com/amit-davidson/Chronos/domain"
+	"go/token"
 	"golang.org/x/tools/go/ssa"
-	"strconv"
 )
 
 func AddLock(funcState *domain.FunctionState, call *ssa.CallCommon, isUnlock bool) {
 	receiver := call.Args[0]
-	LockName := strconv.Itoa(int(receiver.Pos()))
-	lock := map[string]*ssa.CallCommon{LockName: call}
+	LockName := receiver.Pos()
+	lock := map[token.Pos]*ssa.CallCommon{LockName: call}
 	if isUnlock {
 		funcState.Lockset.UpdateLockSet(nil, lock)
 	} else {

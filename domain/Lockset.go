@@ -1,23 +1,25 @@
 package domain
 
 import (
+	"go/token"
 	"golang.org/x/tools/go/ssa"
 )
+type locksLasUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
-	ExistingLocks   map[string]*ssa.CallCommon
-	ExistingUnlocks map[string]*ssa.CallCommon
+	ExistingLocks   locksLasUse
+	ExistingUnlocks locksLasUse
 }
 
 
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(map[string]*ssa.CallCommon, 0),
-		ExistingUnlocks: make(map[string]*ssa.CallCommon, 0),
+		ExistingLocks:   make(locksLasUse, 0),
+		ExistingUnlocks: make(locksLasUse, 0),
 	}
 }
 
-func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon) {
+func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
 	if newLocks != nil {
 		for lockName, lock := range newLocks {
 			ls.ExistingLocks[lockName] = lock
@@ -56,12 +58,12 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(map[string]*ssa.CallCommon)
+	newLocks := make(locksLasUse)
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
 	}
 	newLs.ExistingLocks = newLocks
-	newUnlocks := make(map[string]*ssa.CallCommon)
+	newUnlocks := make(locksLasUse)
 	for key, value := range ls.ExistingUnlocks {
 		newUnlocks[key] = value
 	}
@@ -70,8 +72,8 @@ func (ls *Lockset) Copy() *Lockset {
 }
 
 
-func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
+func Intersect(mapA, mapB locksLasUse) locksLasUse {
+	i := make(locksLasUse)
 	for a := range mapA {
 		for b := range mapB {
 			if a == b {
@@ -82,8 +84,8 @@ func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon
 	return i
 }
 
-func Union(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
+func Union(mapA, mapB locksLasUse) locksLasUse {
+	i := make(locksLasUse)
 	for a := range mapA {
 		i[a] = mapA[a]
 	}

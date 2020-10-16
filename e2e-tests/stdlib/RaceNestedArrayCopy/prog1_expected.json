@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:12",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:12",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,8 +22,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -38,8 +38,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -55,8 +55,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:7",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:7",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -72,8 +72,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:10",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:7",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:7",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -89,8 +89,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:13",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:10",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:13",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:10",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -106,8 +106,8 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:16",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:13",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:16",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:13",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -123,8 +123,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:19",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:16",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:19",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:16",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -140,8 +140,8 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:22",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:19",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:22",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:19",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -157,8 +157,8 @@
 		},
 		{
 			"ID": 10,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:25",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:22",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:25",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:22",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -174,8 +174,8 @@
 		},
 		{
 			"ID": 11,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:28",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:25",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:28",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:25",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -191,8 +191,8 @@
 		},
 		{
 			"ID": 12,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:31",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:28",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:31",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:28",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -208,8 +208,8 @@
 		},
 		{
 			"ID": 13,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:34",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:31",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:34",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:31",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -225,8 +225,8 @@
 		},
 		{
 			"ID": 14,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:37",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:34",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:37",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:34",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -242,8 +242,8 @@
 		},
 		{
 			"ID": 15,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:40",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:37",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:40",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:37",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -259,8 +259,8 @@
 		},
 		{
 			"ID": 16,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:43",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:40",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:43",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:40",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -276,8 +276,8 @@
 		},
 		{
 			"ID": 17,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:46",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:43",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:46",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:43",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -293,8 +293,8 @@
 		},
 		{
 			"ID": 18,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:49",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:46",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:49",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:46",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -310,8 +310,8 @@
 		},
 		{
 			"ID": 19,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:52",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:49",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:52",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:49",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -327,8 +327,8 @@
 		},
 		{
 			"ID": 20,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:55",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:52",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:55",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:52",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -344,8 +344,8 @@
 		},
 		{
 			"ID": 21,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:58",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:55",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:58",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:55",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -361,8 +361,8 @@
 		},
 		{
 			"ID": 22,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:61",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:58",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:61",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:58",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -378,8 +378,8 @@
 		},
 		{
 			"ID": 23,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -395,8 +395,8 @@
 		},
 		{
 			"ID": 24,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -412,8 +412,8 @@
 		},
 		{
 			"ID": 25,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:17:65",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -429,8 +429,8 @@
 		},
 		{
 			"ID": 26,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:18:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:18:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -446,8 +446,8 @@
 		},
 		{
 			"ID": 27,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:6",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:9",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:9",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -462,8 +462,8 @@
 		},
 		{
 			"ID": 28,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -478,8 +478,8 @@
 		},
 		{
 			"ID": 29,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:20:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:15:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -494,8 +494,8 @@
 		},
 		{
 			"ID": 30,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:8:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -510,8 +510,8 @@
 		},
 		{
 			"ID": 31,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/RaceNestedArrayCopy/prog1.go:21:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

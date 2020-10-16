@@ -3,9 +3,15 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.14.2
+      - image: circleci/golang:1.15
     working_directory: /go/src/github.com/amit-davison/Chronos
     steps:
       - checkout
-      - run: go get -v -t -d ./...
-      - run: go test -v ./...
+      - run:
+          name: Install dependencies
+          command: |
+            go get -v -t -d ./...
+      - run:
+          name: Run tests
+          command: |
+            go test -v e2e-tests/summary_test.go
