@@ -7,6 +7,7 @@
 [![made-with-Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg)](http://golang.org)
 [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![amit-davidson](https://circleci.com/github.com/amit-davidson/Chronos.svg?style=svg)](https://app.circleci.com/pipelines/github/amit-davidson/Chronos)
 
 Chronos is a static race detector for the golang language written in golang.
 
