@@ -38,7 +38,7 @@ Support:
 - Synchronization using mutex and goroutines starts.
 
 Limitations:
-- Big programs. (Due to stack overflow)
+- Big programs and external packages. (Due to stack overflow)
 - Analysis of panics, for loops, goto, recursion, and select.
 - Synchronization using channels, waitgroups, once, cond and atomic.
 

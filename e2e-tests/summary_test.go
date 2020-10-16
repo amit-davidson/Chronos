@@ -173,7 +173,7 @@ func TestGetFunctionSummary(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
-			ssaUtils.SetGlobalProgram(ssaProg)
+			ssaUtils.SetGlobals(ssaProg, ssaPkg)
 
 			entryFunc := ssaPkg.Func("main")
 

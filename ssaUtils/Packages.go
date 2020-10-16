@@ -9,10 +9,13 @@ import (
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/ssa/ssautil"
+	"os"
 	"sort"
+	"strings"
 )
 
 var GlobalProgram *ssa.Program
+var GlobalPackage *ssa.Package
 
 var typesCache = make(map[*types.Interface][]*ssa.Function, 0)
 
@@ -33,8 +36,15 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	ssaPkg := ssaPkgs[0]
 	return ssaProg, ssaPkg, nil
 }
-func SetGlobalProgram(prog *ssa.Program) () {
+func SetGlobals(prog *ssa.Program, pkg *ssa.Package) () {
 	GlobalProgram = prog
+	GlobalPackage = pkg
+}
+
+func GetTopLevelPackageName() string {
+	pkgName := GlobalPackage.Pkg.Path()
+	topLevelPackage := strings.Split(pkgName, string(os.PathSeparator))[0]
+	return topLevelPackage
 }
 
 func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {

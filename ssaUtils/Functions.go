@@ -166,7 +166,7 @@ func HandleFunction(Context *domain.Context, fn *ssa.Function) *domain.FunctionS
 		return funcState
 	}
 	pkgName := fn.Pkg.Pkg.Path()                // Used to guard against entering standard library packages
-	packageToCheck := utils.GetTopPackageName() // The top package of the code. Any function under it is ok.
+	packageToCheck := GetTopLevelPackageName() // The top package of the code. Any function under it is ok.
 	if !strings.Contains(pkgName, packageToCheck) {
 		return funcState
 	}
