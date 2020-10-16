@@ -50,7 +50,7 @@ func GetTopLevelPackageName(pkg *ssa.Package) (string, error){
 	pkgName := pkg.Pkg.Path()
 	r := strings.SplitAfterN(pkgName, string(os.PathSeparator), 4)
 	if len(r) < 3 {
-		return "", errors.New("package should be provided in the following format:{host}/{organization}/{package}")
+		return "", errors.New("package should be provided in the following format:{VCS}/{organization}/{package}")
 	}
 	topLevelPackage := r[0] + r[1] + r[2]
 	return topLevelPackage, nil

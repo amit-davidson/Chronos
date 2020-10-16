@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,8 +22,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -38,8 +38,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:17:4",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},

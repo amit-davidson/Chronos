@@ -1,13 +1,13 @@
 package e2e_tests
 
 import (
+	"encoding/json"
+	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
-	"encoding/json"
-	"fmt"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"
 	"os"
@@ -20,9 +20,9 @@ const (
 	testSelective
 )
 
-var shouldUpdateAll = testSelective
+var shouldUpdateAll = updateAll
 
-func TestGetFunctionSummary(t *testing.T) {
+func TestE2E(t *testing.T) {
 	var testCases = []struct {
 		name         string
 		testPath     string

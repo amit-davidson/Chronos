@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,8 +22,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -38,8 +38,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "-",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -54,8 +54,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -70,8 +70,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -86,8 +86,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "-",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

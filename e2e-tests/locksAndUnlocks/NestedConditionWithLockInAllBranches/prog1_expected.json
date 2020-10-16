@@ -8,8 +8,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:13",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:13",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -24,8 +24,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -40,8 +40,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "-",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:12:16",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -56,8 +56,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:14",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:14",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -72,8 +72,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -88,8 +88,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "-",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:13:17",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -104,8 +104,8 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:2",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:8:5",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:8:5",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
@@ -122,8 +122,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:3",
-			"Value": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
@@ -140,8 +140,8 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "/Users/amdavidson/dev/go/src/github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:3",
-			"Value": "-",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go:21:3",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
