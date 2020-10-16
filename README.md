@@ -9,7 +9,7 @@
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![amit-davidson](https://circleci.com/gh/amit-davidson/Chronos.svg?style=svg)](https://app.circleci.com/pipelines/github/amit-davidson/Chronos)
 
-Chronos is a static race detector for the golang language written in golang.
+Chronos is a static race detector for the Go language written in Go.
 
 ## Quick Start:
 Download the package
