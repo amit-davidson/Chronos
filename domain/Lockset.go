@@ -1,29 +1,25 @@
 package domain
 
 import (
-	"encoding/json"
+	"go/token"
 	"golang.org/x/tools/go/ssa"
 )
+type locksLasUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
-	ExistingLocks   map[string]*ssa.CallCommon
-	ExistingUnlocks map[string]*ssa.CallCommon
+	ExistingLocks   locksLasUse
+	ExistingUnlocks locksLasUse
 }
 
-// Lockset name ans pos
-type LocksetJson struct {
-	ExistingLocks   map[string]int
-	ExistingUnlocks map[string]int
-}
 
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(map[string]*ssa.CallCommon, 0),
-		ExistingUnlocks: make(map[string]*ssa.CallCommon, 0),
+		ExistingLocks:   make(locksLasUse, 0),
+		ExistingUnlocks: make(locksLasUse, 0),
 	}
 }
 
-func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks map[string]*ssa.CallCommon) {
+func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
 	if newLocks != nil {
 		for lockName, lock := range newLocks {
 			ls.ExistingLocks[lockName] = lock
@@ -62,12 +58,12 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(map[string]*ssa.CallCommon)
+	newLocks := make(locksLasUse)
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
 	}
 	newLs.ExistingLocks = newLocks
-	newUnlocks := make(map[string]*ssa.CallCommon)
+	newUnlocks := make(locksLasUse)
 	for key, value := range ls.ExistingUnlocks {
 		newUnlocks[key] = value
 	}
@@ -75,23 +71,9 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func (ls *Lockset) ToJSON() *LocksetJson {
-	dumpJson := &LocksetJson{ExistingLocks: make(map[string]int, 0), ExistingUnlocks: make(map[string]int, 0)}
-	for lockName, lock := range ls.ExistingLocks {
-		dumpJson.ExistingLocks[lockName] = int(lock.Pos())
-	}
-	for lockName, lock := range ls.ExistingUnlocks {
-		dumpJson.ExistingUnlocks[lockName] = int(lock.Pos())
-	}
-	return dumpJson
-}
-func (ls *Lockset) MarshalJSON() ([]byte, error) {
-	dump, err := json.Marshal(ls.ToJSON())
-	return dump, err
-}
 
-func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
+func Intersect(mapA, mapB locksLasUse) locksLasUse {
+	i := make(locksLasUse)
 	for a := range mapA {
 		for b := range mapB {
 			if a == b {
@@ -102,8 +84,8 @@ func Intersect(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon
 	return i
 }
 
-func Union(mapA, mapB map[string]*ssa.CallCommon) map[string]*ssa.CallCommon {
-	i := make(map[string]*ssa.CallCommon)
+func Union(mapA, mapB locksLasUse) locksLasUse {
+	i := make(locksLasUse)
 	for a := range mapA {
 		i[a] = mapA[a]
 	}

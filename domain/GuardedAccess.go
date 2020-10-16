@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"encoding/json"
 	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"go/types"
@@ -36,37 +35,9 @@ type GuardedAccess struct {
 	OpKind     OpKind
 }
 
-type GuardedAccessJSON struct {
-	ID          int
-	Pos         token.Pos
-	Value       int
-	OpKind      OpKind
-	LocksetJson *LocksetJson
-	State       *ContextJSON
-}
-
-func (ga *GuardedAccess) ToJSON() GuardedAccessJSON {
-	dumpJson := GuardedAccessJSON{}
-	dumpJson.ID = ga.ID
-	dumpJson.Pos = ga.Pos
-	dumpJson.Value = int(ga.Value.Pos())
-	dumpJson.OpKind = ga.OpKind
-	dumpJson.LocksetJson = ga.Lockset.ToJSON()
-	dumpJson.State = ga.State.ToJSON()
-	return dumpJson
-}
-func (ga *GuardedAccess) MarshalJSON() ([]byte, error) {
-	dump, err := json.Marshal(ga.ToJSON())
-	return dump, err
-}
-
 func FilterStructs(valueA, valueB ssa.Value) bool {
 	fieldAddrA, okA := valueA.(*ssa.FieldAddr)
 	fieldAddrB, okB := valueB.(*ssa.FieldAddr)
-	//isOnlyOneField := okA && !okB || okB && !okA
-	//if isOnlyOneField { // If a field points to a struct
-	//	return true
-	//}
 
 	isBothField := okA && okB
 	if isBothField {

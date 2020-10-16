@@ -15,7 +15,7 @@ import (
 )
 
 var GlobalProgram *ssa.Program
-var GlobalPackage *ssa.Package
+var GlobalPackageName string
 
 var typesCache = make(map[*types.Interface][]*ssa.Function, 0)
 
@@ -36,15 +36,24 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	ssaPkg := ssaPkgs[0]
 	return ssaProg, ssaPkg, nil
 }
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package) () {
+func SetGlobals(prog *ssa.Program, pkg *ssa.Package) error {
+	var retError error
 	GlobalProgram = prog
-	GlobalPackage = pkg
+	GlobalPackageName, retError = GetTopLevelPackageName(pkg)
+	if retError != nil {
+		return retError
+	}
+	return nil
 }
 
-func GetTopLevelPackageName() string {
-	pkgName := GlobalPackage.Pkg.Path()
-	topLevelPackage := strings.Split(pkgName, string(os.PathSeparator))[0]
-	return topLevelPackage
+func GetTopLevelPackageName(pkg *ssa.Package) (string, error){
+	pkgName := pkg.Pkg.Path()
+	r := strings.SplitAfterN(pkgName, string(os.PathSeparator), 4)
+	if len(r) < 3 {
+		return "", errors.New("package should be provided in the following format:{host}/{organization}/{package}")
+	}
+	topLevelPackage := r[0] + r[1] + r[2]
+	return topLevelPackage, nil
 }
 
 func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {

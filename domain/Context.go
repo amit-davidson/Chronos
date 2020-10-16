@@ -8,11 +8,6 @@ type Context struct {
 	StackTrace  *utils.Stack
 }
 
-type ContextJSON struct {
-	GoroutineID int
-	Clock       VectorClock
-}
-
 var GoroutineCounter = utils.NewCounter()
 
 func NewEmptyContext() *Context {
@@ -47,11 +42,4 @@ func (gs *Context) MayConcurrent(state *Context) bool {
 }
 func (gs *Context) Copy() *Context {
 	return &Context{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy(), StackTrace: gs.StackTrace}
-}
-
-func (gs *Context) ToJSON() *ContextJSON {
-	dumpJson := ContextJSON{}
-	dumpJson.GoroutineID = gs.GoroutineID
-	dumpJson.Clock = gs.Clock
-	return &dumpJson
 }
