@@ -51,7 +51,8 @@ Also, it lacked due to his static nature where context/path/flow sensitivity was
 
 Therefore, I suggest using both according the strengths and weaknesses of each of the race detectors.
 ## Credits:
-Jan Wen, J., Jhala, R., &amp; Lerner, S. (n.d.). RELAY: Static Race Detection on Millions of Lines of Code. Retrieved from https://cseweb.ucsd.edu/~lerner/papers/relay.pdf
+Jan Wen, J., Jhala, R., &amp; Lerner, S. (n.d.). [RELAY: Static Race Detection on Millions of Lines of Code](https://cseweb.ucsd.edu/~lerner/papers/relay.pdf).
+Colin J. Fidge (February 1988). ["Timestamps in Message-Passing Systems That Preserve the Partial Ordering"](http://zoo.cs.yale.edu/classes/cs426/2012/lab/bib/fidge88timestamps.pdf)
 
 ## More examples:
 <p float="left">
