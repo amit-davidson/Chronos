@@ -20,9 +20,9 @@ Compile the program
 cd cmd && go build -o chronos
 ```
 
-Pass the program entry point - main.go
+Pass the entry point
 ```
-chronos --file <main_path>
+chronos --file <path_to_main>
 ```
 
 ## Example:
