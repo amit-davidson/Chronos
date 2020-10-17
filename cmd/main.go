@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	defaultFile := flag.String("file", "", "The file containing the entry point of the function - main.go")
+	defaultFile := flag.String("file", "", "The file containing the entry point of the program")
 	defaultPkgPath := flag.String("pkg", "", "Path to the to pkg of the file. Tells Chronos where to perform the search. By default, it assumes the file is inside $GOPATH")
 	flag.Parse()
 	if *defaultFile == "" {

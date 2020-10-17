@@ -30,7 +30,7 @@ Help
 ```
 Usage of ./chronos:
   -file string
-    	The file containing the entry point of the function - main.go
+    	The file containing the entry point of the program
   -pkg string
     	Path to the to pkg of the file. Tells Chronos where to perform the search. By default, it assumes the file is inside $GOPATH
 ```
