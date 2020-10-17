@@ -26,6 +26,14 @@ Pass the entry point
 chronos --file <path_to_main>
 ```
 
+Help
+```
+Usage of ./chronos:
+  -file string
+    	The file containing the entry point of the function - main.go
+  -pkg string
+    	Path to the to pkg of the file. Tells Chronos where to perform the search. By default, it assumes the file is inside $GOPATH
+```
 ## Example:
 <p float="left">
     <img src="https://i.imgur.com/LJMP9c2.png" width="245" height="300">
