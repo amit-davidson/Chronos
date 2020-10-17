@@ -36,9 +36,14 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	ssaPkg := ssaPkgs[0]
 	return ssaProg, ssaPkg, nil
 }
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package) error {
-	var retError error
+func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
 	GlobalProgram = prog
+	if defaultPkgPath != "" {
+		GlobalPackageName = defaultPkgPath
+		return nil
+	}
+
+	var retError error
 	GlobalPackageName, retError = GetTopLevelPackageName(pkg)
 	if retError != nil {
 		return retError

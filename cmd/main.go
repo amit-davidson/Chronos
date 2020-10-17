@@ -11,18 +11,19 @@ import (
 )
 
 func main() {
-	file := flag.String("file", "", "The file containing the entry point of the function - main.go")
+	defaultFile := flag.String("file", "", "The file containing the entry point of the function - main.go")
+	defaultPkgPath := flag.String("pkg", "", "Path to the to pkg of the file. Tells Chronos where to perform the search. By default, the it assumes the file is inside $GOPATH")
 	flag.Parse()
-	if *file == "" {
+	if *defaultFile == "" {
 		fmt.Printf("Please provide a file to load\n")
 		os.Exit(1)
 	}
-	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*file)
+	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile)
 	if err != nil {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-	err = ssaUtils.SetGlobals(ssaProg, ssaPkg)
+	err = ssaUtils.SetGlobals(ssaProg, ssaPkg, *defaultPkgPath)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
