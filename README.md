@@ -28,8 +28,8 @@ chronos --file <path_to_main>
 
 ## Example:
 <p float="left">
-    <img src="https://i.imgur.com/LJMP9c2.png" width="260" height="300">
-    <img src="https://i.imgur.com/tWIRIER.png" width="543" height="300">
+    <img src="https://i.imgur.com/LJMP9c2.png" width="245" height="300">
+    <img src="https://i.imgur.com/S2mDG7A.png" width="575" height="300">
 </p>
 
 ## Features:
@@ -57,12 +57,12 @@ Colin J. Fidge (February 1988). [Timestamps in Message-Passing Systems That Pres
 
 ## More examples:
 <p float="left">
-    <img src="https://i.imgur.com/NvVWFRf.png" width="260" height="450">
-    <img src="https://i.imgur.com/VdP7r8B.png" width="543" height="330">
+    <img src="https://i.imgur.com/NvVWFRf.png" width="230" height="440">
+    <img src="https://i.imgur.com/eCNFAX7.png" width=600" height="300">
 </p>
 <hr style="border:2px solid gray"> </hr>
 <p float="left">
-    <img src="https://i.imgur.com/app5tBc.png" width="283" height="450">
-    <img src="https://i.imgur.com/jtiqKaP.png" width="525" height="360">
+    <img src="https://i.imgur.com/app5tBc.png" width="285" height="450">
+    <img src="https://i.imgur.com/Lw0LTPp.png" width="545" height="300">
 </p>
 <hr style="border:2px solid gray"> </hr>
