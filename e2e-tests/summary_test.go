@@ -20,7 +20,7 @@ const (
 	testSelective
 )
 
-var shouldUpdateAll = updateAll
+var shouldUpdateAll = testSelective
 
 func TestE2E(t *testing.T) {
 	var testCases = []struct {
@@ -46,7 +46,7 @@ func TestE2E(t *testing.T) {
 		{name: "DataRaceMap", testPath: "general/DataRaceMap/prog1.go", resPath: "general/DataRaceMap/prog1_expected.json", shouldUpdate: false},
 		//{name: "ForLoop", testPath: "unsupported/ForLoop/prog1.go", resPath: "unsupported/ForLoop/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceShadowedErr", testPath: "general/DataRaceShadowedErr/prog1.go", resPath: "general/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceInterfaceOverChannel", testPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go", resPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1_expected.json", shouldUpdate: true},
+		{name: "DataRaceInterfaceOverChannel", testPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go", resPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceProperty", testPath: "general/DataRaceProperty/prog1.go", resPath: "general/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceWithOnlyAlloc", testPath: "general/DataRaceWithOnlyAlloc/prog1.go", resPath: "general/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},
 		{name: "LockInsideGoroutine", testPath: "locksAndUnlocks/LockInsideGoroutine/prog1.go", resPath: "locksAndUnlocks/LockInsideGoroutine/prog1_expected.json", shouldUpdate: false},
@@ -173,7 +173,10 @@ func TestE2E(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
-			ssaUtils.SetGlobals(ssaProg, ssaPkg)
+
+			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
+			require.NoError(t, err)
+
 
 			entryFunc := ssaPkg.Func("main")
 
