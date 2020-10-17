@@ -4,7 +4,7 @@ jobs:
   build:
     docker:
       - image: circleci/golang:1.15
-    working_directory: /go/src/github.com/amit-davison/Chronos
+    working_directory: /go/src/github.com/amit-davidson/Chronos
     steps:
       - checkout
       - run:
