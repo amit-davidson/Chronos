@@ -14,7 +14,7 @@ Chronos is a static race detector for the Go language written in Go.
 ## Quick Start:
 Download the package
 ```
-go get -u -v github.com/amitdavidson234/Chronos
+go get -u -v github.com/amit-davidson/Chronos
 ```
 Compile the program
 ```
