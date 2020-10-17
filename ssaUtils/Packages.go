@@ -39,7 +39,8 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
 	GlobalProgram = prog
 	if defaultPkgPath != "" {
-		GlobalPackageName = defaultPkgPath
+		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
+
 		return nil
 	}
 
