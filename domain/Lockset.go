@@ -15,8 +15,8 @@ type Lockset struct {
 
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(locksLasUse, 0),
-		ExistingUnlocks: make(locksLasUse, 0),
+		ExistingLocks:   make(locksLasUse),
+		ExistingUnlocks: make(locksLasUse),
 	}
 }
 

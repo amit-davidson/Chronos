@@ -18,7 +18,7 @@ import (
 var GlobalProgram *ssa.Program
 var GlobalPackageName string
 
-var typesCache = make(map[*types.Interface][]*ssa.Function, 0)
+var typesCache = make(map[*types.Interface][]*ssa.Function)
 
 var ErrNoPackages = errors.New("no packages in the path")
 
@@ -98,7 +98,7 @@ func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Functi
 func sortMethodImplementations(methodImplementations []*ssa.Function) []*ssa.Function {
 	posSlice := make([]int, 0)
 	sortedImplementations := make([]*ssa.Function, 0)
-	implMap := make(map[int]*ssa.Function, 0)
+	implMap := make(map[int]*ssa.Function)
 	for _, methodImplementation := range methodImplementations {
 		pos := methodImplementation.Pos()
 		implMap[int(pos)] = methodImplementation
