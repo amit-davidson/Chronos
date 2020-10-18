@@ -2,15 +2,16 @@ package domain
 
 import (
 	"go/token"
+
 	"golang.org/x/tools/go/ssa"
 )
+
 type locksLasUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
 	ExistingLocks   locksLasUse
 	ExistingUnlocks locksLasUse
 }
-
 
 func NewLockset() *Lockset {
 	return &Lockset{
@@ -20,10 +21,8 @@ func NewLockset() *Lockset {
 }
 
 func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
-	if newLocks != nil {
-		for lockName, lock := range newLocks {
-			ls.ExistingLocks[lockName] = lock
-		}
+	for lockName, lock := range newLocks {
+		ls.ExistingLocks[lockName] = lock
 	}
 	for unlockName, _ := range newUnlocks {
 		if _, ok := ls.ExistingLocks[unlockName]; ok {
@@ -70,7 +69,6 @@ func (ls *Lockset) Copy() *Lockset {
 	newLs.ExistingUnlocks = newUnlocks
 	return newLs
 }
-
 
 func Intersect(mapA, mapB locksLasUse) locksLasUse {
 	i := make(locksLasUse)
