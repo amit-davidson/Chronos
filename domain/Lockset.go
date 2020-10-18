@@ -25,11 +25,10 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
 		delete(ls.ExistingLocks, unlockName)
 	}
 
-	if newUnlocks != nil {
-		for unlockName, unlock := range newUnlocks {
-			ls.ExistingUnlocks[unlockName] = unlock
-		}
+	for unlockName, unlock := range newUnlocks {
+		ls.ExistingUnlocks[unlockName] = unlock
 	}
+
 	for lockName, _ := range newLocks {
 		if _, ok := ls.ExistingLocks[lockName]; ok {
 			delete(ls.ExistingUnlocks, lockName)
