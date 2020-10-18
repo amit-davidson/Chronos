@@ -14,7 +14,7 @@ func NewDoubleKeyMap() DoubleKeyMap {
 
 func getHash(num int) uint32 {
 	h := fnv.New32a()
-	h.Write([]byte(strconv.Itoa(num)))
+	_, _ = h.Write([]byte(strconv.Itoa(num)))
 	return h.Sum32()
 }
 
