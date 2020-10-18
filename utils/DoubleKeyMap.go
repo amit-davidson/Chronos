@@ -9,7 +9,7 @@ import (
 type DoubleKeyMap map[uint32]struct{}
 
 func NewDoubleKeyMap() DoubleKeyMap {
-	return make(DoubleKeyMap, 0)
+	return make(DoubleKeyMap)
 }
 
 func getHash(num int) uint32 {
@@ -21,9 +21,8 @@ func getHash(num int) uint32 {
 func calcHash(posA token.Pos, posB token.Pos) uint32 {
 	hashA := getHash(int(posA))
 	hashB := getHash(int(posB))
-	return hashA+hashB
+	return hashA + hashB
 }
-
 
 func (m DoubleKeyMap) Add(posA token.Pos, posB token.Pos) {
 	key := calcHash(posA, posB)
