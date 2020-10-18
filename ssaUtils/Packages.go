@@ -3,21 +3,24 @@ package ssaUtils
 import (
 	"errors"
 	"fmt"
-	"github.com/amit-davidson/Chronos/domain"
 	"go/token"
 	"go/types"
-	"golang.org/x/tools/go/packages"
-	"golang.org/x/tools/go/ssa"
-	"golang.org/x/tools/go/ssa/ssautil"
 	"os"
 	"sort"
 	"strings"
+
+	"github.com/amit-davidson/Chronos/domain"
+	"golang.org/x/tools/go/packages"
+	"golang.org/x/tools/go/ssa"
+	"golang.org/x/tools/go/ssa/ssautil"
 )
 
 var GlobalProgram *ssa.Program
 var GlobalPackageName string
 
 var typesCache = make(map[*types.Interface][]*ssa.Function, 0)
+
+var ErrNoPackages = errors.New("no packages in the path")
 
 func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	conf1 := packages.Config{
@@ -29,13 +32,14 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 		return nil, nil, err
 	}
 	if len(pkgs) == 0 {
-		return nil, nil, errors.New(fmt.Sprintf("Cannot load the given file: %s", path))
+		return nil, nil, fmt.Errorf("%s: %w", path, ErrNoPackages)
 	}
 	ssaProg, ssaPkgs := ssautil.AllPackages(pkgs, 0)
 	ssaProg.Build()
 	ssaPkg := ssaPkgs[0]
 	return ssaProg, ssaPkg, nil
 }
+
 func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
 	GlobalProgram = prog
 	if defaultPkgPath != "" {
@@ -52,7 +56,7 @@ func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) erro
 	return nil
 }
 
-func GetTopLevelPackageName(pkg *ssa.Package) (string, error){
+func GetTopLevelPackageName(pkg *ssa.Package) (string, error) {
 	pkgName := pkg.Pkg.Path()
 	r := strings.SplitAfterN(pkgName, string(os.PathSeparator), 4)
 	if len(r) < 3 {
