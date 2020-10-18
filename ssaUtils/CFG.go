@@ -3,6 +3,7 @@ package ssaUtils
 import (
 	"github.com/amit-davidson/Chronos/domain"
 	"golang.org/x/tools/go/ssa"
+	"strings"
 )
 
 type CFG struct {
@@ -96,6 +97,12 @@ func GetDefersSummary(Context *domain.Context, startBlock *ssa.BasicBlock, defer
 }
 
 func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
+	unsupportedBlocks := []string{"loop", "select"}
+	for _, ub := range unsupportedBlocks {
+		if strings.Contains(block.Comment, ub) {
+			panic("For loops/select statements are not supported") // Can't return in this flow so we panic
+		}
+	}
 	nextBlocks := cfg.getNextBlocks(block)
 	prevBlocks := cfg.getPreviousBlocks(block)
 
