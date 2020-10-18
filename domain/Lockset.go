@@ -41,9 +41,7 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
 
 	for unlockName, _ := range unlocks { // If there's a lock in one branch and an unlock in second, then unlock wins
-		if _, ok := locks[unlockName]; ok {
-			delete(locks, unlockName)
-		}
+		delete(locks, unlockName)
 	}
 	ls.ExistingLocks = locks
 	ls.ExistingUnlocks = unlocks
