@@ -28,13 +28,13 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
 	for lockName, lock := range newLocks {
 		ls.ExistingLocks[lockName] = lock
 	}
-	for unlockName, _ := range newUnlocks {
+	for unlockName := range newUnlocks {
 		delete(ls.ExistingLocks, unlockName)
 	}
 	for unlockName, unlock := range newUnlocks {
 		ls.ExistingUnlocks[unlockName] = unlock
 	}
-	for lockName, _ := range newLocks {
+	for lockName := range newLocks {
 		if _, ok := ls.ExistingLocks[lockName]; ok {
 			delete(ls.ExistingUnlocks, lockName)
 		}
@@ -45,7 +45,8 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
 	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
 
-	for unlockName, _ := range unlocks { // If there's a lock in one branch and an unlock in second, then unlock wins
+	for unlockName := range unlocks {
+		// If there's a lock in one branch and an unlock in second, then unlock wins
 		delete(locks, unlockName)
 	}
 	ls.ExistingLocks = locks
