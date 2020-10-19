@@ -55,12 +55,12 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(locksLasUse)
+	newLocks := make(locksLasUse, len(ls.ExistingLocks))
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
 	}
 	newLs.ExistingLocks = newLocks
-	newUnlocks := make(locksLasUse)
+	newUnlocks := make(locksLasUse, len(ls.ExistingUnlocks))
 	for key, value := range ls.ExistingUnlocks {
 		newUnlocks[key] = value
 	}
@@ -69,7 +69,7 @@ func (ls *Lockset) Copy() *Lockset {
 }
 
 func Intersect(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse)
+	i := make(locksLasUse, min(len(mapA), len(mapB)))
 	for a := range mapA {
 		for b := range mapB {
 			if a == b {
@@ -81,7 +81,7 @@ func Intersect(mapA, mapB locksLasUse) locksLasUse {
 }
 
 func Union(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse)
+	i := make(locksLasUse, max(len(mapA), len(mapB)))
 	for a := range mapA {
 		i[a] = mapA[a]
 	}
@@ -89,4 +89,18 @@ func Union(mapA, mapB locksLasUse) locksLasUse {
 		i[b] = mapB[b]
 	}
 	return i
+}
+
+func max(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
