@@ -21,6 +21,10 @@ func NewLockset() *Lockset {
 }
 
 func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
+	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing, of course).
+	// It means that if a mutex was unlocked at some point but later was locked again,
+	// then its latest status is locked, and the unlock status is removed.
+	// Source: https://github.com/amit-davidson/Chronos/pull/10/files#r507203577
 	for lockName, lock := range newLocks {
 		ls.ExistingLocks[lockName] = lock
 	}
