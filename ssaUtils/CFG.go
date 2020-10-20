@@ -1,9 +1,10 @@
 package ssaUtils
 
 import (
+	"strings"
+
 	"github.com/amit-davidson/Chronos/domain"
 	"golang.org/x/tools/go/ssa"
-	"strings"
 )
 
 type CFG struct {
@@ -19,7 +20,7 @@ type CFG struct {
 
 func newCFG() *CFG {
 	return &CFG{
-		ComputedBlockIDsToSummaries: make(map[int]*domain.FunctionState, 0),
+		ComputedBlockIDsToSummaries: make(map[int]*domain.FunctionState),
 	}
 }
 
@@ -72,7 +73,7 @@ func GetBlocksSummary(Context *domain.Context, startBlock *ssa.BasicBlock) (*dom
 }
 
 func GetDefersSummary(Context *domain.Context, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
-	deferredMap := make(map[int][]*domain.DeferFunction, 0)
+	deferredMap := make(map[int][]*domain.DeferFunction, len(deferredFunctions))
 	for _, block := range deferredFunctions {
 		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
 	}

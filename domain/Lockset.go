@@ -2,8 +2,10 @@ package domain
 
 import (
 	"go/token"
+
 	"golang.org/x/tools/go/ssa"
 )
+
 type locksLasUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
@@ -11,32 +13,28 @@ type Lockset struct {
 	ExistingUnlocks locksLasUse
 }
 
-
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(locksLasUse, 0),
-		ExistingUnlocks: make(locksLasUse, 0),
+		ExistingLocks:   make(locksLasUse),
+		ExistingUnlocks: make(locksLasUse),
 	}
 }
 
 func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
-	if newLocks != nil {
-		for lockName, lock := range newLocks {
-			ls.ExistingLocks[lockName] = lock
-		}
+	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing, of course).
+	// It means that if a mutex was unlocked at some point but later was locked again,
+	// then its latest status is locked, and the unlock status is removed.
+	// Source: https://github.com/amit-davidson/Chronos/pull/10/files#r507203577
+	for lockName, lock := range newLocks {
+		ls.ExistingLocks[lockName] = lock
 	}
-	for unlockName, _ := range newUnlocks {
-		if _, ok := ls.ExistingLocks[unlockName]; ok {
-			delete(ls.ExistingLocks, unlockName)
-		}
+	for unlockName := range newUnlocks {
+		delete(ls.ExistingLocks, unlockName)
 	}
-
-	if newUnlocks != nil {
-		for unlockName, unlock := range newUnlocks {
-			ls.ExistingUnlocks[unlockName] = unlock
-		}
+	for unlockName, unlock := range newUnlocks {
+		ls.ExistingUnlocks[unlockName] = unlock
 	}
-	for lockName, _ := range newLocks {
+	for lockName := range newLocks {
 		if _, ok := ls.ExistingLocks[lockName]; ok {
 			delete(ls.ExistingUnlocks, lockName)
 		}
@@ -47,10 +45,9 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
 	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
 
-	for unlockName, _ := range unlocks { // If there's a lock in one branch and an unlock in second, then unlock wins
-		if _, ok := locks[unlockName]; ok {
-			delete(locks, unlockName)
-		}
+	for unlockName := range unlocks {
+		// If there's a lock in one branch and an unlock in second, then unlock wins
+		delete(locks, unlockName)
 	}
 	ls.ExistingLocks = locks
 	ls.ExistingUnlocks = unlocks
@@ -58,12 +55,12 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(locksLasUse)
+	newLocks := make(locksLasUse, len(ls.ExistingLocks))
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
 	}
 	newLs.ExistingLocks = newLocks
-	newUnlocks := make(locksLasUse)
+	newUnlocks := make(locksLasUse, len(ls.ExistingUnlocks))
 	for key, value := range ls.ExistingUnlocks {
 		newUnlocks[key] = value
 	}
@@ -71,9 +68,8 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-
 func Intersect(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse)
+	i := make(locksLasUse, min(len(mapA), len(mapB)))
 	for a := range mapA {
 		for b := range mapB {
 			if a == b {
@@ -85,7 +81,7 @@ func Intersect(mapA, mapB locksLasUse) locksLasUse {
 }
 
 func Union(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse)
+	i := make(locksLasUse, max(len(mapA), len(mapB)))
 	for a := range mapA {
 		i[a] = mapA[a]
 	}
@@ -93,4 +89,18 @@ func Union(mapA, mapB locksLasUse) locksLasUse {
 		i[b] = mapB[b]
 	}
 	return i
+}
+
+func max(a, b int) int {
+	if a < b {
+		return b
+	}
+	return a
+}
+
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
 }
