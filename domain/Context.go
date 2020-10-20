@@ -32,14 +32,15 @@ func (gs *Context) Increment() {
 }
 
 func (gs *Context) MayConcurrent(state *Context) bool {
-	timestampAidA, _ := gs.Clock[gs.GoroutineID]
-	timestampAidB, _ := state.Clock[gs.GoroutineID]
-	timestampBidA, _ := gs.Clock[state.GoroutineID]
-	timestampBidB, _ := state.Clock[state.GoroutineID]
+	timestampAidA := gs.Clock.Get(gs.GoroutineID)
+	timestampAidB := state.Clock.Get(gs.GoroutineID)
+	timestampBidA := gs.Clock.Get(state.GoroutineID)
+	timestampBidB := state.Clock.Get(state.GoroutineID)
 	isBefore := timestampAidA <= timestampAidB && timestampBidA < timestampBidB
 	isAfter := timestampBidB <= timestampBidA && timestampAidB < timestampAidA
 	return !(isBefore || isAfter)
 }
+
 func (gs *Context) Copy() *Context {
 	return &Context{GoroutineID: gs.GoroutineID, Clock: gs.Clock.Copy(), StackTrace: gs.StackTrace}
 }

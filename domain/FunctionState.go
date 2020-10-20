@@ -47,9 +47,7 @@ func (funcState *FunctionState) RemoveDuplicateGuardedAccess(GuardedAccesses []*
 func (funcState *FunctionState) Copy() *FunctionState {
 	newFunctionState := GetEmptyFunctionState()
 	newFunctionState.Lockset = funcState.Lockset.Copy()
-	for _, guardedAccessToCopy := range funcState.GuardedAccesses {
-		newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, guardedAccessToCopy)
-	}
+	newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, funcState.GuardedAccesses...)
 	newFunctionState.DeferredFunctions = funcState.DeferredFunctions
 	return newFunctionState
 }
