@@ -2,11 +2,13 @@ package testutils
 
 import (
 	"encoding/json"
+	"go/token"
+	"path/filepath"
+	"strings"
+
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/ssaUtils"
-	"go/token"
 	"golang.org/x/tools/go/ssa"
-	"strings"
 )
 
 type GuardedAccessJSON struct {
@@ -43,7 +45,10 @@ type LocksetJson struct {
 func LocksetToJSON(ls *domain.Lockset) *LocksetJson {
 	prog := ssaUtils.GlobalProgram
 
-	dumpJson := &LocksetJson{ExistingLocks: make(map[string]string, 0), ExistingUnlocks: make(map[string]string, 0)}
+	dumpJson := &LocksetJson{
+		ExistingLocks:   map[string]string{},
+		ExistingUnlocks: map[string]string{},
+	}
 	for lockInit, lock := range ls.ExistingLocks {
 		lockInitPos := GetRelativePath(lockInit, prog)
 		lockPos := GetRelativePath(lock.Pos(), prog)
