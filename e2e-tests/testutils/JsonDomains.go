@@ -65,8 +65,11 @@ func GetRelativePath(pos token.Pos, prog *ssa.Program) string {
 	position := prog.Fset.Position(pos)
 	path := position.String()
 	path1 := strings.Split(path, ssaUtils.GlobalPackageName)
-	path2 := ssaUtils.GlobalPackageName + path1[1]
-	return path2
+	if len(path1) == 0 {
+		// path is an empty string, so got no elements
+		return ssaUtils.GlobalPackageName
+	}
+	return filepath.Join(ssaUtils.GlobalPackageName, path1[len(path1)-1])
 }
 
 type ContextJSON struct {
