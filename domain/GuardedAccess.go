@@ -35,6 +35,18 @@ type GuardedAccess struct {
 	OpKind     OpKind
 }
 
+func (ga *GuardedAccess) Copy() *GuardedAccess {
+	return &GuardedAccess{
+		ID:         ga.ID,
+		Pos:        ga.Pos,
+		Value:      ga.Value,
+		Lockset:    ga.Lockset.Copy(),
+		OpKind:     ga.OpKind,
+		Stacktrace: ga.Stacktrace,
+		State:      ga.State.Copy(),
+	}
+}
+
 func FilterStructs(valueA, valueB ssa.Value) bool {
 	fieldAddrA, okA := valueA.(*ssa.FieldAddr)
 	fieldAddrB, okB := valueB.(*ssa.FieldAddr)

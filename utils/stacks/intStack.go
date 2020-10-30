@@ -1,23 +1,23 @@
-package utils
+package stacks
 
-type Stack []int
+type IntStack []int
 
-func NewStack() *Stack {
+func NewIntStack() *IntStack {
 	stack := make([]int, 0)
-	return (*Stack)(&stack)
+	return (*IntStack)(&stack)
 }
 
-func (s *Stack) GetAllItems() []int {
+func (s *IntStack) GetAllItems() []int {
 	tmp := make([]int, len(*s))
 	copy(tmp, *s)
 	return tmp
 }
 
-func (s *Stack) Push(v int) {
+func (s *IntStack) Push(v int) {
 	*s = append(*s, v)
 }
 
-func (s *Stack) Pop() int {
+func (s *IntStack) Pop() int {
 	if len(*s) == 0 {
 		return -1
 	}

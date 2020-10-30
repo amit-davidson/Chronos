@@ -3,6 +3,7 @@ package ssaUtils
 import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/utils"
+	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
 	"golang.org/x/tools/go/ssa"
 	"strings"
@@ -139,8 +140,7 @@ func GetBlockSummary(Context *domain.Context, block *ssa.BasicBlock) *domain.Fun
 			funcState.MergeStates(funcStateRet, false)
 		case *ssa.Defer:
 			callCommon := call.Common()
-			deferFunction := &domain.DeferFunction{Function: callCommon, BlockIndex: block.Index}
-			funcState.DeferredFunctions = append(funcState.DeferredFunctions, deferFunction)
+			funcState.DeferredFunctions.Push(callCommon)
 		default:
 			HandleInstruction(funcState, Context, ins)
 		}
@@ -148,11 +148,14 @@ func GetBlockSummary(Context *domain.Context, block *ssa.BasicBlock) *domain.Fun
 	return funcState
 }
 
-func (cfg *CFG) runDefers(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
-	defers := cfg.DeferredFunctions[block.Index]
+func (cfg *CFG) runDefers(Context *domain.Context, defers *stacks.FunctionStack) *domain.FunctionState {
 	calculatedState := domain.GetEmptyFunctionState()
-	for i := len(defers) - 1; i >= 0; i-- {
-		retState := HandleCallCommon(Context, defers[i].Function, defers[i].Function.Pos())
+	for {
+		deferFunction := defers.Pop()
+		if deferFunction == nil {
+			break
+		}
+		retState := HandleCallCommon(Context, deferFunction, deferFunction.Pos())
 		retState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
 		calculatedState.MergeStates(retState, true)
 	}
@@ -165,16 +168,13 @@ func HandleFunction(Context *domain.Context, fn *ssa.Function) *domain.FunctionS
 	if fn.Pkg == nil {
 		return funcState
 	}
-	pkgName := fn.Pkg.Pkg.Path()                // Used to guard against entering standard library packages
+	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
 	if !strings.Contains(pkgName, GlobalPackageName) {
 		return funcState
 	}
 
 	// regular
-	funcState, lastBlock := GetBlocksSummary(Context, fn.Blocks[0])
-
-	// Defer
-	funcStateDefers := GetDefersSummary(Context, lastBlock, funcState.DeferredFunctions)
-	funcState.MergeStates(funcStateDefers, true)
-	return funcState
+	cfg := newCFG()
+	cfg.calculateState(Context, fn.Blocks[0])
+	return cfg.calculatedState
 }

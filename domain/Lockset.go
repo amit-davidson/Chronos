@@ -6,21 +6,21 @@ import (
 	"golang.org/x/tools/go/ssa"
 )
 
-type locksLasUse map[token.Pos]*ssa.CallCommon
+type locksLastUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
-	ExistingLocks   locksLasUse
-	ExistingUnlocks locksLasUse
+	ExistingLocks   locksLastUse
+	ExistingUnlocks locksLastUse
 }
 
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(locksLasUse),
-		ExistingUnlocks: make(locksLasUse),
+		ExistingLocks:   make(locksLastUse),
+		ExistingUnlocks: make(locksLastUse),
 	}
 }
 
-func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLasUse) {
+func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
 	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing, of course).
 	// It means that if a mutex was unlocked at some point but later was locked again,
 	// then its latest status is locked, and the unlock status is removed.
@@ -55,12 +55,12 @@ func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(locksLasUse, len(ls.ExistingLocks))
+	newLocks := make(locksLastUse, len(ls.ExistingLocks))
 	for key, value := range ls.ExistingLocks {
 		newLocks[key] = value
 	}
 	newLs.ExistingLocks = newLocks
-	newUnlocks := make(locksLasUse, len(ls.ExistingUnlocks))
+	newUnlocks := make(locksLastUse, len(ls.ExistingUnlocks))
 	for key, value := range ls.ExistingUnlocks {
 		newUnlocks[key] = value
 	}
@@ -68,8 +68,8 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func Intersect(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse, min(len(mapA), len(mapB)))
+func Intersect(mapA, mapB locksLastUse) locksLastUse {
+	i := make(locksLastUse, min(len(mapA), len(mapB)))
 	for a := range mapA {
 		for b := range mapB {
 			if a == b {
@@ -80,8 +80,8 @@ func Intersect(mapA, mapB locksLasUse) locksLasUse {
 	return i
 }
 
-func Union(mapA, mapB locksLasUse) locksLasUse {
-	i := make(locksLasUse, max(len(mapA), len(mapB)))
+func Union(mapA, mapB locksLastUse) locksLastUse {
+	i := make(locksLastUse, max(len(mapA), len(mapB)))
 	for a := range mapA {
 		i[a] = mapA[a]
 	}
