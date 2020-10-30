@@ -15,7 +15,7 @@ type CFG struct {
 func newCFG() *CFG {
 	return &CFG{
 		visitedBlocksStack: stacks.NewBasicBlockStack(),
-		ComputedBlocks: make(map[int]*domain.FunctionState),
+		ComputedBlocks:     make(map[int]*domain.FunctionState),
 	}
 }
 
@@ -42,23 +42,28 @@ func (cfg *CFG) CalculatePath(Context *domain.Context) {
 }
 
 func (cfg *CFG) calculateState(Context *domain.Context, block *ssa.BasicBlock) {
-	cfg.visitedBlocksStack.Push(block)
-	cfg.traverseGraph(Context, block)
-	cfg.visitedBlocksStack.Pop()
+	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
+	cfg.traverseGraph(Context, firstBlock)
 }
 
 func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
-	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
-		cfg.ComputedBlocks[block.Index] = GetBlockSummary(Context, block)
-	}
 	nextBlocks := block.Succs
-	if len(nextBlocks) == 0 {
-		cfg.CalculatePath(Context)
-	} else {
-		for _, nextBlock := range nextBlocks {
+	for _, nextBlock := range nextBlocks {
+		if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
+			cfg.ComputedBlocks[block.Index] = GetBlockSummary(Context, block)
+		}
+		if len(nextBlock.Succs) == 0 {
+			if _, ok := cfg.ComputedBlocks[nextBlock.Index]; !ok {
+				cfg.ComputedBlocks[nextBlock.Index] = GetBlockSummary(Context, nextBlock)
+			}
+			cfg.visitedBlocksStack.Push(nextBlock)
+			cfg.CalculatePath(Context)
+			cfg.visitedBlocksStack.Pop()
+		} else if !cfg.visitedBlocksStack.Contains(nextBlock) {
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.traverseGraph(Context, nextBlock)
 			cfg.visitedBlocksStack.Pop()
 		}
 	}
+
 }

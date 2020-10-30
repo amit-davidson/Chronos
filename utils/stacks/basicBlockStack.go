@@ -9,19 +9,30 @@ type BasicBlockStack struct {
 
 func NewBasicBlockStack() *BasicBlockStack {
 	stack := make([]*ssa.BasicBlock, 0)
-	blocksMap := make(map[int]*ssa.BasicBlock)
+	blocksMap := make(blocksMap)
 	basicBlockStack := &BasicBlockStack{stack: stack, blocksMap: blocksMap}
 	return basicBlockStack
 }
 
 func (s *BasicBlockStack) Push(v *ssa.BasicBlock) {
 	s.stack.Push(v)
-	s.blocksMap[v.Index] = v
+	if _, ok := s.blocksMap[v.Index]; !ok {
+		s.blocksMap[v.Index] = &basicBlockWithCount{block: v, count: 1}
+	} else {
+		s.blocksMap[v.Index].count += 1
+	}
 }
 
-func (s *BasicBlockStack) Pop() {
+func (s *BasicBlockStack) Pop() *ssa.BasicBlock {
 	v := s.stack.Pop()
-	delete(s.blocksMap, v.Index)
+	if v == nil {
+		return nil
+	}
+	s.blocksMap[v.Index].count -= 1
+	if s.blocksMap[v.Index].count == 0 {
+		delete(s.blocksMap, v.Index)
+	}
+	return v
 }
 
 func (s *BasicBlockStack) GetAllItems() blocksStack {
@@ -30,7 +41,12 @@ func (s *BasicBlockStack) GetAllItems() blocksStack {
 	return tmp
 }
 
-type blocksMap map[int]*ssa.BasicBlock
+type basicBlockWithCount struct {
+	block *ssa.BasicBlock
+	count int
+}
+
+type blocksMap map[int]*basicBlockWithCount
 
 type blocksStack []*ssa.BasicBlock
 
@@ -48,6 +64,12 @@ func (s *blocksStack) Pop() *ssa.BasicBlock {
 }
 
 func (s *BasicBlockStack) Contains(v *ssa.BasicBlock) bool {
-	_, ok := s.blocksMap[v.Index]
-	return ok
+	block, ok := s.blocksMap[v.Index]
+	if !ok {
+		return false
+	}
+	if block.count >= 2 {
+		return true
+	}
+	return false
 }

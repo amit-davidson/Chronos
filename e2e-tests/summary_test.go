@@ -44,7 +44,7 @@ func TestE2E(t *testing.T) {
 		//{name: "Simple", testPath: "general/Simple/prog1.go", resPath: "general/Simple/prog1_expected.json", shouldUpdate: false},
 		//{name: "NestedConditionWithLockInAllBranches", testPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go", resPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceMap", testPath: "general/DataRaceMap/prog1.go", resPath: "general/DataRaceMap/prog1_expected.json", shouldUpdate: false},
-		////{name: "ForLoop", testPath: "unsupported/ForLoop/prog1.go", resPath: "unsupported/ForLoop/prog1_expected.json", shouldUpdate: false},
+		{name: "ForLoop", testPath: "unsupported/ForLoop/prog1.go", resPath: "unsupported/ForLoop/prog1_expected.json", shouldUpdate: true},
 		//{name: "DataRaceShadowedErr", testPath: "general/DataRaceShadowedErr/prog1.go", resPath: "general/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceInterfaceOverChannel", testPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go", resPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1_expected.json", shouldUpdate: false},
 		//{name: "DataRaceProperty", testPath: "general/DataRaceProperty/prog1.go", resPath: "general/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
