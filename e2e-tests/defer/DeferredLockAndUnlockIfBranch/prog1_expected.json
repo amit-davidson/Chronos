@@ -103,8 +103,40 @@
 			}
 		},
 		{
-			"ID": 7,
+			"ID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:21:2",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 9
+				}
+			}
+		},
+		{
+			"ID": 10,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:21:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:8:5",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 10
+				}
+			}
+		},
+		{
+			"ID": 7,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -120,7 +152,7 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:21:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:8:5",
 			"OpKind": 1,
 			"LocksetJson": {
@@ -131,78 +163,6 @@
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 8
-				}
-			}
-		},
-		{
-			"ID": 9,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
-				}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 9
-				}
-			}
-		},
-		{
-			"ID": 10,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:8:5",
-			"OpKind": 1,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
-				}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 10
-				}
-			}
-		},
-		{
-			"ID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
-				}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 11
-				}
-			}
-		},
-		{
-			"ID": 12,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:16:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:8:5",
-			"OpKind": 1,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
-				}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 12
 				}
 			}
 		}

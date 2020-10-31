@@ -1,9 +1,7 @@
 {
 	"Lockset": {
 		"ExistingLocks": {},
-		"ExistingUnlocks": {
-			"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:8:6": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/MultipleLocksNoRace/prog1.go:14:18"
-		}
+		"ExistingUnlocks": {}
 	},
 	"GuardedAccess": [
 		{

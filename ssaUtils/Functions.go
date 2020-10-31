@@ -150,7 +150,7 @@ func GetBlockSummary(Context *domain.Context, block *ssa.BasicBlock) *domain.Fun
 
 func (cfg *CFG) runDefers(Context *domain.Context, defers *stacks.FunctionStack) *domain.FunctionState {
 	calculatedState := domain.GetEmptyFunctionState()
-	for {
+		for {
 		deferFunction := defers.Pop()
 		if deferFunction == nil {
 			break
