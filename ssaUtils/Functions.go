@@ -175,6 +175,6 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.FunctionS
 
 	// regular
 	cfg := newCFG()
-	cfg.calculateState(context, fn.Blocks[0])
+	cfg.calculateFunctionState(context, fn.Blocks[0])
 	return cfg.calculatedState
 }

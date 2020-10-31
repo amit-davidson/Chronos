@@ -141,7 +141,9 @@
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
-				"ExistingUnlocks": {}
+				"ExistingUnlocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
+				}
 			},
 			"State": {
 				"GoroutineID": 1,
@@ -157,7 +159,9 @@
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
-				"ExistingUnlocks": {}
+				"ExistingUnlocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:11:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/DeferredLockAndUnlockIfBranch/prog1.go:19:21"
+				}
 			},
 			"State": {
 				"GoroutineID": 1,

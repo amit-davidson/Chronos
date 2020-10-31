@@ -16,6 +16,9 @@ func GetEmptyFunctionState() *FunctionState {
 	}
 }
 
+// Merge state of nodes from the same branch:
+// A -> B -> C
+// Will Merge B and C
 func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState, shouldMergeLockset bool) {
 	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
 	funcState.DeferredFunctions.MergeStacks(funcStateToMerge.DeferredFunctions)
@@ -24,22 +27,10 @@ func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState, sho
 	}
 }
 
-func (funcState *FunctionState) MergeBlocksStates(funcStateToMerge *FunctionState, shouldMergeLockset bool) {
-	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
-	funcState.DeferredFunctions.MergeStacks(funcStateToMerge.DeferredFunctions)
-	if shouldMergeLockset {
-		funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
-	}
-}
-
-func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(prevLockset *Lockset) {
-	for _, guardedAccess := range funcState.GuardedAccesses {
-		tempLockset := prevLockset.Copy()
-		tempLockset.UpdateLockSet(guardedAccess.Lockset.ExistingLocks, guardedAccess.Lockset.ExistingUnlocks)
-		guardedAccess.Lockset = tempLockset
-	}
-}
-
+// Merge state of nodes from branches:
+// A -> B
+//   -> C
+// Will Merge B and C
 func (funcState *FunctionState) MergeBranchState(funcStateToMerge *FunctionState) {
 	funcState.AppendGuardedAccessWithoutDuplicates(funcStateToMerge.GuardedAccesses)
 	for _, mergeGuardedAccess := range funcStateToMerge.GuardedAccesses {
@@ -57,6 +48,12 @@ func (funcState *FunctionState) AppendGuardedAccessWithoutDuplicates(GuardedAcce
 		if !contains(funcState.GuardedAccesses, guardedAccessA) {
 			funcState.GuardedAccesses = append(funcState.GuardedAccesses, guardedAccessA)
 		}
+	}
+}
+
+func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(ls *Lockset) {
+	for _, guardedAccess := range funcState.GuardedAccesses {
+		guardedAccess.Lockset.UpdateLockSet(ls.ExistingLocks, ls.ExistingUnlocks)
 	}
 }
 

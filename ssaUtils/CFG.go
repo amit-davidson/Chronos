@@ -22,44 +22,7 @@ func newCFG() *CFG {
 	}
 }
 
-func (cfg *CFG) CalculatePath() {
-	path := cfg.visitedBlocksStack.GetAllItems()
-	block := path[0]
-	state := cfg.ComputedBlocks[block.Index].Copy()
-	for _, nextBlock := range path[1:] {
-		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
-		for _, guardedAccess := range nextState.GuardedAccesses {
-			guardedAccess.Lockset.UpdateLockSet(state.Lockset.ExistingLocks, state.Lockset.ExistingUnlocks)
-		}
-		state.MergeStates(nextState, true)
-	}
-
-	deferBlock := path[len(path)-1]
-	deferState, ok := cfg.ComputedDeferBlocks[deferBlock.Index]
-	if ok {
-		deferStateCopy := deferState.Copy()
-		for i := len(path) - 2; i >= 0; i-- {
-			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
-			if !ok {
-				continue
-			}
-			nextStateCopy := nextState.Copy()
-			for _, guardedAccess := range nextStateCopy.GuardedAccesses {
-				guardedAccess.Lockset.UpdateLockSet(deferStateCopy.Lockset.ExistingLocks, deferStateCopy.Lockset.ExistingUnlocks)
-			}
-			deferStateCopy.MergeStates(nextState, true)
-		}
-		state.MergeStates(deferStateCopy, true)
-	}
-
-	if cfg.calculatedState == nil {
-		cfg.calculatedState = state
-	} else {
-		cfg.calculatedState.MergeBranchState(state)
-	}
-}
-
-func (cfg *CFG) calculateState(context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateFunctionState(context *domain.Context, block *ssa.BasicBlock) {
 	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
 	cfg.traverseGraph(context, firstBlock)
 }
@@ -78,6 +41,39 @@ func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
 			cfg.traverseGraph(context, nextBlock)
 			cfg.visitedBlocksStack.Pop()
 		}
+	}
+}
+
+func (cfg *CFG) CalculatePath() {
+	path := cfg.visitedBlocksStack.GetAllItems()
+	block := path[0]
+	state := cfg.ComputedBlocks[block.Index].Copy()
+	for _, nextBlock := range path[1:] {
+		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
+		nextState.UpdateGuardedAccessesWithLockset(state.Lockset)
+		state.MergeStates(nextState, true)
+	}
+
+	deferBlock := path[len(path)-1]
+	deferState, ok := cfg.ComputedDeferBlocks[deferBlock.Index]
+	if ok {
+		deferStateCopy := deferState.Copy()
+		for i := len(path) - 2; i >= 0; i-- {
+			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
+			if !ok {
+				continue
+			}
+			nextStateCopy := nextState.Copy()
+			nextStateCopy.UpdateGuardedAccessesWithLockset(deferStateCopy.Lockset)
+			deferStateCopy.MergeStates(nextStateCopy, true)
+		}
+		state.MergeStates(deferStateCopy, true)
+	}
+
+	if cfg.calculatedState == nil {
+		cfg.calculatedState = state
+	} else {
+		cfg.calculatedState.MergeBranchState(state)
 	}
 }
 

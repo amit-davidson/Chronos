@@ -2,6 +2,8 @@ package stacks
 
 import "golang.org/x/tools/go/ssa"
 
+// Used by CFG to traverse the graph. It uses both as a stack for traversal by order, and as a map to count occurrences
+// and fast retrieval of items.
 type BasicBlockStack struct {
 	stack     blocksStack
 	blocksMap blocksMap
@@ -35,10 +37,8 @@ func (s *BasicBlockStack) Pop() *ssa.BasicBlock {
 	return v
 }
 
-func (s *BasicBlockStack) GetAllItems() blocksStack {
-	tmp := make(blocksStack, len(s.stack))
-	copy(tmp, s.stack)
-	return tmp
+func (s *BasicBlockStack) GetAllItems() []*ssa.BasicBlock {
+	return interface{}(s.stack).([]*ssa.BasicBlock)
 }
 
 type basicBlockWithCount struct {
