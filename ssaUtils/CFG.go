@@ -59,32 +59,32 @@ func (cfg *CFG) CalculatePath() {
 	}
 }
 
-func (cfg *CFG) calculateState(Context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateState(context *domain.Context, block *ssa.BasicBlock) {
 	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
-	cfg.traverseGraph(Context, firstBlock)
+	cfg.traverseGraph(context, firstBlock)
 }
 
-func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
 	nextBlocks := block.Succs
 	for _, nextBlock := range nextBlocks {
-		cfg.calculateBlockStateIfNeeded(Context, block)
+		cfg.calculateBlockStateIfNeeded(context, block)
 		if len(nextBlock.Succs) == 0 {
-			cfg.calculateBlockStateIfNeeded(Context, nextBlock)
+			cfg.calculateBlockStateIfNeeded(context, nextBlock)
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.CalculatePath()
 			cfg.visitedBlocksStack.Pop()
 		} else if !cfg.visitedBlocksStack.Contains(nextBlock) {
 			cfg.visitedBlocksStack.Push(nextBlock)
-			cfg.traverseGraph(Context, nextBlock)
+			cfg.traverseGraph(context, nextBlock)
 			cfg.visitedBlocksStack.Pop()
 		}
 	}
 }
 
-func (cfg *CFG) calculateBlockStateIfNeeded(Context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateBlockStateIfNeeded(context *domain.Context, block *ssa.BasicBlock) {
 	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
-		cfg.ComputedBlocks[block.Index] = GetBlockSummary(Context, block)
+		cfg.ComputedBlocks[block.Index] = GetBlockSummary(context, block)
 		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
-		cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(Context, deferedFunctions)
+		cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(context, deferedFunctions)
 	}
 }
