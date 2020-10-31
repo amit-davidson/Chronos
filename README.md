@@ -48,13 +48,13 @@ Usage of ./chronos:
 Support:
 
 - Detects races on pointers passed around the program.
-- Analysis of conditional branches, nested functions, interfaces, and defers.
+- Analysis of conditional branches, nested functions, interfaces, select, gotos, for loops, and defers.
 - Synchronization using mutex and goroutines starts.
 
 Limitations:
 
 - Big programs and external packages. (Due to stack overflow)
-- Analysis of panics, for loops, goto, recursion, and select.
+- Analysis of panics and recursion.
 - Synchronization using channels, waitgroups, once, cond and atomic.
 
 ## Chronos vs go race:
