@@ -81,6 +81,8 @@ func (cfg *CFG) calculateBlockStateIfNeeded(context *domain.Context, block *ssa.
 	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
 		cfg.ComputedBlocks[block.Index] = GetBlockSummary(context, block)
 		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
-		cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(context, deferedFunctions)
+		if deferedFunctions.Len() > 0 {
+			cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(context, deferedFunctions)
+		}
 	}
 }

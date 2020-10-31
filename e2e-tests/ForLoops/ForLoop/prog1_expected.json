@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:9:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:8:11",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:9:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:8:11",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,7 +22,7 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:9:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:9:3",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -38,8 +38,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:10:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:8:11",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:10:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:8:11",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -70,12 +70,12 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:18:5",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:8:11",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:18:5",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:8:11",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:16:4": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:17:14"
+					"github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:16:4": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:17:14"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -88,12 +88,12 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:18:5",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:18:5",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:16:4": "github.com/amit-davidson/Chronos/e2e-tests/unsupported/ForLoop/prog1.go:17:14"
+					"github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:16:4": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/ForLoop/prog1.go:17:14"
 				},
 				"ExistingUnlocks": {}
 			},

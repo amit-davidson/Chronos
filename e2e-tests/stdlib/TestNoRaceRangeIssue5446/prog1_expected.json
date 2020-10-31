@@ -1,0 +1,456 @@
+{
+	"Lockset": {
+		"ExistingLocks": {},
+		"ExistingUnlocks": {}
+	},
+	"GuardedAccess": [
+		{
+			"ID": 1,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 1
+				}
+			}
+		},
+		{
+			"ID": 2,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:13",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 2
+				}
+			}
+		},
+		{
+			"ID": 3,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:13",
+			"Value": "",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 3
+				}
+			}
+		},
+		{
+			"ID": 4,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 4
+				}
+			}
+		},
+		{
+			"ID": 5,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:16",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 5
+				}
+			}
+		},
+		{
+			"ID": 6,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:16",
+			"Value": "",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 6
+				}
+			}
+		},
+		{
+			"ID": 7,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 7
+				}
+			}
+		},
+		{
+			"ID": 8,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:19",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 8
+				}
+			}
+		},
+		{
+			"ID": 9,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:19",
+			"Value": "",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 9
+				}
+			}
+		},
+		{
+			"ID": 10,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:6:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 10
+				}
+			}
+		},
+		{
+			"ID": 11,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:6:13",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 11
+				}
+			}
+		},
+		{
+			"ID": 12,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:6:13",
+			"Value": "",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 12
+				}
+			}
+		},
+		{
+			"ID": 13,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:6:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 13
+				}
+			}
+		},
+		{
+			"ID": 14,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 14
+				}
+			}
+		},
+		{
+			"ID": 15,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 15
+				}
+			}
+		},
+		{
+			"ID": 16,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 16
+				}
+			}
+		},
+		{
+			"ID": 17,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 17
+				}
+			}
+		},
+		{
+			"ID": 18,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 18
+				}
+			}
+		},
+		{
+			"ID": 19,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:22",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:6:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 19
+				}
+			}
+		},
+		{
+			"ID": 20,
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:22",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 20
+				}
+			}
+		},
+		{
+			"ID": 21,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:5:12",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 21
+				}
+			}
+		},
+		{
+			"ID": 22,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:10",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 22
+				}
+			}
+		},
+		{
+			"ID": 23,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceRangeIssue5446/prog1.go:10:10",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 23
+				}
+			}
+		},
+		{
+			"ID": 14,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 14
+				}
+			}
+		},
+		{
+			"ID": 15,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 15
+				}
+			}
+		},
+		{
+			"ID": 16,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 16
+				}
+			}
+		},
+		{
+			"ID": 17,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 17
+				}
+			}
+		},
+		{
+			"ID": 18,
+			"Pos": "",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 18
+				}
+			}
+		}
+	]
+}

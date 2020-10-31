@@ -19,6 +19,10 @@ func (s *FunctionStack) Push(v *ssa.CallCommon) {
 	*s = append(*s, v)
 }
 
+func (s *FunctionStack) Len() int {
+	return len(*s)
+}
+
 func (s *FunctionStack) Pop() *ssa.CallCommon {
 	if len(*s) == 0 {
 		return nil

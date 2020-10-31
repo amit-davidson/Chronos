@@ -38,7 +38,7 @@ func (s *BasicBlockStack) Pop() *ssa.BasicBlock {
 }
 
 func (s *BasicBlockStack) GetAllItems() []*ssa.BasicBlock {
-	return interface{}(s.stack).([]*ssa.BasicBlock)
+	return s.stack
 }
 
 type basicBlockWithCount struct {

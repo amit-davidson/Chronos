@@ -34,7 +34,7 @@ func TestE2E(t *testing.T) {
 		{name: "LockAndUnlockIfBranch", testPath: "locksAndUnlocks/LockAndUnlockIfBranch/prog1.go", resPath: "locksAndUnlocks/LockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
 		{name: "ElseIf", testPath: "general/ElseIf/prog1.go", resPath: "general/ElseIf/prog1_expected.json", shouldUpdate: false},
 		{name: "LockInBothBranches", testPath: "locksAndUnlocks/LockInBothBranches/prog1.go", resPath: "locksAndUnlocks/LockInBothBranches/prog1_expected.json", shouldUpdate: false},
-		{name: "DeferredLockAndUnlockIfBranch", testPath: "defer/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "defer/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
+		{name: "DeferredLockAndUnlockIfBranch", testPath: "defer/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "defer/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: true},
 		{name: "NestedDeferWithLockAndUnlock", testPath: "defer/NestedDeferWithLockAndUnlock/prog1.go", resPath: "defer/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false},
 		{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false},
 		{name: "LockAndUnlockIfMap", testPath: "locksAndUnlocks/LockAndUnlockIfMap/prog1.go", resPath: "locksAndUnlocks/LockAndUnlockIfMap/prog1_expected.json", shouldUpdate: false},
@@ -44,7 +44,9 @@ func TestE2E(t *testing.T) {
 		{name: "Simple", testPath: "general/Simple/prog1.go", resPath: "general/Simple/prog1_expected.json", shouldUpdate: false},
 		{name: "NestedConditionWithLockInAllBranches", testPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go", resPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceMap", testPath: "general/DataRaceMap/prog1.go", resPath: "general/DataRaceMap/prog1_expected.json", shouldUpdate: false},
-		{name: "ForLoop", testPath: "unsupported/ForLoop/prog1.go", resPath: "unsupported/ForLoop/prog1_expected.json", shouldUpdate: false},
+		{name: "ForLoop", testPath: "ForLoops/ForLoop/prog1.go", resPath: "ForLoops/ForLoop/prog1_expected.json", shouldUpdate: false},
+		{name: "NestedForLoopWithRace", testPath: "ForLoops/NestedForLoopWithRace/prog1.go", resPath: "ForLoops/NestedForLoopWithRace/prog1_expected.json", shouldUpdate: true},
+		{name: "WhileLoop", testPath: "ForLoops/WhileLoop/prog1.go", resPath: "ForLoops/WhileLoop/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceShadowedErr", testPath: "general/DataRaceShadowedErr/prog1.go", resPath: "general/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceInterfaceOverChannel", testPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go", resPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceProperty", testPath: "general/DataRaceProperty/prog1.go", resPath: "general/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
@@ -166,8 +168,29 @@ func TestE2E(t *testing.T) {
 		{name: "TestRaceIntRWGlobalFuncs", testPath: "stdlib/TestRaceIntRWGlobalFuncs/prog1.go", resPath: "stdlib/TestRaceIntRWGlobalFuncs/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceComp", testPath: "stdlib/TestNoRaceComp/prog1.go", resPath: "stdlib/TestNoRaceComp/prog1_expected.json", shouldUpdate: false},
 		{name: "TestRaceComp2", testPath: "stdlib/TestRaceComp2/prog1.go", resPath: "stdlib/TestRaceComp2/prog1_expected.json", shouldUpdate: false},
-		{name: "TestRaceSelect1", testPath: "stdlibNoSuccess/TestRaceSelect1/prog1.go", resPath: "stdlibNoSuccess/TestRaceSelect1/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect1", testPath: "stdlib/TestRaceSelect1/prog1.go", resPath: "stdlib/TestRaceSelect1/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect2", testPath: "stdlib/TestRaceSelect2/prog1.go", resPath: "stdlib/TestRaceSelect2/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect3", testPath: "stdlib/TestRaceSelect3/prog1.go", resPath: "stdlib/TestRaceSelect3/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect4", testPath: "stdlib/TestRaceSelect4/prog1.go", resPath: "stdlib/TestRaceSelect4/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceSelect5", testPath: "stdlib/TestRaceSelect5/prog1.go", resPath: "stdlib/TestRaceSelect5/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestNoRaceSelect1", testPath: "stdlibNoSuccess/TestNoRaceSelect1/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceSelect1/prog1_expected.json", shouldUpdate: false}, // All of the no race use syncing with channels
+		//{name: "TestNoRaceSelect2", testPath: "stdlibNoSuccess/TestNoRaceSelect2/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceSelect2/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestNoRaceSelect3", testPath: "stdlibNoSuccess/TestNoRaceSelect3/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceSelect3/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestNoRaceSelect4", testPath: "stdlibNoSuccess/TestNoRaceSelect4/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceSelect4/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestNoRaceSelect5", testPath: "stdlibNoSuccess/TestNoRaceSelect5/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceSelect5/prog1_expected.json", shouldUpdate: false},
 		{name: "TestRaceUnaddressableMapLen", testPath: "stdlib/TestRaceUnaddressableMapLen/prog1.go", resPath: "stdlib/TestRaceUnaddressableMapLen/prog1_expected.json", shouldUpdate: false},
+		{name: "TestNoRaceCase", testPath: "stdlib/TestNoRaceCase/prog1.go", resPath: "stdlib/TestNoRaceCase/prog1_expected.json", shouldUpdate: false},
+		{name: "TestNoRaceRangeIssue5446", testPath: "stdlib/TestNoRaceRangeIssue5446/prog1.go", resPath: "stdlib/TestNoRaceRangeIssue5446/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestRaceRange", testPath: "stdlib/TestRaceRange/prog1.go", resPath: "stdlib/TestRaceRange/prog1_expected.json", shouldUpdate: false}, // doesn't work. There's a race between v on line 11 from iter i+1 and 16/18 form iter i and it's not handled properly.
+		{name: "TestRaceForInit", testPath: "stdlib/TestRaceForInit/prog1.go", resPath: "stdlib/TestRaceForInit/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestNoRaceForInit", testPath: "stdlibNoSuccess/TestNoRaceForInit/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceForInit/prog1_expected.json", shouldUpdate: false}, // flow analysis required
+		{name: "TestRaceForTest", testPath: "stdlib/TestRaceForTest/prog1.go", resPath: "stdlib/TestRaceForTest/prog1_expected.json", shouldUpdate: false},
+		{name: "TestRaceForIncr", testPath: "stdlib/TestRaceForIncr/prog1.go", resPath: "stdlib/TestRaceForIncr/prog1_expected.json", shouldUpdate: false},
+		{name: "TestNoRaceForIncr", testPath: "stdlibNoSuccess/TestNoRaceForIncr/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceForIncr/prog1_expected.json", shouldUpdate: false}, // flow analysis required
+		{name: "TestNoRaceHeapReallocation", testPath: "stdlib/TestNoRaceHeapReallocation/prog1.go", resPath: "stdlib/TestNoRaceHeapReallocation/prog1_expected.json", shouldUpdate: false},
+		//{name: "TestRaceIssue5567", testPath: "stdlib/TestRaceIssue5567/prog1.go", resPath: "stdlib/TestRaceIssue5567/prog1_expected.json", shouldUpdate: false}, // There's write inside f.Read on b which is an external package
+		//{name: "TestRaceIssue5654", testPath: "stdlib/TestRaceIssue5654/prog1.go", resPath: "stdlib/TestRaceIssue5654/prog1_expected.json", shouldUpdate: false}, // PackageProblem
+		{name: "TestNoRaceTinyAlloc", testPath: "stdlib/TestNoRaceTinyAlloc/prog1.go", resPath: "stdlib/TestNoRaceTinyAlloc/prog1_expected.json", shouldUpdate: false},
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
