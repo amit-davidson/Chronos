@@ -6,8 +6,8 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:11",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:11",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -22,8 +22,8 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -38,8 +38,8 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:19",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:19",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -54,8 +54,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -70,8 +70,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:19",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:9:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:9:19",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -87,8 +87,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:9:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -104,8 +104,8 @@
 		},
 		{
 			"ID": 7,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:15:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:10:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -121,8 +121,8 @@
 		},
 		{
 			"ID": 8,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:21:8",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:12:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:16:8",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:7:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -137,7 +137,7 @@
 		},
 		{
 			"ID": 9,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:21:7",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:16:7",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -153,8 +153,8 @@
 		},
 		{
 			"ID": 10,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:19:5",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:11:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:5",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:6:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -169,8 +169,8 @@
 		},
 		{
 			"ID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:19:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:19:5",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRacePanicArg/prog1.go:14:5",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

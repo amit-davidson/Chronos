@@ -1,11 +1,14 @@
 package domain
 
-import "github.com/amit-davidson/Chronos/utils"
+import (
+	"github.com/amit-davidson/Chronos/utils"
+	"github.com/amit-davidson/Chronos/utils/stacks"
+)
 
 type Context struct {
 	GoroutineID int
 	Clock       VectorClock
-	StackTrace  *utils.Stack
+	StackTrace  *stacks.IntStack
 }
 
 var GoroutineCounter = utils.NewCounter()
@@ -14,7 +17,7 @@ func NewEmptyContext() *Context {
 	return &Context{
 		Clock:       VectorClock{},
 		GoroutineID: GoroutineCounter.GetNext(),
-		StackTrace:  utils.NewStack(),
+		StackTrace:  stacks.NewIntStack(),
 	}
 }
 

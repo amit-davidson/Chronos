@@ -1,141 +1,88 @@
 package ssaUtils
 
 import (
-	"strings"
-
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/utils/stacks"
 	"golang.org/x/tools/go/ssa"
 )
 
 type CFG struct {
-	ComputedBlockIDsToSummaries  map[int]*domain.FunctionState
-	lastBlock                    *ssa.BasicBlock
-	getSummary                   func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState
-	calculateMergedBranchesState func(blocks []*ssa.BasicBlock) *domain.FunctionState
-	getNextBlocks                func(block *ssa.BasicBlock) []*ssa.BasicBlock
-	getPreviousBlocks            func(block *ssa.BasicBlock) []*ssa.BasicBlock
+	visitedBlocksStack *stacks.BasicBlockStack
 
-	DeferredFunctions map[int][]*domain.DeferFunction
+	ComputedBlocks      map[int]*domain.FunctionState
+	ComputedDeferBlocks map[int]*domain.FunctionState
+	calculatedState     *domain.FunctionState
 }
 
 func newCFG() *CFG {
 	return &CFG{
-		ComputedBlockIDsToSummaries: make(map[int]*domain.FunctionState),
+		visitedBlocksStack:  stacks.NewBasicBlockStack(),
+		ComputedBlocks:      make(map[int]*domain.FunctionState),
+		ComputedDeferBlocks: make(map[int]*domain.FunctionState),
 	}
 }
 
-func (cfg *CFG) AreAllPrecedingCalculated(precedingBlocks []*ssa.BasicBlock) bool {
-	for _, block := range precedingBlocks {
-		_, isExist := cfg.ComputedBlockIDsToSummaries[block.Index]
-		if !isExist {
-			return false
+func (cfg *CFG) calculateFunctionState(context *domain.Context, block *ssa.BasicBlock) {
+	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
+	cfg.traverseGraph(context, firstBlock)
+}
+
+func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
+	nextBlocks := block.Succs
+	for _, nextBlock := range nextBlocks {
+		cfg.calculateBlockStateIfNeeded(context, block)
+		if len(nextBlock.Succs) == 0 {
+			cfg.calculateBlockStateIfNeeded(context, nextBlock)
+			cfg.visitedBlocksStack.Push(nextBlock)
+			cfg.CalculatePath()
+			cfg.visitedBlocksStack.Pop()
+		} else if !cfg.visitedBlocksStack.Contains(nextBlock) {
+			cfg.visitedBlocksStack.Push(nextBlock)
+			cfg.traverseGraph(context, nextBlock)
+			cfg.visitedBlocksStack.Pop()
 		}
 	}
-	return true
 }
 
-func (cfg *CFG) mergeSuccsBlocks(blocks []*ssa.BasicBlock) *domain.FunctionState {
-	blocksLen := len(blocks)
-	state := cfg.ComputedBlockIDsToSummaries[blocks[blocksLen-1].Index].Copy()
-	for i := blocksLen - 2; i >= 0; i-- {
-		predBlockSummary := cfg.ComputedBlockIDsToSummaries[blocks[i].Index].Copy()
-		state.MergeBranchState(predBlockSummary)
-	}
-	return state
-}
-
-func (cfg *CFG) mergePredBlocks(blocks []*ssa.BasicBlock) *domain.FunctionState {
-	state := cfg.ComputedBlockIDsToSummaries[blocks[0].Index].Copy()
-	for _, predBlock := range blocks[1:] {
-		predBlockSummary := cfg.ComputedBlockIDsToSummaries[predBlock.Index].Copy()
-		state.MergeBranchState(predBlockSummary)
-	}
-	return state
-}
-
-func GetBlocksSummary(Context *domain.Context, startBlock *ssa.BasicBlock) (*domain.FunctionState, *ssa.BasicBlock) {
-	cfgDown := newCFG()
-	cfgDown.getSummary = func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
-		return GetBlockSummary(Context, block)
-	}
-	cfgDown.calculateMergedBranchesState = func(blocks []*ssa.BasicBlock) *domain.FunctionState {
-		return cfgDown.mergePredBlocks(blocks)
-	}
-	cfgDown.getNextBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
-		return block.Succs
-	}
-	cfgDown.getPreviousBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
-		return block.Preds
-	}
-	cfgDown.traverseGraph(Context, startBlock)
-	funcState := cfgDown.ComputedBlockIDsToSummaries[cfgDown.lastBlock.Index]
-	return funcState, cfgDown.lastBlock
-}
-
-func GetDefersSummary(Context *domain.Context, startBlock *ssa.BasicBlock, deferredFunctions []*domain.DeferFunction) *domain.FunctionState {
-	deferredMap := make(map[int][]*domain.DeferFunction, len(deferredFunctions))
-	for _, block := range deferredFunctions {
-		deferredMap[block.BlockIndex] = append(deferredMap[block.BlockIndex], block)
+func (cfg *CFG) CalculatePath() {
+	path := cfg.visitedBlocksStack.GetAllItems()
+	block := path[0]
+	state := cfg.ComputedBlocks[block.Index].Copy()
+	for _, nextBlock := range path[1:] {
+		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
+		nextState.UpdateGuardedAccessesWithLockset(state.Lockset)
+		state.MergeStates(nextState, true)
 	}
 
-	cfgUp := newCFG()
-	cfgUp.DeferredFunctions = deferredMap
-	cfgUp.getSummary = func(Context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
-		return cfgUp.runDefers(Context, block)
-	}
-	cfgUp.calculateMergedBranchesState = func(blocks []*ssa.BasicBlock) *domain.FunctionState {
-		return cfgUp.mergeSuccsBlocks(blocks)
-	}
-	cfgUp.getNextBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
-		return block.Preds
-	}
-	cfgUp.getPreviousBlocks = func(block *ssa.BasicBlock) []*ssa.BasicBlock {
-		return block.Succs
-	}
-	cfgUp.traverseGraph(Context, startBlock)
-	funcState := cfgUp.ComputedBlockIDsToSummaries[cfgUp.lastBlock.Index]
-	return funcState
-}
-
-func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
-	unsupportedBlocks := []string{"loop", "select"}
-	for _, ub := range unsupportedBlocks {
-		if strings.Contains(block.Comment, ub) {
-			panic("For loops/select statements are not supported") // Can't return in this flow so we panic
+	deferBlock := path[len(path)-1]
+	deferState, ok := cfg.ComputedDeferBlocks[deferBlock.Index]
+	if ok {
+		deferStateCopy := deferState.Copy()
+		for i := len(path) - 2; i >= 0; i-- {
+			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
+			if !ok {
+				continue
+			}
+			nextStateCopy := nextState.Copy()
+			nextStateCopy.UpdateGuardedAccessesWithLockset(deferStateCopy.Lockset)
+			deferStateCopy.MergeStates(nextStateCopy, true)
 		}
-	}
-	nextBlocks := cfg.getNextBlocks(block)
-	prevBlocks := cfg.getPreviousBlocks(block)
-
-	// When 2 path diverge, shared blocks are traversed again. In that case we return since already calculated the summary for that block.
-	_, wasCalculated := cfg.ComputedBlockIDsToSummaries[block.Index]
-	if wasCalculated {
-		return
+		state.MergeStates(deferStateCopy, true)
 	}
 
-	// We can merge only once all preceding blocks were calculated. If one of the preceding blocks wasn't calculated yet, we return and we'll reach this block again once all preceding blocks are calculated.
-	if !cfg.AreAllPrecedingCalculated(prevBlocks) {
-		return
-	}
-
-	var calculatedState *domain.FunctionState
-	currBlockState := cfg.getSummary(Context, block)
-	if len(prevBlocks) > 0 {
-		calculatedState = cfg.calculateMergedBranchesState(prevBlocks)
-		currBlockState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
-		calculatedState.MergeStates(currBlockState, true)
+	if cfg.calculatedState == nil {
+		cfg.calculatedState = state
 	} else {
-		calculatedState = currBlockState
+		cfg.calculatedState.MergeBranchState(state)
 	}
+}
 
-	cfg.ComputedBlockIDsToSummaries[block.Index] = calculatedState
-
-	if len(nextBlocks) == 0 {
-		cfg.lastBlock = block
-		return
-	}
-
-	for _, blockToExecute := range nextBlocks {
-		cfg.traverseGraph(Context, blockToExecute)
+func (cfg *CFG) calculateBlockStateIfNeeded(context *domain.Context, block *ssa.BasicBlock) {
+	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
+		cfg.ComputedBlocks[block.Index] = GetBlockSummary(context, block)
+		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
+		if deferedFunctions.Len() > 0 {
+			cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(context, deferedFunctions)
+		}
 	}
 }
