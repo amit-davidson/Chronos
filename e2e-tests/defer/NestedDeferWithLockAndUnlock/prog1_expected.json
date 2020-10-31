@@ -1,7 +1,7 @@
 {
 	"Lockset": {
 		"ExistingLocks": {
-			"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlock/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlock/prog1.go:20:19"
+			"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlock/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlock/prog1.go:14:19"
 		},
 		"ExistingUnlocks": {}
 	},

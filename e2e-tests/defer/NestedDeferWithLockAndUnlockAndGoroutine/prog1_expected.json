@@ -60,9 +60,7 @@
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:21:12"
-				},
+				"ExistingLocks": {},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -79,9 +77,7 @@
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:8:5",
 			"OpKind": 1,
 			"LocksetJson": {
-				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:21:12"
-				},
+				"ExistingLocks": {},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -99,7 +95,7 @@
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:21:12"
+					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:17:13"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -117,7 +113,7 @@
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:21:12"
+					"github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go:17:13"
 				},
 				"ExistingUnlocks": {}
 			},

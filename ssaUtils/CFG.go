@@ -34,24 +34,24 @@ func (cfg *CFG) CalculatePath() {
 		state.MergeStates(nextState, true)
 	}
 
-	deferBlock := path[0]
-	deferState := cfg.ComputedDeferBlocks[deferBlock.Index]
-	if deferState != nil {
+	deferBlock := path[len(path)-1]
+	deferState, ok := cfg.ComputedDeferBlocks[deferBlock.Index]
+	if ok {
 		deferStateCopy := deferState.Copy()
-		for _, nextBlock := range path[1:] {
-			nextState := cfg.ComputedDeferBlocks[nextBlock.Index]
-			if nextState == nil {
+		for i := len(path) - 2; i >= 0; i-- {
+			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
+			if !ok {
 				continue
 			}
 			nextStateCopy := nextState.Copy()
 			for _, guardedAccess := range nextStateCopy.GuardedAccesses {
-				guardedAccess.Lockset.UpdateLockSet(state.Lockset.ExistingLocks, state.Lockset.ExistingUnlocks)
+				guardedAccess.Lockset.UpdateLockSet(deferStateCopy.Lockset.ExistingLocks, deferStateCopy.Lockset.ExistingUnlocks)
 			}
-			deferStateCopy.MergeStates(nextStateCopy, true)
+			deferStateCopy.MergeStates(nextState, true)
 		}
-
 		state.MergeStates(deferStateCopy, true)
 	}
+
 	if cfg.calculatedState == nil {
 		cfg.calculatedState = state
 	} else {
@@ -67,18 +67,9 @@ func (cfg *CFG) calculateState(Context *domain.Context, block *ssa.BasicBlock) {
 func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
 	nextBlocks := block.Succs
 	for _, nextBlock := range nextBlocks {
-		if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
-			cfg.ComputedBlocks[block.Index] = GetBlockSummary(Context, block)
-			deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
-			cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(Context, deferedFunctions)
-		}
-
+		cfg.calculateBlockStateIfNeeded(Context, block)
 		if len(nextBlock.Succs) == 0 {
-			if _, ok := cfg.ComputedBlocks[nextBlock.Index]; !ok {
-				cfg.ComputedBlocks[nextBlock.Index] = GetBlockSummary(Context, nextBlock)
-				deferedFunctions := cfg.ComputedBlocks[nextBlock.Index].DeferredFunctions
-				cfg.ComputedDeferBlocks[nextBlock.Index] = cfg.runDefers(Context, deferedFunctions)
-			}
+			cfg.calculateBlockStateIfNeeded(Context, nextBlock)
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.CalculatePath()
 			cfg.visitedBlocksStack.Pop()
@@ -88,5 +79,12 @@ func (cfg *CFG) traverseGraph(Context *domain.Context, block *ssa.BasicBlock) {
 			cfg.visitedBlocksStack.Pop()
 		}
 	}
+}
 
+func (cfg *CFG) calculateBlockStateIfNeeded(Context *domain.Context, block *ssa.BasicBlock) {
+	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
+		cfg.ComputedBlocks[block.Index] = GetBlockSummary(Context, block)
+		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
+		cfg.ComputedDeferBlocks[block.Index] = cfg.runDefers(Context, deferedFunctions)
+	}
 }
