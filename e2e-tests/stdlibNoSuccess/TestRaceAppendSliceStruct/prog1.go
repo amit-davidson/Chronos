@@ -11,6 +11,6 @@ func main() {
 		y = append(y, x...)
 		c <- true
 	}()
-	x[1].	y = 42
+	x[1].y = 42
 	<-c
 }

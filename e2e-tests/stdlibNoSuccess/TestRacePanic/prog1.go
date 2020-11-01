@@ -18,7 +18,7 @@ func main() {
 			x = 1
 			ch <- true
 		}()
-		var y int =	 1 / zero
+		var y int = 1 / zero
 		zero = y
 	}()
 	go func() {

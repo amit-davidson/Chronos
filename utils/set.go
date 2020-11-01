@@ -4,7 +4,6 @@ type IntSet struct {
 	set map[int]int
 }
 
-
 func (s *IntSet) Add(num int) bool {
 	if !s.Exist(num) {
 		s.set[num] = 1

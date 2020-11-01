@@ -12,7 +12,6 @@ func (b *Ben) Hello() {
 	b.name = "Ben"
 }
 
-
 func main() {
 	var ben = &Ben{}
 	var maker IceCreamMaker = ben

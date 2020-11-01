@@ -183,7 +183,7 @@ func TestE2E(t *testing.T) {
 		{name: "TestRaceUnaddressableMapLen", testPath: "stdlib/TestRaceUnaddressableMapLen/prog1.go", resPath: "stdlib/TestRaceUnaddressableMapLen/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceCase", testPath: "stdlib/TestNoRaceCase/prog1.go", resPath: "stdlib/TestNoRaceCase/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceRangeIssue5446", testPath: "stdlib/TestNoRaceRangeIssue5446/prog1.go", resPath: "stdlib/TestNoRaceRangeIssue5446/prog1_expected.json", shouldUpdate: false},
-		//{name: "TestRaceRange", testPath: "stdlib/TestRaceRange/prog1.go", resPath: "stdlib/TestRaceRange/prog1_expected.json", shouldUpdate: false}, // doesn't work. There's a race between v on line 11 from iter i+1 and 16/18 form iter i and it's not handled properly.
+		//{name: "TestRaceRange", testPath: "stdlibNoSuccess/TestRaceRange/prog1.go", resPath: "stdlibNoSuccess/TestRaceRange/prog1_expected.json", shouldUpdate: false}, // doesn't work. There's a race between v on line 11 from iter i+1 and 16/18 form iter i and it's not handled properly.
 		{name: "TestRaceForInit", testPath: "stdlib/TestRaceForInit/prog1.go", resPath: "stdlib/TestRaceForInit/prog1_expected.json", shouldUpdate: false},
 		//{name: "TestNoRaceForInit", testPath: "stdlibNoSuccess/TestNoRaceForInit/prog1.go", resPath: "stdlibNoSuccess/TestNoRaceForInit/prog1_expected.json", shouldUpdate: false}, // flow analysis required
 		{name: "TestRaceForTest", testPath: "stdlib/TestRaceForTest/prog1.go", resPath: "stdlib/TestRaceForTest/prog1_expected.json", shouldUpdate: false},
@@ -201,7 +201,6 @@ func TestE2E(t *testing.T) {
 
 			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
 			require.NoError(t, err)
-
 
 			entryFunc := ssaPkg.Func("main")
 

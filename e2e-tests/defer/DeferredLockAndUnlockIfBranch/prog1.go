@@ -7,6 +7,7 @@ import (
 
 var a int
 var cond = false
+
 func main() {
 	mutex := sync.Mutex{}
 	if rand.Int() > 0 {

@@ -21,7 +21,7 @@ func main() {
 	mutex.Lock()
 	defer func() {
 		go func() {
-			a=7
+			a = 7
 			defer mutex.Unlock()
 		}()
 	}()

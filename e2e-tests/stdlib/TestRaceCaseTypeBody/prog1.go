@@ -1,6 +1,5 @@
 package main
 
-
 func main() {
 	var x, y int
 	var i interface{} = &x

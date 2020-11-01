@@ -57,8 +57,8 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:19:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:19:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -73,7 +73,7 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:19:6",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -89,8 +89,8 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:20:6",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:19:6",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/DataRaceIceCreamMaker/prog1.go:19:6",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},

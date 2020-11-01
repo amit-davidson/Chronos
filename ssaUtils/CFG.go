@@ -54,11 +54,21 @@ func (cfg *CFG) CalculatePath() {
 		state.MergeStates(nextState, true)
 	}
 
-	deferBlock := path[len(path)-1]
-	deferState, ok := cfg.ComputedDeferBlocks[deferBlock.Index]
-	if ok {
-		deferStateCopy := deferState.Copy()
-		for i := len(path) - 2; i >= 0; i-- {
+
+	var firstDeferState *domain.FunctionState
+	var firstDeferIndex int
+	for i := len(path) - 1; i >= 0; i-- {
+		deferIndex := path[i].Index
+		deferState, ok := cfg.ComputedDeferBlocks[deferIndex]
+		if ok {
+			firstDeferState = deferState
+			firstDeferIndex = i
+			break
+		}
+	}
+	if firstDeferState != nil {
+		deferStateCopy := firstDeferState.Copy()
+		for i := firstDeferIndex - 1; i >= 0; i-- {
 			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
 			if !ok {
 				continue

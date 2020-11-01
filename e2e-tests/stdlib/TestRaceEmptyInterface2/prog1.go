@@ -5,6 +5,7 @@ import "sync"
 type Point struct {
 	x, y int
 }
+
 var mutex sync.Mutex
 
 func main() {

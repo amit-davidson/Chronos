@@ -6,12 +6,12 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:7:5",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:9:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:11:13"
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:10:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:13"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -25,12 +25,12 @@
 		},
 		{
 			"ID": 2,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:3",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:9:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:11:13"
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:10:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:13"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -44,12 +44,12 @@
 		},
 		{
 			"ID": 3,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:4",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {
-					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:9:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:11:13"
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:10:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:12:13"
 				},
 				"ExistingUnlocks": {}
 			},
@@ -63,7 +63,7 @@
 		},
 		{
 			"ID": 4,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:14:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:7:5",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -79,8 +79,8 @@
 		},
 		{
 			"ID": 5,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:14:3",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:14:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:2",
 			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -95,7 +95,7 @@
 		},
 		{
 			"ID": 6,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:14:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:3",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
