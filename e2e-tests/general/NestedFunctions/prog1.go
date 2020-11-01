@@ -15,7 +15,6 @@ func main() {
 	fn2()
 }
 
-
 func fn2() {
 	mutex2 := sync.Mutex{}
 	mutex2.Lock()

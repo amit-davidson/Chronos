@@ -202,7 +202,6 @@ func TestE2E(t *testing.T) {
 			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
 			require.NoError(t, err)
 
-
 			entryFunc := ssaPkg.Func("main")
 
 			domain.GoroutineCounter.Reset()

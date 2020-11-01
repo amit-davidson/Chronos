@@ -1,6 +1,5 @@
 package main
 
-
 func main() {
 	// from erf.go
 	const (

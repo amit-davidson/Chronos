@@ -1,6 +1,5 @@
 package main
 
-
 type Employee interface {
 	IceCreamMaker
 }
@@ -16,7 +15,6 @@ type Jerry struct {
 func (j *Jerry) Hello() {
 	j.name = "Jerry"
 }
-
 
 func main() {
 	var ben = &Jerry{}

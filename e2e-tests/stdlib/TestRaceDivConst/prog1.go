@@ -1,6 +1,5 @@
 package main
 
-
 func main() {
 	var x, y, z uint32
 	_ = x
