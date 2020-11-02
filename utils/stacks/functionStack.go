@@ -9,7 +9,7 @@ func NewFunctionStack() *FunctionStack {
 	return (*FunctionStack)(&stack)
 }
 
-func (s *FunctionStack) GetAllItems() []*ssa.CallCommon {
+func (s *FunctionStack) GetItems() []*ssa.CallCommon {
 	tmp := make([]*ssa.CallCommon, len(*s))
 	copy(tmp, *s)
 	return tmp
@@ -33,7 +33,7 @@ func (s *FunctionStack) Pop() *ssa.CallCommon {
 }
 
 func (s *FunctionStack) MergeStacks(ns *FunctionStack) {
-	for _, item := range ns.GetAllItems() {
+	for _, item := range ns.GetItems() {
 		s.Push(item)
 	}
 }

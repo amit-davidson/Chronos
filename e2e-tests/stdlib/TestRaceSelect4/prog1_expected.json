@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:14",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:9:4",
 			"Value": "",
 			"OpKind": 0,
@@ -55,6 +58,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:9:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:5:6",
 			"OpKind": 1,
@@ -72,6 +76,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:11:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:2",
 			"OpKind": 0,
@@ -89,6 +94,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:13:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:5:6",
 			"OpKind": 0,
@@ -105,6 +111,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:14:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:4:2",
 			"OpKind": 0,
@@ -121,6 +128,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:14:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceSelect4/prog1.go:14:4",
 			"OpKind": 0,

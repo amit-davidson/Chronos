@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
 			"Value": "",
 			"OpKind": 0,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:11:7",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:10:15",
 			"OpKind": 0,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
 			"Value": "",
 			"OpKind": 0,
@@ -86,6 +91,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/ElseIf/prog1.go:13:14",
 			"OpKind": 0,

@@ -8,6 +8,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:12:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:12:13",
 			"OpKind": 0,
@@ -24,6 +25,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:12:16",
 			"Value": "",
 			"OpKind": 0,
@@ -40,6 +42,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:12:16",
 			"OpKind": 0,
@@ -56,6 +59,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:8:5",
 			"OpKind": 0,
@@ -72,6 +76,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:15:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:15:2",
 			"OpKind": 1,
@@ -88,6 +93,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:15:3",
 			"Value": "",
 			"OpKind": 0,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:16:9",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:8:5",
 			"OpKind": 0,
@@ -120,6 +127,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:16:10",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:16:9",
 			"OpKind": 0,
@@ -136,6 +144,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:17:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:16:10",
 			"OpKind": 0,
@@ -152,6 +161,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:17:30",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:17:6",
 			"OpKind": 1,
@@ -168,6 +178,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:17:30",
 			"Value": "",
 			"OpKind": 0,
@@ -184,6 +195,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:18:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:18:13",
 			"OpKind": 0,
@@ -200,6 +212,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:18:16",
 			"Value": "",
 			"OpKind": 0,
@@ -216,6 +229,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:18:16",
 			"OpKind": 0,
@@ -232,6 +246,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:21:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:8:5",
 			"OpKind": 0,
@@ -250,6 +265,7 @@
 		},
 		{
 			"ID": 16,
+			"PosID": 16,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:21:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:21:2",
 			"OpKind": 1,
@@ -268,6 +284,7 @@
 		},
 		{
 			"ID": 17,
+			"PosID": 17,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfMap/prog1.go:21:3",
 			"Value": "",
 			"OpKind": 0,

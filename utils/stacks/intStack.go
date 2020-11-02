@@ -7,10 +7,14 @@ func NewIntStack() *IntStack {
 	return (*IntStack)(&stack)
 }
 
-func (s *IntStack) GetAllItems() []int {
+func (s *IntStack) GetItems() []int {
+	return *s
+}
+
+func (s *IntStack) Copy() *IntStack {
 	tmp := make([]int, len(*s))
 	copy(tmp, *s)
-	return tmp
+	return (*IntStack)(&tmp)
 }
 
 func (s *IntStack) Push(v int) {

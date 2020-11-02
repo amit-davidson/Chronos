@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:12:3",
 			"Value": "",
 			"OpKind": 0,
@@ -23,6 +24,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:12:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:7:5",
 			"OpKind": 1,
@@ -40,6 +42,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:18:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:7:5",
 			"OpKind": 0,
@@ -56,6 +59,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:18:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:18:5",
 			"OpKind": 0,
@@ -72,6 +76,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:18:7",
 			"Value": "",
 			"OpKind": 0,
@@ -88,6 +93,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:18:7",
 			"OpKind": 0,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:23:2",
 			"Value": "",
 			"OpKind": 0,
@@ -120,6 +127,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:23:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceGoto/prog1.go:7:5",
 			"OpKind": 1,
