@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:7:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:6:6",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:14",
 			"OpKind": 0,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:2",
 			"OpKind": 1,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:6",
 			"OpKind": 0,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"Value": "",
 			"OpKind": 0,
@@ -86,6 +91,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"OpKind": 0,
@@ -102,6 +108,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:8",
 			"OpKind": 0,
@@ -119,6 +126,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"Value": "",
 			"OpKind": 0,
@@ -136,6 +144,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"OpKind": 0,
@@ -153,6 +162,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:13:8",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:12:9",
 			"OpKind": 0,
@@ -170,6 +180,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:13:10",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:13:8",
 			"OpKind": 0,
@@ -187,6 +198,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:13:10",
 			"Value": "",
 			"OpKind": 0,
@@ -204,6 +216,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:13:10",
 			"OpKind": 0,
@@ -221,6 +234,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:14:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:12:9",
 			"OpKind": 0,
@@ -238,6 +252,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:14:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:6:6",
 			"OpKind": 1,
@@ -255,6 +270,7 @@
 		},
 		{
 			"ID": 16,
+			"PosID": 16,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:16:5",
 			"Value": "",
 			"OpKind": 0,
@@ -272,6 +288,7 @@
 		},
 		{
 			"ID": 17,
+			"PosID": 17,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:16:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:12:9",
 			"OpKind": 1,
@@ -289,6 +306,7 @@
 		},
 		{
 			"ID": 18,
+			"PosID": 18,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:23",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:8",
 			"OpKind": 0,
@@ -306,6 +324,7 @@
 		},
 		{
 			"ID": 19,
+			"PosID": 19,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:23",
 			"Value": "",
 			"OpKind": 0,
@@ -323,6 +342,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:8",
 			"OpKind": 0,
@@ -340,6 +360,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"Value": "",
 			"OpKind": 0,
@@ -357,6 +378,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:11:18",
 			"OpKind": 0,
@@ -374,6 +396,7 @@
 		},
 		{
 			"ID": 20,
+			"PosID": 20,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:18:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:2",
 			"OpKind": 0,
@@ -391,6 +414,7 @@
 		},
 		{
 			"ID": 21,
+			"PosID": 21,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:21",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:6",
 			"OpKind": 0,
@@ -407,6 +431,7 @@
 		},
 		{
 			"ID": 22,
+			"PosID": 22,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:21",
 			"Value": "",
 			"OpKind": 0,
@@ -423,6 +448,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:6",
 			"OpKind": 0,
@@ -439,6 +465,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"Value": "",
 			"OpKind": 0,
@@ -455,6 +482,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:9:16",
 			"OpKind": 0,
@@ -471,6 +499,7 @@
 		},
 		{
 			"ID": 23,
+			"PosID": 23,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:6",
 			"OpKind": 0,
@@ -487,6 +516,7 @@
 		},
 		{
 			"ID": 24,
+			"PosID": 24,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"Value": "",
 			"OpKind": 0,
@@ -503,6 +533,7 @@
 		},
 		{
 			"ID": 25,
+			"PosID": 25,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"OpKind": 0,
@@ -519,6 +550,7 @@
 		},
 		{
 			"ID": 26,
+			"PosID": 26,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:22:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:8:2",
 			"OpKind": 0,
@@ -535,6 +567,7 @@
 		},
 		{
 			"ID": 27,
+			"PosID": 27,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:22:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:22:5",
 			"OpKind": 0,
@@ -551,6 +584,7 @@
 		},
 		{
 			"ID": 28,
+			"PosID": 28,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:21",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:6",
 			"OpKind": 0,
@@ -567,6 +601,7 @@
 		},
 		{
 			"ID": 29,
+			"PosID": 29,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:21",
 			"Value": "",
 			"OpKind": 0,
@@ -583,6 +618,7 @@
 		},
 		{
 			"ID": 23,
+			"PosID": 23,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:6",
 			"OpKind": 0,
@@ -599,6 +635,7 @@
 		},
 		{
 			"ID": 24,
+			"PosID": 24,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"Value": "",
 			"OpKind": 0,
@@ -615,6 +652,7 @@
 		},
 		{
 			"ID": 25,
+			"PosID": 25,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceTinyAlloc/prog1.go:21:16",
 			"OpKind": 0,

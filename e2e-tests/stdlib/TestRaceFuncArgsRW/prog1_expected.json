@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:12",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:11:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:10:10",
 			"OpKind": 0,
@@ -55,6 +58,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:12:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 0,
@@ -72,6 +76,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:14:2",
 			"Value": "",
 			"OpKind": 0,
@@ -88,6 +93,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:14:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:9:6",
 			"OpKind": 1,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:15:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 0,
@@ -120,6 +127,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceFuncArgsRW/prog1.go:15:4",
 			"OpKind": 0,

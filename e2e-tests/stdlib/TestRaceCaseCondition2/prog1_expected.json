@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"Value": "",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:12",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"OpKind": 1,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:10:3",
 			"Value": "",
 			"OpKind": 0,
@@ -87,6 +92,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:10:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"OpKind": 1,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:11:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"OpKind": 0,
@@ -121,6 +128,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:10",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"OpKind": 0,
@@ -138,6 +146,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:12",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:10",
 			"OpKind": 0,
@@ -155,6 +164,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:12",
 			"Value": "",
 			"OpKind": 0,
@@ -172,6 +182,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:12",
 			"OpKind": 0,
@@ -189,6 +200,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "",
 			"Value": "",
 			"OpKind": 0,
@@ -206,6 +218,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "",
 			"Value": "",
 			"OpKind": 0,
@@ -223,6 +236,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:16:4",
 			"Value": "",
 			"OpKind": 0,
@@ -240,6 +254,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:16:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"OpKind": 1,
@@ -257,6 +272,7 @@
 		},
 		{
 			"ID": 16,
+			"PosID": 16,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:20:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"OpKind": 0,
@@ -274,6 +290,7 @@
 		},
 		{
 			"ID": 17,
+			"PosID": 17,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:14:12",
 			"OpKind": 0,
@@ -291,6 +308,7 @@
 		},
 		{
 			"ID": 18,
+			"PosID": 18,
 			"Pos": "",
 			"Value": "",
 			"OpKind": 0,
@@ -308,6 +326,7 @@
 		},
 		{
 			"ID": 19,
+			"PosID": 19,
 			"Pos": "",
 			"Value": "",
 			"OpKind": 0,
@@ -325,6 +344,7 @@
 		},
 		{
 			"ID": 20,
+			"PosID": 20,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:18:4",
 			"Value": "",
 			"OpKind": 0,
@@ -342,6 +362,7 @@
 		},
 		{
 			"ID": 21,
+			"PosID": 21,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:18:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:6:6",
 			"OpKind": 1,
@@ -359,6 +380,7 @@
 		},
 		{
 			"ID": 22,
+			"PosID": 22,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:22:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"OpKind": 0,
@@ -375,6 +397,7 @@
 		},
 		{
 			"ID": 23,
+			"PosID": 23,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:22:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:22:4",
 			"OpKind": 0,
@@ -391,6 +414,7 @@
 		},
 		{
 			"ID": 24,
+			"PosID": 24,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:23:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:7:2",
 			"OpKind": 0,
@@ -407,6 +431,7 @@
 		},
 		{
 			"ID": 25,
+			"PosID": 25,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:23:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceCaseCondition2/prog1.go:23:4",
 			"OpKind": 0,

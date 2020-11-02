@@ -5,9 +5,45 @@ import (
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
+	"go/types"
 	"golang.org/x/tools/go/ssa"
 	"strings"
 )
+
+var functionsCache = make(map[*types.Signature]*domain.FunctionState)
+
+//func WasFunctionCalculated(sig *types.Signature) bool {
+//	if cachedFunctionState, ok := functionsCache[sig]; ok {
+//		if sig.Recv() == cachedFunctionState
+//	}
+//	return false
+//}
+func UpdateFunctionWithContext(context *domain.Context, state *domain.FunctionState) *domain.FunctionState {
+	for _, ga := range state.GuardedAccesses {
+		ga.ID = context.GuardedAccessCounter.GetNext()
+		ga.State.GoroutineID = context.GoroutineID
+		context.Increment()
+		ga.State.Clock = context.Copy().Clock
+
+		newStack := context.StackTrace.Copy().GetItems()
+		gaStack := ga.Stacktrace.GetItems()
+		diffPoint := 0
+		for i := 0; i < len(gaStack); i++ {
+			pos := newStack[i]
+			gaPos := gaStack[i]
+			if pos != gaPos { // We reached the point where the paths differ
+				diffPoint = i
+			}
+		}
+
+		for i := diffPoint + 1; i < len(gaStack); i++ {
+			newStack = append(newStack, gaStack[i])
+		}
+
+		ga.Stacktrace = (*stacks.IntStack)(&newStack)
+	}
+	return state
+}
 
 func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.FunctionState {
 	context.StackTrace.Push(int(pos))
@@ -43,7 +79,15 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 			AddLock(funcState, callCommon, true)
 			return funcState
 		}
-		funcStateRet := HandleFunction(context, call)
+
+		var funcStateRet *domain.FunctionState
+		sig := callCommon.Signature()
+		if cachedFunctionState, ok := functionsCache[sig]; ok {
+			funcStateRet = UpdateFunctionWithContext(context, cachedFunctionState.Copy())
+		} else {
+			funcStateRet = HandleFunction(context, call)
+			functionsCache[sig] = funcStateRet
+		}
 		return funcStateRet
 
 	case ssa.Instruction:

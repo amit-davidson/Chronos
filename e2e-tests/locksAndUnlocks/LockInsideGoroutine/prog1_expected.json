@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:7:5",
 			"OpKind": 0,
@@ -25,6 +26,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:3",
 			"OpKind": 1,
@@ -44,6 +46,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:13:4",
 			"Value": "",
 			"OpKind": 0,
@@ -63,6 +66,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:7:5",
 			"OpKind": 0,
@@ -79,6 +83,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:2",
 			"OpKind": 1,
@@ -95,6 +100,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInsideGoroutine/prog1.go:15:3",
 			"Value": "",
 			"OpKind": 0,

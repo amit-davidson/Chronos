@@ -1,7 +1,7 @@
 package domain
 
 import (
-	"github.com/amit-davidson/Chronos/utils"
+	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
@@ -26,9 +26,10 @@ func (op OpKind) String() string {
 }
 
 type GuardedAccess struct {
-	ID         int
+	ID         int  // ID depends on the flow, which means it's unique.
+	PosID      int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
 	Pos        token.Pos
-	Stacktrace []int
+	Stacktrace *stacks.IntStack
 	Value      ssa.Value
 	State      *Context
 	Lockset    *Lockset
@@ -38,6 +39,7 @@ type GuardedAccess struct {
 func (ga *GuardedAccess) Copy() *GuardedAccess {
 	return &GuardedAccess{
 		ID:         ga.ID,
+		PosID:      ga.PosID,
 		Pos:        ga.Pos,
 		Value:      ga.Value,
 		Lockset:    ga.Lockset.Copy(),
@@ -85,10 +87,9 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	return false
 }
 
-var GuardedAccessCounter = utils.NewCounter()
-
-func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, Context *Context) *GuardedAccess {
-	Context.Increment()
-	stackTrace := Context.StackTrace.GetAllItems()
-	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), Pos: pos, Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: Context.Copy()}
+func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
+	context.Increment()
+	stackTrace := context.StackTrace.Copy()
+	return &GuardedAccess{ID: context.GuardedAccessCounter.GetNext(), PosID: context.PosIDCounter.GetNext(), Pos: pos,
+		Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: context.Copy()}
 }

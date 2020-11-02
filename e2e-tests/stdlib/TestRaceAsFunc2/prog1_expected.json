@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:11",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:5:2",
 			"Value": "",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:5:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:5:2",
 			"OpKind": 1,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:8:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:5:2",
 			"OpKind": 0,
@@ -87,6 +92,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:9:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:2",
 			"OpKind": 0,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:11:2",
 			"Value": "",
 			"OpKind": 0,
@@ -120,6 +127,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:11:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:5:2",
 			"OpKind": 1,
@@ -136,6 +144,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:12:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:4:2",
 			"OpKind": 0,
@@ -152,6 +161,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:12:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceAsFunc2/prog1.go:12:4",
 			"OpKind": 0,

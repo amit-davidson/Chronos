@@ -8,6 +8,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"OpKind": 0,
@@ -26,6 +27,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"Value": "",
 			"OpKind": 0,
@@ -44,6 +46,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:20:4",
 			"OpKind": 1,
@@ -62,6 +65,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"OpKind": 0,
@@ -80,6 +84,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"Value": "",
 			"OpKind": 0,
@@ -98,6 +103,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:25:4",
 			"OpKind": 1,
@@ -116,6 +122,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"OpKind": 0,
@@ -134,6 +141,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"Value": "",
 			"OpKind": 0,
@@ -152,6 +160,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/InterfaceWithLock/prog1.go:34:6",
 			"OpKind": 1,

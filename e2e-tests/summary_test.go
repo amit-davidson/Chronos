@@ -204,8 +204,6 @@ func TestE2E(t *testing.T) {
 
 			entryFunc := ssaPkg.Func("main")
 
-			domain.GoroutineCounter.Reset()
-			domain.GuardedAccessCounter.Reset()
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
 			testresult := testutils.NewTestResult(functionState.Lockset, functionState.GuardedAccesses)

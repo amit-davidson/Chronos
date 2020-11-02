@@ -37,7 +37,7 @@ func (s *BasicBlockStack) Pop() *ssa.BasicBlock {
 	return v
 }
 
-func (s *BasicBlockStack) GetAllItems() []*ssa.BasicBlock {
+func (s *BasicBlockStack) GetItems() []*ssa.BasicBlock {
 	return s.stack
 }
 

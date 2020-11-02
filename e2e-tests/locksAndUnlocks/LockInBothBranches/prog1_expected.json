@@ -8,6 +8,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:13:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:13:13",
 			"OpKind": 0,
@@ -24,6 +25,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:13:16",
 			"Value": "",
 			"OpKind": 0,
@@ -40,6 +42,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:13:16",
 			"OpKind": 0,
@@ -56,6 +59,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:18:2",
 			"Value": "",
 			"OpKind": 0,
@@ -74,6 +78,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:18:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockInBothBranches/prog1.go:8:5",
 			"OpKind": 1,

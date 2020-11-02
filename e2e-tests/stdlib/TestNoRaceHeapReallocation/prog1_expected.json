@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:14",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:11",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:2",
 			"OpKind": 1,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:6",
 			"OpKind": 0,
@@ -86,6 +91,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"Value": "",
 			"OpKind": 0,
@@ -102,6 +108,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"OpKind": 0,
@@ -118,6 +125,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:18:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:6",
 			"OpKind": 0,
@@ -134,6 +142,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:18:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:18:3",
 			"OpKind": 1,
@@ -150,6 +159,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:31",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:18:3",
 			"OpKind": 0,
@@ -167,6 +177,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:35",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:30",
 			"OpKind": 0,
@@ -184,6 +195,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:35",
 			"Value": "",
 			"OpKind": 0,
@@ -201,6 +213,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:20:16",
 			"OpKind": 0,
@@ -218,6 +231,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:23:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:2",
 			"OpKind": 0,
@@ -235,6 +249,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:23:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:16:2",
 			"OpKind": 0,
@@ -252,6 +267,7 @@
 		},
 		{
 			"ID": 16,
+			"PosID": 16,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:24:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:2",
 			"OpKind": 0,
@@ -269,6 +285,7 @@
 		},
 		{
 			"ID": 17,
+			"PosID": 17,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:21",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:6",
 			"OpKind": 0,
@@ -285,6 +302,7 @@
 		},
 		{
 			"ID": 18,
+			"PosID": 18,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:21",
 			"Value": "",
 			"OpKind": 0,
@@ -301,6 +319,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:6",
 			"OpKind": 0,
@@ -317,6 +336,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"Value": "",
 			"OpKind": 0,
@@ -333,6 +353,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:17:16",
 			"OpKind": 0,
@@ -349,6 +370,7 @@
 		},
 		{
 			"ID": 19,
+			"PosID": 19,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:6",
 			"OpKind": 0,
@@ -365,6 +387,7 @@
 		},
 		{
 			"ID": 20,
+			"PosID": 20,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"Value": "",
 			"OpKind": 0,
@@ -381,6 +404,7 @@
 		},
 		{
 			"ID": 21,
+			"PosID": 21,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"OpKind": 0,
@@ -397,6 +421,7 @@
 		},
 		{
 			"ID": 22,
+			"PosID": 22,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:28:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:15:2",
 			"OpKind": 0,
@@ -413,6 +438,7 @@
 		},
 		{
 			"ID": 23,
+			"PosID": 23,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:28:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:28:5",
 			"OpKind": 0,
@@ -429,6 +455,7 @@
 		},
 		{
 			"ID": 24,
+			"PosID": 24,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:21",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:6",
 			"OpKind": 0,
@@ -445,6 +472,7 @@
 		},
 		{
 			"ID": 25,
+			"PosID": 25,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:21",
 			"Value": "",
 			"OpKind": 0,
@@ -461,6 +489,7 @@
 		},
 		{
 			"ID": 19,
+			"PosID": 19,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:6",
 			"OpKind": 0,
@@ -477,6 +506,7 @@
 		},
 		{
 			"ID": 20,
+			"PosID": 20,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"Value": "",
 			"OpKind": 0,
@@ -493,6 +523,7 @@
 		},
 		{
 			"ID": 21,
+			"PosID": 21,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceHeapReallocation/prog1.go:27:16",
 			"OpKind": 0,
