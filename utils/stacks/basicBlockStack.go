@@ -66,9 +66,9 @@ func (s *blocksStack) Pop() *ssa.BasicBlock {
 
 // The function check if the block already exists in the stack and if it does, return true only if it appear twice or more.
 // This is used to handle cycles where a path might visit a node more then once. This way a cycle is allowed, but only once
-// to avoid infinite recursion. There are edge cases such as: A->B->D->C->D->E(end) where the graph is not circular, but
-// the traversal won't reach to E since D appear a second time and it will exit at that point. This flow is rare and can
-// be achieved using gotos
+// to avoid infinite recursion. Finding all valid flows is hard so this is chosen as an approximation. There are edge
+//cases such as: A->B->D->C->D->E(end) where the graph is not circular, but the traversal won't reach to E since D
+//appear a second time and it will exit at that point. This flow is rare and can be achieved using gotos
 func (s *BasicBlockStack) Contains(v *ssa.BasicBlock) bool {
 	block, ok := s.blocksMap[v.Index]
 	if !ok {
