@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:13",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 1,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
 			"Value": "",
 			"OpKind": 0,
@@ -86,6 +91,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
 			"OpKind": 1,
@@ -102,6 +108,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"Value": "",
 			"OpKind": 0,
@@ -118,6 +125,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 1,
@@ -134,6 +142,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:11:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -150,6 +159,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:11:9",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:11:5",
 			"OpKind": 0,
@@ -166,6 +176,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:11:9",
 			"Value": "",
 			"OpKind": 0,
@@ -182,6 +193,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:11:9",
 			"OpKind": 0,
@@ -198,6 +210,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:12:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
@@ -214,6 +227,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:12:10",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -230,6 +244,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"Value": "",
 			"OpKind": 0,
@@ -246,6 +261,7 @@
 		},
 		{
 			"ID": 16,
+			"PosID": 16,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"OpKind": 1,
@@ -262,6 +278,7 @@
 		},
 		{
 			"ID": 17,
+			"PosID": 17,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:6",
 			"Value": "",
 			"OpKind": 0,
@@ -278,6 +295,7 @@
 		},
 		{
 			"ID": 18,
+			"PosID": 18,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 1,
@@ -294,6 +312,7 @@
 		},
 		{
 			"ID": 19,
+			"PosID": 19,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:23:5",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -310,6 +329,7 @@
 		},
 		{
 			"ID": 20,
+			"PosID": 20,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:23:9",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:23:5",
 			"OpKind": 0,
@@ -326,6 +346,7 @@
 		},
 		{
 			"ID": 21,
+			"PosID": 21,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:23:9",
 			"Value": "",
 			"OpKind": 0,
@@ -342,6 +363,7 @@
 		},
 		{
 			"ID": 22,
+			"PosID": 22,
 			"Pos": "",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:23:9",
 			"OpKind": 0,
@@ -358,6 +380,7 @@
 		},
 		{
 			"ID": 23,
+			"PosID": 23,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
@@ -374,6 +397,7 @@
 		},
 		{
 			"ID": 24,
+			"PosID": 24,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:10",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -390,6 +414,7 @@
 		},
 		{
 			"ID": 25,
+			"PosID": 25,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
@@ -406,6 +431,7 @@
 		},
 		{
 			"ID": 26,
+			"PosID": 26,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
 			"OpKind": 0,
@@ -422,6 +448,7 @@
 		},
 		{
 			"ID": 27,
+			"PosID": 27,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:13",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"OpKind": 0,
@@ -439,6 +466,7 @@
 		},
 		{
 			"ID": 28,
+			"PosID": 28,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:22",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
 			"OpKind": 0,
@@ -456,6 +484,7 @@
 		},
 		{
 			"ID": 29,
+			"PosID": 29,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
 			"Value": "",
 			"OpKind": 0,
@@ -473,6 +502,7 @@
 		},
 		{
 			"ID": 30,
+			"PosID": 30,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 1,
@@ -490,6 +520,7 @@
 		},
 		{
 			"ID": 31,
+			"PosID": 31,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
@@ -507,6 +538,7 @@
 		},
 		{
 			"ID": 32,
+			"PosID": 32,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:11",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -524,6 +556,7 @@
 		},
 		{
 			"ID": 33,
+			"PosID": 33,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:29:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"OpKind": 0,
@@ -541,6 +574,7 @@
 		},
 		{
 			"ID": 34,
+			"PosID": 34,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:13",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
 			"OpKind": 0,
@@ -558,6 +592,7 @@
 		},
 		{
 			"ID": 35,
+			"PosID": 35,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:22",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
 			"OpKind": 0,
@@ -575,6 +610,7 @@
 		},
 		{
 			"ID": 36,
+			"PosID": 36,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
 			"Value": "",
 			"OpKind": 0,
@@ -592,6 +628,7 @@
 		},
 		{
 			"ID": 37,
+			"PosID": 37,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 1,
@@ -609,6 +646,7 @@
 		},
 		{
 			"ID": 38,
+			"PosID": 38,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
@@ -626,6 +664,7 @@
 		},
 		{
 			"ID": 39,
+			"PosID": 39,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:11",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
@@ -643,6 +682,7 @@
 		},
 		{
 			"ID": 40,
+			"PosID": 40,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:19:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
 			"OpKind": 0,

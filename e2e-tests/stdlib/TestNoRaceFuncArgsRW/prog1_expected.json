@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:12",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:12:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 0,
@@ -55,6 +58,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:15:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:8:2",
 			"OpKind": 0,
@@ -71,6 +75,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestNoRaceFuncArgsRW/prog1.go:15:4",
 			"OpKind": 0,

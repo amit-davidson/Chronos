@@ -1,7 +1,6 @@
 package testutils
 
 import (
-	"encoding/json"
 	"go/token"
 	"path/filepath"
 	"strings"
@@ -13,6 +12,7 @@ import (
 
 type GuardedAccessJSON struct {
 	ID          int
+	PosID       int
 	Pos         string
 	Value       string
 	OpKind      domain.OpKind
@@ -24,16 +24,13 @@ func GuardedAccessToJSON(ga *domain.GuardedAccess) GuardedAccessJSON {
 	prog := ssaUtils.GlobalProgram
 	dumpJson := GuardedAccessJSON{}
 	dumpJson.ID = ga.ID
+	dumpJson.PosID = ga.PosID
 	dumpJson.Pos = GetRelativePath(ga.Pos, prog)
 	dumpJson.Value = GetRelativePath(ga.Value.Pos(), prog)
 	dumpJson.OpKind = ga.OpKind
 	dumpJson.LocksetJson = LocksetToJSON(ga.Lockset)
 	dumpJson.State = ContextToJSON(ga.State)
 	return dumpJson
-}
-func MarshalJSON(ga *domain.GuardedAccess) ([]byte, error) {
-	dump, err := json.Marshal(GuardedAccessToJSON(ga))
-	return dump, err
 }
 
 // Lockset name ans pos

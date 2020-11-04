@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:11",
 			"OpKind": 0,
@@ -22,6 +23,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:2",
 			"OpKind": 1,
@@ -38,6 +40,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:11",
 			"OpKind": 0,
@@ -54,6 +57,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:2",
 			"OpKind": 1,
@@ -70,6 +74,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:11:11",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:2",
 			"OpKind": 0,
@@ -87,6 +92,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:11:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:10:12",
 			"OpKind": 0,
@@ -104,6 +110,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:11:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:11:11",
 			"OpKind": 1,
@@ -121,6 +128,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:12:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:2",
 			"OpKind": 0,
@@ -138,6 +146,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:8:2",
 			"OpKind": 0,
@@ -154,6 +163,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:3",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:2",
 			"OpKind": 0,
@@ -170,6 +180,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:7",
 			"OpKind": 0,
@@ -186,6 +197,7 @@
 		},
 		{
 			"ID": 12,
+			"PosID": 12,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:7",
 			"Value": "",
 			"OpKind": 0,
@@ -202,6 +214,7 @@
 		},
 		{
 			"ID": 13,
+			"PosID": 13,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:14:7",
 			"OpKind": 1,
@@ -218,6 +231,7 @@
 		},
 		{
 			"ID": 14,
+			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:15:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:7:2",
 			"OpKind": 0,
@@ -234,6 +248,7 @@
 		},
 		{
 			"ID": 15,
+			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:15:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestRaceSliceStruct/prog1.go:15:4",
 			"OpKind": 0,

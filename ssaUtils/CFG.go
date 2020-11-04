@@ -45,7 +45,7 @@ func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
 }
 
 func (cfg *CFG) CalculatePath() {
-	path := cfg.visitedBlocksStack.GetAllItems()
+	path := cfg.visitedBlocksStack.GetItems()
 	block := path[0]
 	state := cfg.ComputedBlocks[block.Index].Copy()
 	for _, nextBlock := range path[1:] {

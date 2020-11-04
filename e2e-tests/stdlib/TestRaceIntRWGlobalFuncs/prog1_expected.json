@@ -6,6 +6,7 @@
 	"GuardedAccess": [
 		{
 			"ID": 1,
+			"PosID": 1,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:7:12",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:3:5",
 			"OpKind": 0,
@@ -23,6 +24,7 @@
 		},
 		{
 			"ID": 2,
+			"PosID": 2,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:7:12",
 			"OpKind": 0,
@@ -40,6 +42,7 @@
 		},
 		{
 			"ID": 3,
+			"PosID": 3,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:7:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:3:14",
 			"OpKind": 1,
@@ -57,6 +60,7 @@
 		},
 		{
 			"ID": 4,
+			"PosID": 4,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:8:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:4:5",
 			"OpKind": 0,
@@ -74,6 +78,7 @@
 		},
 		{
 			"ID": 5,
+			"PosID": 5,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:12:2",
 			"Value": "",
 			"OpKind": 0,
@@ -91,6 +96,7 @@
 		},
 		{
 			"ID": 6,
+			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:12:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:3:5",
 			"OpKind": 1,
@@ -108,6 +114,7 @@
 		},
 		{
 			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:13:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:4:5",
 			"OpKind": 0,
@@ -125,6 +132,7 @@
 		},
 		{
 			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:19:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:4:5",
 			"OpKind": 0,
@@ -141,6 +149,7 @@
 		},
 		{
 			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:19:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:19:4",
 			"OpKind": 0,
@@ -157,6 +166,7 @@
 		},
 		{
 			"ID": 10,
+			"PosID": 10,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:20:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:4:5",
 			"OpKind": 0,
@@ -173,6 +183,7 @@
 		},
 		{
 			"ID": 11,
+			"PosID": 11,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:20:2",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlib/TestRaceIntRWGlobalFuncs/prog1.go:20:4",
 			"OpKind": 0,

@@ -12,7 +12,3 @@ func (c *Counter) GetNext() int {
 	c.count += 1
 	return c.count
 }
-
-func (c *Counter) Reset() {
-	c.count = 0
-}
