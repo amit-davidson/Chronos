@@ -41,7 +41,7 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
 	}
 }
 
-func (ls *Lockset) MergeBranchesLockset(locksetToMerge *Lockset) {
+func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
 	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
 	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
 

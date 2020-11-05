@@ -18,45 +18,19 @@ var functionsCache = make(map[*types.Signature]*domain.FunctionState)
 //	}
 //	return false
 //}
-func UpdateFunctionWithContext(context *domain.Context, state *domain.FunctionState) *domain.FunctionState {
-	for _, ga := range state.GuardedAccesses {
-		ga.ID = context.GuardedAccessCounter.GetNext()
-		ga.State.GoroutineID = context.GoroutineID
-		context.Increment()
-		ga.State.Clock = context.Copy().Clock
 
-		newStack := context.StackTrace.Copy().GetItems()
-		gaStack := ga.Stacktrace.GetItems()
-		diffPoint := 0
-		for i := 0; i < len(gaStack); i++ {
-			pos := newStack[i]
-			gaPos := gaStack[i]
-			if pos != gaPos { // We reached the point where the paths differ
-				diffPoint = i
-			}
-		}
-
-		for i := diffPoint + 1; i < len(gaStack); i++ {
-			newStack = append(newStack, gaStack[i])
-		}
-
-		ga.Stacktrace = (*stacks.IntStack)(&newStack)
-	}
-	return state
-}
-
-func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.FunctionState {
+func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.BlockState {
 	context.StackTrace.Push(int(pos))
 	defer context.StackTrace.Pop()
 
-	funcState := domain.GetEmptyFunctionState()
+	funcState := domain.GetEmptyBlockState()
 	if callCommon.IsInvoke() {
 		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(context, impls[0])
 			for _, impl := range impls[1:] {
 				funcstateRet := HandleFunction(context, impl)
-				funcState.MergeBranchState(funcstateRet)
+				funcState.MergeSiblingBlock(funcstateRet)
 			}
 		}
 		return funcState
@@ -80,15 +54,17 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 			return funcState
 		}
 
-		var funcStateRet *domain.FunctionState
+		var blockStateRet *domain.BlockState
 		sig := callCommon.Signature()
 		if cachedFunctionState, ok := functionsCache[sig]; ok {
-			funcStateRet = UpdateFunctionWithContext(context, cachedFunctionState.Copy())
+			copiedState := cachedFunctionState.Copy() // Copy to avoid override cached item
+			copiedState.UpdateFunctionWithContext(context)
+			blockStateRet = domain.CreateBlockState(copiedState.GuardedAccesses, copiedState.Lockset, stacks.NewFunctionStack())
 		} else {
-			funcStateRet = HandleFunction(context, call)
-			functionsCache[sig] = funcStateRet
+			blockStateRet = HandleFunction(context, call)
+			functionsCache[sig] = domain.CreateFunctionState(blockStateRet.GuardedAccesses, blockStateRet.Lockset)
 		}
-		return funcStateRet
+		return blockStateRet
 
 	case ssa.Instruction:
 		HandleInstruction(funcState, context, call)
@@ -97,7 +73,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 	return funcState
 }
 
-func HandleBuiltin(functionState *domain.FunctionState, context *domain.Context, call *ssa.CallCommon) {
+func HandleBuiltin(functionState *domain.BlockState, context *domain.Context, call *ssa.CallCommon) {
 	callCommon := call.Value.(*ssa.Builtin)
 	args := call.Args
 	switch name := callCommon.Name(); name {
@@ -114,7 +90,7 @@ func HandleBuiltin(functionState *domain.FunctionState, context *domain.Context,
 	}
 }
 
-func HandleInstruction(functionState *domain.FunctionState, context *domain.Context, ins ssa.Instruction) {
+func HandleInstruction(functionState *domain.BlockState, context *domain.Context, ins ssa.Instruction) {
 	switch call := ins.(type) {
 	case *ssa.UnOp:
 		guardedAccess := domain.AddGuardedAccess(call.Pos(), call.X, domain.GuardAccessRead, functionState.Lockset, context)
@@ -169,19 +145,19 @@ func HandleInstruction(functionState *domain.FunctionState, context *domain.Cont
 	}
 }
 
-func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.FunctionState {
-	funcState := domain.GetEmptyFunctionState()
+func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
+	funcState := domain.GetEmptyBlockState()
 	for _, ins := range block.Instrs {
 		switch call := ins.(type) {
 		case *ssa.Call:
 			callCommon := call.Common()
 			funcStateRet := HandleCallCommon(context, callCommon, callCommon.Pos())
-			funcState.MergeStates(funcStateRet, true)
+			funcState.AddResult(funcStateRet, true)
 		case *ssa.Go:
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(context)
 			funcStateRet := HandleCallCommon(newState.Copy(), callCommon, callCommon.Pos())
-			funcState.MergeStates(funcStateRet, false)
+			funcState.AddResult(funcStateRet, false)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			funcState.DeferredFunctions.Push(callCommon)
@@ -192,23 +168,22 @@ func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.Fun
 	return funcState
 }
 
-func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.FunctionStack) *domain.FunctionState {
-	calculatedState := domain.GetEmptyFunctionState()
+func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.FunctionStack) *domain.BlockState {
+	calculatedState := domain.GetEmptyBlockState()
 	for {
 		deferFunction := defers.Pop()
 		if deferFunction == nil {
 			break
 		}
 		retState := HandleCallCommon(context, deferFunction, deferFunction.Pos())
-		retState.UpdateGuardedAccessesWithLockset(calculatedState.Lockset)
-		calculatedState.MergeStates(retState, true)
+		calculatedState.MergeChildBlock(retState)
 	}
 	return calculatedState
 
 }
 
-func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.FunctionState {
-	funcState := domain.GetEmptyFunctionState()
+func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockState {
+	funcState := domain.GetEmptyBlockState()
 	if fn.Pkg == nil {
 		return funcState
 	}
