@@ -27,7 +27,7 @@ func CreateFunctionState(ga []*GuardedAccess, ls *Lockset) *FunctionState {
 func (fs *FunctionState) MergeChildFunction(newFunction *FunctionState, shouldMergeLockset bool) {
 	fs.GuardedAccesses = append(fs.GuardedAccesses, newFunction.GuardedAccesses...)
 	if shouldMergeLockset {
-		fs.Lockset.UpdateLockSet(newFunction.Lockset.ExistingLocks, newFunction.Lockset.ExistingUnlocks)
+		fs.Lockset.UpdateLockSet(newFunction.Lockset.Locks, newFunction.Lockset.Unlocks)
 	}
 }
 

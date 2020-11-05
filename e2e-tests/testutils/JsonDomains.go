@@ -46,12 +46,12 @@ func LocksetToJSON(ls *domain.Lockset) *LocksetJson {
 		ExistingLocks:   map[string]string{},
 		ExistingUnlocks: map[string]string{},
 	}
-	for lockInit, lock := range ls.ExistingLocks {
+	for lockInit, lock := range ls.Locks {
 		lockInitPos := GetRelativePath(lockInit, prog)
 		lockPos := GetRelativePath(lock.Pos(), prog)
 		dumpJson.ExistingLocks[lockInitPos] = lockPos
 	}
-	for unlockInit, lock := range ls.ExistingUnlocks {
+	for unlockInit, lock := range ls.Unlocks {
 		unlockInitPos := GetRelativePath(unlockInit, prog)
 		unlockPos := GetRelativePath(lock.Pos(), prog)
 		dumpJson.ExistingUnlocks[unlockInitPos] = unlockPos

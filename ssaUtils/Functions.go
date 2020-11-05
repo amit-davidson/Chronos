@@ -12,13 +12,6 @@ import (
 
 var functionsCache = make(map[*types.Signature]*domain.FunctionState)
 
-//func WasFunctionCalculated(sig *types.Signature) bool {
-//	if cachedFunctionState, ok := functionsCache[sig]; ok {
-//		if sig.Recv() == cachedFunctionState
-//	}
-//	return false
-//}
-
 func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.BlockState {
 	context.StackTrace.Push(int(pos))
 	defer context.StackTrace.Pop()

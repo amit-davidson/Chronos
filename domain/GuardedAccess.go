@@ -77,8 +77,8 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 		return true
 	}
 
-	for lockA := range ga.Lockset.ExistingLocks {
-		for lockB := range gaToCompare.Lockset.ExistingLocks {
+	for lockA := range ga.Lockset.Locks {
+		for lockB := range gaToCompare.Lockset.Locks {
 			if lockA == lockB {
 				return true
 			}

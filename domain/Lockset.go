@@ -9,14 +9,14 @@ import (
 type locksLastUse map[token.Pos]*ssa.CallCommon
 
 type Lockset struct {
-	ExistingLocks   locksLastUse
-	ExistingUnlocks locksLastUse
+	Locks   locksLastUse
+	Unlocks locksLastUse
 }
 
 func NewLockset() *Lockset {
 	return &Lockset{
-		ExistingLocks:   make(locksLastUse),
-		ExistingUnlocks: make(locksLastUse),
+		Locks:   make(locksLastUse),
+		Unlocks: make(locksLastUse),
 	}
 }
 
@@ -26,45 +26,45 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
 	// then its latest status is locked, and the unlock status is removed.
 	// Source: https://github.com/amit-davidson/Chronos/pull/10/files#r507203577
 	for lockName, lock := range newLocks {
-		ls.ExistingLocks[lockName] = lock
+		ls.Locks[lockName] = lock
 	}
 	for unlockName := range newUnlocks {
-		delete(ls.ExistingLocks, unlockName)
+		delete(ls.Locks, unlockName)
 	}
 	for unlockName, unlock := range newUnlocks {
-		ls.ExistingUnlocks[unlockName] = unlock
+		ls.Unlocks[unlockName] = unlock
 	}
 	for lockName := range newLocks {
-		if _, ok := ls.ExistingLocks[lockName]; ok {
-			delete(ls.ExistingUnlocks, lockName)
+		if _, ok := ls.Locks[lockName]; ok {
+			delete(ls.Unlocks, lockName)
 		}
 	}
 }
 
 func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
-	locks := Intersect(ls.ExistingLocks, locksetToMerge.ExistingLocks)
-	unlocks := Union(ls.ExistingUnlocks, locksetToMerge.ExistingUnlocks)
+	locks := Intersect(ls.Locks, locksetToMerge.Locks)
+	unlocks := Union(ls.Unlocks, locksetToMerge.Unlocks)
 
 	for unlockName := range unlocks {
 		// If there's a lock in one branch and an unlock in second, then unlock wins
 		delete(locks, unlockName)
 	}
-	ls.ExistingLocks = locks
-	ls.ExistingUnlocks = unlocks
+	ls.Locks = locks
+	ls.Unlocks = unlocks
 }
 
 func (ls *Lockset) Copy() *Lockset {
 	newLs := NewLockset()
-	newLocks := make(locksLastUse, len(ls.ExistingLocks))
-	for key, value := range ls.ExistingLocks {
+	newLocks := make(locksLastUse, len(ls.Locks))
+	for key, value := range ls.Locks {
 		newLocks[key] = value
 	}
-	newLs.ExistingLocks = newLocks
-	newUnlocks := make(locksLastUse, len(ls.ExistingUnlocks))
-	for key, value := range ls.ExistingUnlocks {
+	newLs.Locks = newLocks
+	newUnlocks := make(locksLastUse, len(ls.Unlocks))
+	for key, value := range ls.Unlocks {
 		newUnlocks[key] = value
 	}
-	newLs.ExistingUnlocks = newUnlocks
+	newLs.Unlocks = newUnlocks
 	return newLs
 }
 

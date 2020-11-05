@@ -27,7 +27,7 @@ func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.FunctionStack
 func (existingBlock *BlockState) AddResult(newBlock *BlockState, shouldMergeLockset bool) {
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	if shouldMergeLockset {
-		existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.ExistingLocks, newBlock.Lockset.ExistingUnlocks)
+		existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 	}
 }
 
@@ -36,11 +36,11 @@ func (existingBlock *BlockState) AddResult(newBlock *BlockState, shouldMergeLock
 // Will Merge B unto A
 func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
 	for _, guardedAccess := range newBlock.GuardedAccesses {
-		guardedAccess.Lockset.UpdateLockSet(existingBlock.Lockset.ExistingLocks, existingBlock.Lockset.ExistingUnlocks)
+		guardedAccess.Lockset.UpdateLockSet(existingBlock.Lockset.Locks, existingBlock.Lockset.Unlocks)
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	existingBlock.DeferredFunctions.MergeStacks(newBlock.DeferredFunctions)
-	existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.ExistingLocks, newBlock.Lockset.ExistingUnlocks)
+	existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 }
 
 // Merge state of nodes from branches:
