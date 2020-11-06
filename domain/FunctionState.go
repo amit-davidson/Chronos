@@ -39,10 +39,10 @@ func (fs *FunctionState) AddContextToFunction(context *Context) {
 		context.Increment()
 		ga.State.Clock = context.Copy().Clock
 
-		newStack := context.StackTrace.Copy().GetItems()
-		gaStack := ga.Stacktrace.GetItems()
-		newStack = append(newStack, gaStack...)
-		ga.Stacktrace = (*stacks.IntStack)(&newStack)
+		newStack := context.StackTrace.GetItems().Copy()
+		gaStack := ga.Stacktrace
+		newStack.MergeStacks(gaStack)
+		ga.Stacktrace = newStack
 	}
 }
 
@@ -57,7 +57,7 @@ func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
 		ga.State.GoroutineID = 0
 		ga.State.Clock = nil
 
-		newStack := context.StackTrace.Copy().GetItems()
+		newStack := context.StackTrace.GetItems().Copy().GetItems()
 		gaStack := ga.Stacktrace.GetItems()
 		diffPoint := len(newStack)
 		for i := 0; i < len(newStack); i++ {

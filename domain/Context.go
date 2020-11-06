@@ -8,7 +8,7 @@ import (
 type Context struct {
 	GoroutineID int
 	Clock       VectorClock
-	StackTrace  *stacks.IntStack
+	StackTrace  *stacks.IntStackWithMap
 
 	GoroutineCounter     *utils.Counter
 	GuardedAccessCounter *utils.Counter
@@ -20,7 +20,7 @@ func NewEmptyContext() *Context {
 	return &Context{
 		Clock:                VectorClock{},
 		GoroutineID:          GoroutineCounter.GetNext(),
-		StackTrace:           stacks.NewIntStack(),
+		StackTrace:           stacks.NewIntStackWithMap(),
 		GoroutineCounter:     GoroutineCounter,
 		GuardedAccessCounter: utils.NewCounter(),
 		PosIDCounter:         utils.NewCounter(),
