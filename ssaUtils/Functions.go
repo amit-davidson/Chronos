@@ -51,11 +51,13 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 		sig := callCommon.Signature()
 		if cachedFunctionState, ok := functionsCache[sig]; ok {
 			copiedState := cachedFunctionState.Copy() // Copy to avoid override cached item
-			copiedState.UpdateFunctionWithContext(context)
+			copiedState.AddContextToFunction(context)
 			blockStateRet = domain.CreateBlockState(copiedState.GuardedAccesses, copiedState.Lockset, stacks.NewFunctionStack())
 		} else {
 			blockStateRet = HandleFunction(context, call)
-			functionsCache[sig] = domain.CreateFunctionState(blockStateRet.GuardedAccesses, blockStateRet.Lockset)
+			fs := domain.CreateFunctionState(blockStateRet.GuardedAccesses, blockStateRet.Lockset)
+			fs.RemoveContextFromFunction(context)
+			functionsCache[sig] = fs
 		}
 		return blockStateRet
 
