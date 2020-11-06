@@ -14,9 +14,12 @@ var functionsCache = make(map[*types.Signature]*domain.FunctionState)
 
 func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.BlockState {
 	funcState := domain.GetEmptyBlockState()
+
+	// if we already visited this path, it means we're (probably) in a recursion so we return to avoid infinite loop
 	if context.StackTrace.Contains(int(pos)) {
 		return funcState
 	}
+
 	context.StackTrace.Push(int(pos))
 	defer context.StackTrace.Pop()
 
