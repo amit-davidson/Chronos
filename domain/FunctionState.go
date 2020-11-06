@@ -3,75 +3,83 @@ package domain
 import "github.com/amit-davidson/Chronos/utils/stacks"
 
 type FunctionState struct {
-	GuardedAccesses   []*GuardedAccess
-	Lockset           *Lockset
-	DeferredFunctions *stacks.FunctionStack
+	GuardedAccesses []*GuardedAccess
+	Lockset         *Lockset
 }
 
-func GetEmptyFunctionState() *FunctionState {
+func GetFunctionState() *FunctionState {
 	return &FunctionState{
-		GuardedAccesses:   make([]*GuardedAccess, 0),
-		Lockset:           NewLockset(),
-		DeferredFunctions: stacks.NewFunctionStack(),
+		GuardedAccesses: make([]*GuardedAccess, 0),
+		Lockset:         NewLockset(),
 	}
 }
 
-// Merge state of nodes from the same branch:
-// A -> B -> C
-// Will Merge B and C
-func (funcState *FunctionState) MergeStates(funcStateToMerge *FunctionState, shouldMergeLockset bool) {
-	funcState.GuardedAccesses = append(funcState.GuardedAccesses, funcStateToMerge.GuardedAccesses...)
-	funcState.DeferredFunctions.MergeStacks(funcStateToMerge.DeferredFunctions)
-	if shouldMergeLockset {
-		funcState.Lockset.UpdateLockSet(funcStateToMerge.Lockset.ExistingLocks, funcStateToMerge.Lockset.ExistingUnlocks)
+func CreateFunctionState(ga []*GuardedAccess, ls *Lockset) *FunctionState {
+	return &FunctionState{
+		GuardedAccesses: ga,
+		Lockset:         ls,
 	}
 }
 
-// Merge state of nodes from branches:
+// Merge child B unto A:
 // A -> B
-//   -> C
-// Will Merge B and C
-func (funcState *FunctionState) MergeBranchState(funcStateToMerge *FunctionState) {
-	funcState.AppendGuardedAccessWithoutDuplicates(funcStateToMerge.GuardedAccesses)
-	for _, mergeGuardedAccess := range funcStateToMerge.GuardedAccesses {
-		for _, existingGuardedAccess := range funcState.GuardedAccesses {
-			if existingGuardedAccess.ID == mergeGuardedAccess.ID {
-				existingGuardedAccess.Lockset.MergeBranchesLockset(mergeGuardedAccess.Lockset)
+// Will Merge B unto A
+func (fs *FunctionState) MergeChildFunction(newFunction *FunctionState, shouldMergeLockset bool) {
+	fs.GuardedAccesses = append(fs.GuardedAccesses, newFunction.GuardedAccesses...)
+	if shouldMergeLockset {
+		fs.Lockset.UpdateLockSet(newFunction.Lockset.Locks, newFunction.Lockset.Unlocks)
+	}
+}
+
+// AddContextToFunction adds flow specific context data
+func (fs *FunctionState) AddContextToFunction(context *Context) {
+	for _, ga := range fs.GuardedAccesses {
+		ga.ID = context.GuardedAccessCounter.GetNext()
+		ga.State.GoroutineID = context.GoroutineID
+		context.Increment()
+		ga.State.Clock = context.Copy().Clock
+
+		newStack := context.StackTrace.GetItems().Copy()
+		gaStack := ga.Stacktrace
+		newStack.MergeStacks(gaStack)
+		ga.Stacktrace = newStack
+	}
+}
+
+// RemoveContextFromFunction strips any context related data from the guarded access fields. It nullifies id, goroutine id,
+// clock and removes from the guarded access the prefix that matches the context path. This way, other flows can take
+// the guarded access and add relevant data.
+func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
+	gas := make([]*GuardedAccess, 0, len(fs.GuardedAccesses))
+	for i := range fs.GuardedAccesses {
+		ga := fs.GuardedAccesses[i].Copy()
+		ga.ID = 0
+		ga.State.GoroutineID = 0
+		ga.State.Clock = nil
+
+		newStack := context.StackTrace.GetItems().Copy().GetItems()
+		gaStack := ga.Stacktrace.GetItems()
+		diffPoint := len(newStack)
+		for i := 0; i < len(newStack); i++ {
+			pos := newStack[i]
+			gaPos := gaStack[i]
+			if pos != gaPos { // We reached the point where the paths differ
+				diffPoint = i
 			}
 		}
+
+		modifiedStack := newStack[diffPoint:]
+		ga.Stacktrace = (*stacks.IntStack)(&modifiedStack)
+		gas = append(gas, ga)
 	}
-	funcState.Lockset.MergeBranchesLockset(funcStateToMerge.Lockset)
+	fs.GuardedAccesses = gas
 }
 
-func (funcState *FunctionState) AppendGuardedAccessWithoutDuplicates(GuardedAccesses []*GuardedAccess) {
-	for _, guardedAccessA := range GuardedAccesses {
-		if !contains(funcState.GuardedAccesses, guardedAccessA) {
-			funcState.GuardedAccesses = append(funcState.GuardedAccesses, guardedAccessA)
-		}
-	}
-}
-
-func (funcState *FunctionState) UpdateGuardedAccessesWithLockset(ls *Lockset) {
-	for _, guardedAccess := range funcState.GuardedAccesses {
-		guardedAccess.Lockset.UpdateLockSet(ls.ExistingLocks, ls.ExistingUnlocks)
-	}
-}
-
-func (funcState *FunctionState) Copy() *FunctionState {
-	newFunctionState := GetEmptyFunctionState()
-	newFunctionState.Lockset = funcState.Lockset.Copy()
-	for _, ga := range funcState.GuardedAccesses {
+func (fs *FunctionState) Copy() *FunctionState {
+	newFunctionState := GetFunctionState()
+	newFunctionState.Lockset = fs.Lockset.Copy()
+	for _, ga := range fs.GuardedAccesses {
 		newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, ga.Copy())
 	}
-	newFunctionState.DeferredFunctions = funcState.DeferredFunctions
 	return newFunctionState
-}
-
-func contains(GuardedAccesses []*GuardedAccess, GuardedAccessToCheck *GuardedAccess) bool {
-	for _, GuardedAccess := range GuardedAccesses {
-		if GuardedAccess.ID == GuardedAccessToCheck.ID {
-			return true
-		}
-	}
-	return false
 }

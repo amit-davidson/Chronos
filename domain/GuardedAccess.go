@@ -26,7 +26,7 @@ func (op OpKind) String() string {
 }
 
 type GuardedAccess struct {
-	ID         int  // ID depends on the flow, which means it's unique.
+	ID         int // ID depends on the flow, which means it's unique.
 	PosID      int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
 	Pos        token.Pos
 	Stacktrace *stacks.IntStack
@@ -77,8 +77,8 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 		return true
 	}
 
-	for lockA := range ga.Lockset.ExistingLocks {
-		for lockB := range gaToCompare.Lockset.ExistingLocks {
+	for lockA := range ga.Lockset.Locks {
+		for lockB := range gaToCompare.Lockset.Locks {
 			if lockA == lockB {
 				return true
 			}
@@ -91,5 +91,5 @@ func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lock
 	context.Increment()
 	stackTrace := context.StackTrace.Copy()
 	return &GuardedAccess{ID: context.GuardedAccessCounter.GetNext(), PosID: context.PosIDCounter.GetNext(), Pos: pos,
-		Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace, State: context.Copy()}
+		Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace.GetItems(), State: context.Copy()}
 }

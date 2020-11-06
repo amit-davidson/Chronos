@@ -9,16 +9,16 @@ import (
 type CFG struct {
 	visitedBlocksStack *stacks.BasicBlockStack
 
-	ComputedBlocks      map[int]*domain.FunctionState
-	ComputedDeferBlocks map[int]*domain.FunctionState
-	calculatedState     *domain.FunctionState
+	ComputedBlocks      map[int]*domain.BlockState
+	ComputedDeferBlocks map[int]*domain.BlockState
+	calculatedState     *domain.BlockState
 }
 
 func newCFG() *CFG {
 	return &CFG{
 		visitedBlocksStack:  stacks.NewBasicBlockStack(),
-		ComputedBlocks:      make(map[int]*domain.FunctionState),
-		ComputedDeferBlocks: make(map[int]*domain.FunctionState),
+		ComputedBlocks:      make(map[int]*domain.BlockState),
+		ComputedDeferBlocks: make(map[int]*domain.BlockState),
 	}
 }
 
@@ -50,12 +50,11 @@ func (cfg *CFG) CalculatePath() {
 	state := cfg.ComputedBlocks[block.Index].Copy()
 	for _, nextBlock := range path[1:] {
 		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
-		nextState.UpdateGuardedAccessesWithLockset(state.Lockset)
-		state.MergeStates(nextState, true)
+		state.MergeChildBlock(nextState)
 	}
 
 
-	var firstDeferState *domain.FunctionState
+	var firstDeferState *domain.BlockState
 	var firstDeferIndex int
 	for i := len(path) - 1; i >= 0; i-- {
 		deferIndex := path[i].Index
@@ -74,16 +73,15 @@ func (cfg *CFG) CalculatePath() {
 				continue
 			}
 			nextStateCopy := nextState.Copy()
-			nextStateCopy.UpdateGuardedAccessesWithLockset(deferStateCopy.Lockset)
-			deferStateCopy.MergeStates(nextStateCopy, true)
+			deferStateCopy.MergeChildBlock(nextStateCopy)
 		}
-		state.MergeStates(deferStateCopy, true)
+		state.AddResult(deferStateCopy, true)
 	}
 
 	if cfg.calculatedState == nil {
 		cfg.calculatedState = state
 	} else {
-		cfg.calculatedState.MergeBranchState(state)
+		cfg.calculatedState.MergeSiblingBlock(state)
 	}
 }
 

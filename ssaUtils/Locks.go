@@ -6,7 +6,7 @@ import (
 	"golang.org/x/tools/go/ssa"
 )
 
-func AddLock(funcState *domain.FunctionState, call *ssa.CallCommon, isUnlock bool) {
+func AddLock(funcState *domain.BlockState, call *ssa.CallCommon, isUnlock bool) {
 	receiver := call.Args[0]
 	LockName := receiver.Pos()
 	lock := map[token.Pos]*ssa.CallCommon{LockName: call}
