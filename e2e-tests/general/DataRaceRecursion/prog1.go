@@ -1,11 +1,6 @@
 package main
 
-import (
-	"sync"
-)
-
 var a int
-var mutex1 = sync.Mutex{}
 
 func main() {
 	go func() {
@@ -21,5 +16,6 @@ func fn1(counter int) {
 	if counter == 8 {
 		a = 6
 	}
+	counter += 1
 	fn1(counter)
 }

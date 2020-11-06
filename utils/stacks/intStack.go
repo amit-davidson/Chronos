@@ -28,6 +28,11 @@ func (s *IntStackWithMap) GetItems() *IntStack {
 	return &s.stack
 }
 
+func (s *IntStackWithMap) Contains(v int) bool {
+	_, ok := s.intMap[v]
+	return ok
+}
+
 func (s *IntStackWithMap) Push(v int) {
 	s.stack.Push(v)
 	s.intMap[v] = struct{}{}
@@ -42,11 +47,6 @@ func (s *IntStackWithMap) Pop() int {
 type IntMap map[int]struct{}
 
 type IntStack []int
-
-func NewIntStack() *IntStack {
-	stack := make([]int, 0)
-	return (*IntStack)(&stack)
-}
 
 func (s *IntStack) GetItems() []int {
 	return *s

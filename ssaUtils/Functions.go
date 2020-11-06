@@ -13,10 +13,13 @@ import (
 var functionsCache = make(map[*types.Signature]*domain.FunctionState)
 
 func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos token.Pos) *domain.BlockState {
+	funcState := domain.GetEmptyBlockState()
+	if context.StackTrace.Contains(int(pos)) {
+		return funcState
+	}
 	context.StackTrace.Push(int(pos))
 	defer context.StackTrace.Pop()
 
-	funcState := domain.GetEmptyBlockState()
 	if callCommon.IsInvoke() {
 		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
