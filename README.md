@@ -62,7 +62,7 @@ Chronos successfully reports cases where go race fails thanks to his static natu
 In addition, go race is having trouble with short programs where without contrived synchronization the program may exit too quickly.
 
 In contrast, Chronos managed to report only 244/403 = 60.5% of go race test cases. This can be explained by Chronos partial support with Go's features so this number will increase in the future.
-Also, it lacked due to his static nature where context/path/flow sensitivity was required.
+Also, it lacked due to his static nature where context/path sensitivity was required.
 
 Therefore, I suggest using both according the strengths and weaknesses of each of the race detectors.
 
