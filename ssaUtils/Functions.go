@@ -195,6 +195,9 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 
 	// regular
 	cfg := newCFG()
+	if fn.Blocks == nil { // External function
+		return domain.GetEmptyBlockState()
+	}
 	cfg.calculateFunctionState(context, fn.Blocks[0])
 	return cfg.calculatedState
 }
