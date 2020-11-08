@@ -47,10 +47,9 @@ func (fs *FunctionState) AddContextToFunction(context *Context) {
 		context.Increment()
 		ga.State.Clock = context.Copy().Clock
 
-		newStack := context.StackTrace.GetItems().Copy()
-		gaStack := ga.Stacktrace
-		newStack.MergeStacks(gaStack)
-		ga.Stacktrace = newStack
+		tmpStack := context.StackTrace.Copy()
+		tmpStack.Merge(ga.State.StackTrace)
+		ga.State.StackTrace = tmpStack
 	}
 }
 
@@ -65,8 +64,8 @@ func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
 		ga.State.GoroutineID = 0
 		ga.State.Clock = nil
 
-		newStack := context.StackTrace.GetItems().Copy().GetItems()
-		gaStack := ga.Stacktrace.GetItems()
+		newStack := context.StackTrace.Iter()
+		gaStack := ga.State.StackTrace.Iter()
 		diffPoint := len(newStack)
 		for i := 0; i < len(newStack); i++ {
 			pos := newStack[i]
@@ -76,8 +75,11 @@ func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
 			}
 		}
 
-		modifiedStack := newStack[diffPoint:]
-		ga.Stacktrace = (*stacks.IntStack)(&modifiedStack)
+		tmpStack := stacks.NewIntStackWithMap()
+		for _, item := range newStack[diffPoint:] {
+			tmpStack.Push(item)
+		}
+		ga.State.StackTrace = tmpStack
 		gas = append(gas, ga)
 	}
 	fs.GuardedAccesses = gas

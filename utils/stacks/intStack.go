@@ -28,6 +28,10 @@ func (s *IntStackWithMap) GetItems() *IntStack {
 	return &s.stack
 }
 
+func (s *IntStackWithMap) Iter() []int {
+	return s.stack
+}
+
 func (s *IntStackWithMap) Contains(v int) bool {
 	_, ok := s.intMap[v]
 	return ok
@@ -42,6 +46,13 @@ func (s *IntStackWithMap) Pop() int {
 	v := s.stack.Pop()
 	delete(s.intMap, v)
 	return v
+}
+
+func (s *IntStackWithMap) Merge(sn *IntStackWithMap) {
+	for _, item := range sn.Iter() {
+		s.stack.Push(item)
+		s.intMap[item] = struct{}{}
+	}
 }
 
 type IntMap map[int]struct{}

@@ -113,7 +113,7 @@ func sortMethodImplementations(methodImplementations []*ssa.Function) []*ssa.Fun
 
 func GetStackTrace(prog *ssa.Program, ga *domain.GuardedAccess) string {
 	stack := ""
-	for _, pos := range ga.Stacktrace.GetItems() {
+	for _, pos := range ga.State.StackTrace.Iter() {
 		calculatedPos := prog.Fset.Position(token.Pos(pos))
 		stack += calculatedPos.String()
 		stack += " ->\n"

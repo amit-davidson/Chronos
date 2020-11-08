@@ -1,7 +1,6 @@
 package domain
 
 import (
-	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
@@ -29,7 +28,6 @@ type GuardedAccess struct {
 	ID         int // ID depends on the flow, which means it's unique.
 	PosID      int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
 	Pos        token.Pos
-	Stacktrace *stacks.IntStack
 	Value      ssa.Value
 	State      *Context
 	Lockset    *Lockset
@@ -44,7 +42,6 @@ func (ga *GuardedAccess) Copy() *GuardedAccess {
 		Value:      ga.Value,
 		Lockset:    ga.Lockset.Copy(),
 		OpKind:     ga.OpKind,
-		Stacktrace: ga.Stacktrace,
 		State:      ga.State.Copy(),
 	}
 }
@@ -89,7 +86,6 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
 	context.Increment()
-	stackTrace := context.StackTrace.Copy()
 	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), PosID: PosIDCounter.GetNext(), Pos: pos,
-		Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace.GetItems(), State: context.Copy()}
+		Value: value, Lockset: lockset.Copy(), OpKind: kind, State: context.Copy()}
 }
