@@ -1,29 +1,21 @@
 package domain
 
-import (
-	"github.com/amit-davidson/Chronos/utils"
+import 	(
 	"github.com/amit-davidson/Chronos/utils/stacks"
 )
 
+// Flow context
 type Context struct {
 	GoroutineID int
 	Clock       VectorClock
 	StackTrace  *stacks.IntStackWithMap
-
-	GoroutineCounter     *utils.Counter
-	GuardedAccessCounter *utils.Counter
-	PosIDCounter         *utils.Counter
 }
 
 func NewEmptyContext() *Context {
-	var GoroutineCounter = utils.NewCounter()
 	return &Context{
 		Clock:                VectorClock{},
 		GoroutineID:          GoroutineCounter.GetNext(),
 		StackTrace:           stacks.NewIntStackWithMap(),
-		GoroutineCounter:     GoroutineCounter,
-		GuardedAccessCounter: utils.NewCounter(),
-		PosIDCounter:         utils.NewCounter(),
 	}
 }
 
@@ -31,11 +23,8 @@ func NewGoroutineExecutionState(state *Context) *Context {
 	state.Increment()
 	return &Context{
 		Clock:                state.Clock,
-		GoroutineID:          state.GoroutineCounter.GetNext(),
+		GoroutineID:          GoroutineCounter.GetNext(),
 		StackTrace:           state.StackTrace,
-		GoroutineCounter:     state.GoroutineCounter,
-		GuardedAccessCounter: state.GuardedAccessCounter,
-		PosIDCounter:         state.PosIDCounter,
 	}
 }
 
@@ -58,8 +47,5 @@ func (gs *Context) Copy() *Context {
 		GoroutineID:          gs.GoroutineID,
 		Clock:                gs.Clock.Copy(),
 		StackTrace:           gs.StackTrace.Copy(),
-		GuardedAccessCounter: gs.GuardedAccessCounter,
-		PosIDCounter:         gs.PosIDCounter,
-		GoroutineCounter:     gs.GoroutineCounter,
 	}
 }

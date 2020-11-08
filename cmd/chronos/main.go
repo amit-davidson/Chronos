@@ -6,6 +6,7 @@ import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
 	"github.com/amit-davidson/Chronos/ssaUtils"
+	"github.com/amit-davidson/Chronos/utils"
 	"golang.org/x/tools/go/ssa"
 	"os"
 )
@@ -18,6 +19,10 @@ func main() {
 		fmt.Printf("Please provide a file to load\n")
 		os.Exit(1)
 	}
+	domain.GoroutineCounter = utils.NewCounter()
+	domain.GuardedAccessCounter = utils.NewCounter()
+	domain.PosIDCounter = utils.NewCounter()
+
 	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile)
 	if err != nil {
 		fmt.Printf("Failed loading with the following error:%s\n", err)

@@ -1,6 +1,14 @@
 package domain
 
-import "github.com/amit-davidson/Chronos/utils/stacks"
+import (
+	"github.com/amit-davidson/Chronos/utils"
+	"github.com/amit-davidson/Chronos/utils/stacks"
+)
+
+var GoroutineCounter *utils.Counter
+var GuardedAccessCounter *utils.Counter
+var PosIDCounter *utils.Counter
+
 
 type FunctionState struct {
 	GuardedAccesses []*GuardedAccess
@@ -34,7 +42,7 @@ func (fs *FunctionState) MergeChildFunction(newFunction *FunctionState, shouldMe
 // AddContextToFunction adds flow specific context data
 func (fs *FunctionState) AddContextToFunction(context *Context) {
 	for _, ga := range fs.GuardedAccesses {
-		ga.ID = context.GuardedAccessCounter.GetNext()
+		ga.ID = GuardedAccessCounter.GetNext()
 		ga.State.GoroutineID = context.GoroutineID
 		context.Increment()
 		ga.State.Clock = context.Copy().Clock

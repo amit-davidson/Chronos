@@ -201,6 +201,10 @@ func TestE2E(t *testing.T) {
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 
+			domain.GoroutineCounter = utils.NewCounter()
+			domain.GuardedAccessCounter = utils.NewCounter()
+			domain.PosIDCounter = utils.NewCounter()
+
 			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
 			require.NoError(t, err)
 

@@ -90,6 +90,6 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
 	context.Increment()
 	stackTrace := context.StackTrace.Copy()
-	return &GuardedAccess{ID: context.GuardedAccessCounter.GetNext(), PosID: context.PosIDCounter.GetNext(), Pos: pos,
+	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), PosID: PosIDCounter.GetNext(), Pos: pos,
 		Value: value, Lockset: lockset.Copy(), OpKind: kind, Stacktrace: stackTrace.GetItems(), State: context.Copy()}
 }

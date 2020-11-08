@@ -53,7 +53,6 @@ func (cfg *CFG) CalculatePath() {
 		state.MergeChildBlock(nextState)
 	}
 
-
 	var firstDeferState *domain.BlockState
 	var firstDeferIndex int
 	for i := len(path) - 1; i >= 0; i-- {
