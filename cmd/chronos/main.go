@@ -35,6 +35,7 @@ func main() {
 	}
 
 	entryFunc := ssaPkg.Func("main")
+	ssaUtils.PreProcess(entryFunc)
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
 	err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)

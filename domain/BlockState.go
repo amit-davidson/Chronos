@@ -5,18 +5,18 @@ import "github.com/amit-davidson/Chronos/utils/stacks"
 type BlockState struct {
 	GuardedAccesses   []*GuardedAccess
 	Lockset           *Lockset
-	DeferredFunctions *stacks.FunctionStack
+	DeferredFunctions *stacks.CallCommonStack
 }
 
 func GetEmptyBlockState() *BlockState {
 	return &BlockState{
 		GuardedAccesses:   make([]*GuardedAccess, 0),
 		Lockset:           NewLockset(),
-		DeferredFunctions: stacks.NewFunctionStack(),
+		DeferredFunctions: stacks.NewCallCommonStack(),
 	}
 }
 
-func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.FunctionStack) *BlockState {
+func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.CallCommonStack) *BlockState {
 	return &BlockState{
 		GuardedAccesses:   ga,
 		Lockset:           ls,

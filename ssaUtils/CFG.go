@@ -22,7 +22,7 @@ func newCFG() *CFG {
 	}
 }
 
-func (cfg *CFG) calculateFunctionState(context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateFunctionStatePathSensitive(context *domain.Context, block *ssa.BasicBlock) {
 	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
 	cfg.traverseGraph(context, firstBlock)
 }

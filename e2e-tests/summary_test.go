@@ -209,6 +209,7 @@ func TestE2E(t *testing.T) {
 			require.NoError(t, err)
 
 			entryFunc := ssaPkg.Func("main")
+			ssaUtils.PreProcess(entryFunc)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())

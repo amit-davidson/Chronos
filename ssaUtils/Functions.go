@@ -2,7 +2,6 @@ package ssaUtils
 
 import (
 	"github.com/amit-davidson/Chronos/domain"
-	"github.com/amit-davidson/Chronos/utils"
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
 	"go/types"
@@ -44,11 +43,11 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 		funcStateRet := HandleFunction(context, fn)
 		return funcStateRet
 	case *ssa.Function:
-		if utils.IsCallTo(call, "(*sync.Mutex).Lock") {
+		if IsLock(call) {
 			AddLock(funcState, callCommon, false)
 			return funcState
 		}
-		if utils.IsCallTo(call, "(*sync.Mutex).Unlock") {
+		if IsUnlock(call) {
 			AddLock(funcState, callCommon, true)
 			return funcState
 		}
@@ -58,7 +57,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 		if cachedFunctionState, ok := functionsCache[sig]; ok {
 			copiedState := cachedFunctionState.Copy() // Copy to avoid override cached item
 			copiedState.AddContextToFunction(context)
-			blockStateRet = domain.CreateBlockState(copiedState.GuardedAccesses, copiedState.Lockset, stacks.NewFunctionStack())
+			blockStateRet = domain.CreateBlockState(copiedState.GuardedAccesses, copiedState.Lockset, stacks.NewCallCommonStack())
 		} else {
 			blockStateRet = HandleFunction(context, call)
 			fs := domain.CreateFunctionState(blockStateRet.GuardedAccesses, blockStateRet.Lockset)
@@ -169,7 +168,7 @@ func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.Blo
 	return funcState
 }
 
-func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.FunctionStack) *domain.BlockState {
+func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.CallCommonStack) *domain.BlockState {
 	calculatedState := domain.GetEmptyBlockState()
 	for {
 		deferFunction := defers.Pop()
@@ -181,6 +180,23 @@ func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.FunctionStack)
 	}
 	return calculatedState
 
+}
+
+func (cfg *CFG) calculateFunctionStatePathInsensitive(context *domain.Context, blocks []*ssa.BasicBlock) {
+	for _, block := range blocks {
+		cfg.calculateBlockStateIfNeeded(context, block)
+		state := cfg.ComputedBlocks[block.Index].Copy()
+		if cfg.calculatedState == nil {
+			cfg.calculatedState = state
+		} else {
+			cfg.calculatedState.MergeChildBlock(state)
+		}
+
+		deferBlock := cfg.ComputedDeferBlocks[block.Index]
+		if deferBlock != nil {
+			cfg.calculatedState.MergeChildBlock(deferBlock)
+		}
+	}
 }
 
 func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockState {
@@ -198,6 +214,15 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	cfg.calculateFunctionState(context, fn.Blocks[0])
+	isContainingLocks, ok := isFunctionContainingLocksMap[fn.Signature]
+	if !ok {
+		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
+	}
+	if isContainingLocks {
+		cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
+	} else {
+		cfg.calculateFunctionStatePathInsensitive(context, fn.Blocks)
+	}
+
 	return cfg.calculatedState
 }
