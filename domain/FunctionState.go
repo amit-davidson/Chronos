@@ -45,9 +45,11 @@ func (fs *FunctionState) AddContextToFunction(context *Context) {
 		ga.ID = GuardedAccessCounter.GetNext()
 		ga.State.GoroutineID = context.GoroutineID
 		context.Increment()
-		ga.State.Clock = context.Copy().Clock
 
-		tmpStack := context.StackTrace.Copy()
+		tmpContext := context.Copy()
+		ga.State.Clock = tmpContext.Clock
+
+		tmpStack := tmpContext.StackTrace
 		tmpStack.Merge(ga.State.StackTrace)
 		ga.State.StackTrace = tmpStack
 	}
@@ -60,9 +62,6 @@ func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
 	gas := make([]*GuardedAccess, 0, len(fs.GuardedAccesses))
 	for i := range fs.GuardedAccesses {
 		ga := fs.GuardedAccesses[i].Copy()
-		ga.ID = 0
-		ga.State.GoroutineID = 0
-		ga.State.Clock = nil
 
 		newStack := context.StackTrace.Iter()
 		gaStack := ga.State.StackTrace.Iter()
