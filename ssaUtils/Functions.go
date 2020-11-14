@@ -62,7 +62,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 		} else {
 			blockStateRet = HandleFunction(context, call)
 			fs := domain.CreateFunctionState(blockStateRet.GuardedAccesses, blockStateRet.Lockset)
-			fs.RemoveContextFromFunction(context)
+			fs.RemoveContextFromFunction()
 			functionsCache[sig] = fs
 		}
 		return blockStateRet

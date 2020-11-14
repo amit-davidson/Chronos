@@ -13,9 +13,9 @@ func NewIntStackWithMap() *IntStackWithMap {
 }
 
 func (s *IntStackWithMap) Copy() *IntStackWithMap {
-	tmp := NewIntStackWithMap()
+	tmp := &IntStackWithMap{}
 	tmpStack := s.stack.Copy()
-	tmpMap := make(IntMap)
+	tmpMap := make(IntMap, len(s.stack))
 	for k, v := range s.intMap {
 		tmpMap[k] = v
 	}

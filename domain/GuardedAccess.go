@@ -25,27 +25,41 @@ func (op OpKind) String() string {
 }
 
 type GuardedAccess struct {
-	ID         int // ID depends on the flow, which means it's unique.
-	PosID      int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
-	Pos        token.Pos
-	Value      ssa.Value
-	State      *Context
-	Lockset    *Lockset
-	OpKind     OpKind
+	ID          int // ID depends on the flow, which means it's unique.
+	PosID       int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
+	Pos         token.Pos
+	PosToRemove int
+	Value       ssa.Value
+	State       *Context
+	Lockset     *Lockset
+	OpKind      OpKind
 }
 
 func (ga *GuardedAccess) Copy() *GuardedAccess {
 	return &GuardedAccess{
-		ID:         ga.ID,
-		PosID:      ga.PosID,
-		Pos:        ga.Pos,
-		Value:      ga.Value,
-		Lockset:    ga.Lockset.Copy(),
-		OpKind:     ga.OpKind,
-		State:      ga.State.Copy(),
+		ID:          ga.ID,
+		PosID:       ga.PosID,
+		Pos:         ga.Pos,
+		PosToRemove: ga.PosToRemove,
+		Value:       ga.Value,
+		Lockset:     ga.Lockset.Copy(),
+		OpKind:      ga.OpKind,
+		State:       ga.State.Copy(),
 	}
 }
 
+func (ga *GuardedAccess) ShallowCopy() *GuardedAccess {
+	return &GuardedAccess{
+		ID:          ga.ID,
+		PosID:       ga.PosID,
+		Pos:         ga.Pos,
+		PosToRemove: ga.PosToRemove,
+		Value:       ga.Value,
+		Lockset:     ga.Lockset,
+		OpKind:      ga.OpKind,
+		State:       ga.State,
+	}
+}
 
 func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {

@@ -9,7 +9,6 @@ var GoroutineCounter *utils.Counter
 var GuardedAccessCounter *utils.Counter
 var PosIDCounter *utils.Counter
 
-
 type FunctionState struct {
 	GuardedAccesses []*GuardedAccess
 	Lockset         *Lockset
@@ -46,39 +45,27 @@ func (fs *FunctionState) AddContextToFunction(context *Context) {
 		ga.State.GoroutineID = context.GoroutineID
 		context.Increment()
 
-		tmpContext := context.Copy()
-		ga.State.Clock = tmpContext.Clock
 
-		tmpStack := tmpContext.StackTrace
-		tmpStack.Merge(ga.State.StackTrace)
-		ga.State.StackTrace = tmpStack
+		relativePos := ga.State.StackTrace.Iter()[ga.PosToRemove+1:]
+		a := stacks.NewIntStackWithMap()
+		for _, item := range relativePos {
+			a.Push(item)
+		}
+		tmpContext := context.Copy()
+		tmpContext.StackTrace.Merge(a)
+		ga.State.StackTrace = tmpContext.StackTrace
+		ga.State.Clock = tmpContext.Clock
 	}
 }
 
 // RemoveContextFromFunction strips any context related data from the guarded access fields. It nullifies id, goroutine id,
 // clock and removes from the guarded access the prefix that matches the context path. This way, other flows can take
 // the guarded access and add relevant data.
-func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
+func (fs *FunctionState) RemoveContextFromFunction() {
 	gas := make([]*GuardedAccess, 0, len(fs.GuardedAccesses))
 	for i := range fs.GuardedAccesses {
-		ga := fs.GuardedAccesses[i].Copy()
-
-		newStack := context.StackTrace.Iter()
-		gaStack := ga.State.StackTrace.Iter()
-		diffPoint := len(newStack)
-		for i := 0; i < len(newStack); i++ {
-			pos := newStack[i]
-			gaPos := gaStack[i]
-			if pos != gaPos { // We reached the point where the paths differ
-				diffPoint = i
-			}
-		}
-
-		tmpStack := stacks.NewIntStackWithMap()
-		for _, item := range newStack[diffPoint:] {
-			tmpStack.Push(item)
-		}
-		ga.State.StackTrace = tmpStack
+		ga := fs.GuardedAccesses[i].ShallowCopy()
+		ga.PosToRemove++
 		gas = append(gas, ga)
 	}
 	fs.GuardedAccesses = gas
