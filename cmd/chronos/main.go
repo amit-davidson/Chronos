@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"golang.org/x/tools/go/ssa"
@@ -28,7 +29,7 @@ func main() {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-	err = ssaUtils.SetGlobals(ssaProg, ssaPkg, *defaultPkgPath)
+	err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, *defaultPkgPath)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

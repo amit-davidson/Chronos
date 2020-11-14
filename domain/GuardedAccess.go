@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"go/token"
-	"go/types"
 	"golang.org/x/tools/go/ssa"
 )
 
@@ -46,21 +46,6 @@ func (ga *GuardedAccess) Copy() *GuardedAccess {
 	}
 }
 
-func FilterStructs(valueA, valueB ssa.Value) bool {
-	fieldAddrA, okA := valueA.(*ssa.FieldAddr)
-	fieldAddrB, okB := valueB.(*ssa.FieldAddr)
-
-	isBothField := okA && okB
-	if isBothField {
-		fieldA := fieldAddrA.X.Type().Underlying().(*types.Pointer).Elem().Underlying().(*types.Struct).Field(fieldAddrA.Field)
-		fieldB := fieldAddrB.X.Type().Underlying().(*types.Pointer).Elem().Underlying().(*types.Struct).Field(fieldAddrB.Field)
-		if fieldA != fieldB { // If same struct but different fields
-			return true
-		}
-	}
-
-	return false
-}
 
 func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	if ga.ID == gaToCompare.ID || ga.State.GoroutineID == gaToCompare.State.GoroutineID {
@@ -70,7 +55,7 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 		return true
 	}
 
-	if FilterStructs(ga.Value, gaToCompare.Value) {
+	if ssaPureUtils.FilterStructs(ga.Value, gaToCompare.Value) {
 		return true
 	}
 

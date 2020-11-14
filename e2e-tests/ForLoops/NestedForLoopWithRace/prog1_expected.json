@@ -201,42 +201,6 @@
 			}
 		},
 		{
-			"ID": 8,
-			"PosID": 8,
-			"Pos": "",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 3,
-					"2": 6
-				}
-			}
-		},
-		{
-			"ID": 5,
-			"PosID": 5,
-			"Pos": "",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 3,
-					"2": 3
-				}
-			}
-		},
-		{
 			"ID": 12,
 			"PosID": 12,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/NestedForLoopWithRace/prog1.go:12:2",

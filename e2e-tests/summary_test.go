@@ -6,6 +6,7 @@ import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/stretchr/testify/require"
@@ -205,7 +206,7 @@ func TestE2E(t *testing.T) {
 			domain.GuardedAccessCounter = utils.NewCounter()
 			domain.PosIDCounter = utils.NewCounter()
 
-			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
+			err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, "")
 			require.NoError(t, err)
 
 			entryFunc := ssaPkg.Func("main")

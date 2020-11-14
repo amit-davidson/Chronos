@@ -1,6 +1,7 @@
 package ssaUtils
 
 import (
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
@@ -12,13 +13,18 @@ var visitedFuncs = stacks.NewFunctionStackWithMap()
 
 func PreProcess(entryFunc *ssa.Function) {
 	IsFunctionContainingLocks(entryFunc)
-	print(5)
 }
 
-func IsFunctionContainingLocks(f *ssa.Function) {
+func IsFunctionContainingLocks(f *ssa.Function) bool {
 	visitedFuncs.Push(f)
 	defer visitedFuncs.Pop()
 
+	if IsLock(f) || IsUnlock(f) {
+		return false
+	}
+
+	locksCount := make(map[int]int)
+	isSubFunctionContainingLocks := false
 	functionName := f.Name()
 	_ = functionName
 	for _, block := range f.Blocks {
@@ -28,15 +34,10 @@ func IsFunctionContainingLocks(f *ssa.Function) {
 				continue
 			}
 
+			var funcs []*ssa.Function
 			callCommon := call.Common()
 			if callCommon.IsInvoke() {
-				impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
-				for _, impl := range impls {
-					if visitedFuncs.Contains(impl) {
-						continue
-					}
-					IsFunctionContainingLocks(impl)
-				}
+				funcs = GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 			} else {
 				fnInstr, ok := callCommon.Value.(*ssa.Function)
 				if !ok {
@@ -46,23 +47,46 @@ func IsFunctionContainingLocks(f *ssa.Function) {
 					}
 					fnInstr = anonFn.Fn.(*ssa.Function)
 				}
-				if isContainingLocks, ok := isFunctionContainingLocksMap[fnInstr.Signature]; ok {
+				funcs = []*ssa.Function{fnInstr}
+			}
+
+			for _, f := range funcs {
+				if isContainingLocks, ok := isFunctionContainingLocksMap[f.Signature]; ok {
 					if isContainingLocks == true {
-						isFunctionContainingLocksMap[f.Signature] = true
-						return
+						isSubFunctionContainingLocks = true
 					}
 					continue
 				}
-				if visitedFuncs.Contains(fnInstr) {
+				if visitedFuncs.Contains(f) {
 					continue
 				}
-				IsFunctionContainingLocks(fnInstr)
+				if IsLock(f) {
+					recv := callCommon.Args[len(callCommon.Args)-1]
+					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
+					locksCount[mutexPos]++
+				}
+				if IsUnlock(f) {
+					recv := callCommon.Args[len(callCommon.Args)-1]
+					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
+					locksCount[mutexPos]--
+					if locksCount[mutexPos] == 0 {
+						delete(locksCount, mutexPos)
+					}
+				}
 
-				if IsLock(fnInstr) {
-					isFunctionContainingLocksMap[f.Signature] = true
+				res := IsFunctionContainingLocks(f)
+				if res == true {
+					isSubFunctionContainingLocks = true
 				}
 			}
 		}
-		isFunctionContainingLocksMap[f.Signature] = false
 	}
+	var res bool
+	if len(locksCount) > 0 || isSubFunctionContainingLocks {
+		res = true
+	} else {
+		res = false
+	}
+	isFunctionContainingLocksMap[f.Signature] = res
+	return res
 }

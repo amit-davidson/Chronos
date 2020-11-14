@@ -75,8 +75,8 @@
 		{
 			"ID": 5,
 			"PosID": 5,
-			"Pos": "",
-			"Value": "",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:15:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:15:11",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -94,8 +94,8 @@
 			"ID": 6,
 			"PosID": 6,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:15:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:15:11",
-			"OpKind": 0,
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:11:2",
+			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -111,9 +111,9 @@
 		{
 			"ID": 7,
 			"PosID": 7,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:15:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:11:2",
-			"OpKind": 1,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:16:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
+			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -129,7 +129,7 @@
 		{
 			"ID": 8,
 			"PosID": 8,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:16:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:6",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -147,8 +147,8 @@
 		{
 			"ID": 9,
 			"PosID": 9,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:6",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -165,8 +165,8 @@
 		{
 			"ID": 10,
 			"PosID": 10,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:17:6",
+			"Pos": "",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -181,8 +181,98 @@
 			}
 		},
 		{
-			"ID": 5,
-			"PosID": 5,
+			"ID": 11,
+			"PosID": 11,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:11:2",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 3,
+				"Clock": {
+					"1": 6,
+					"3": 1
+				}
+			}
+		},
+		{
+			"ID": 12,
+			"PosID": 12,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:9",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:10",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 3,
+				"Clock": {
+					"1": 6,
+					"3": 2
+				}
+			}
+		},
+		{
+			"ID": 13,
+			"PosID": 13,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:24:5",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 3,
+				"Clock": {
+					"1": 6,
+					"3": 3
+				}
+			}
+		},
+		{
+			"ID": 14,
+			"PosID": 14,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:7",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 3,
+				"Clock": {
+					"1": 6,
+					"3": 4
+				}
+			}
+		},
+		{
+			"ID": 15,
+			"PosID": 15,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:5",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:7",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 3,
+				"Clock": {
+					"1": 6,
+					"3": 5
+				}
+			}
+		},
+		{
+			"ID": 16,
+			"PosID": 16,
 			"Pos": "",
 			"Value": "",
 			"OpKind": 0,
@@ -191,35 +281,18 @@
 				"ExistingUnlocks": {}
 			},
 			"State": {
-				"GoroutineID": 2,
+				"GoroutineID": 3,
 				"Clock": {
-					"1": 5,
-					"2": 1
+					"1": 6,
+					"3": 6
 				}
 			}
 		},
 		{
-			"ID": 11,
-			"PosID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
+			"ID": 17,
+			"PosID": 17,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:21",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:6",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 6
-				}
-			}
-		},
-		{
-			"ID": 12,
-			"PosID": 12,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
-			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -233,10 +306,10 @@
 			}
 		},
 		{
-			"ID": 13,
-			"PosID": 13,
-			"Pos": "",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
+			"ID": 18,
+			"PosID": 18,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:21",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -250,136 +323,27 @@
 			}
 		},
 		{
-			"ID": 14,
-			"PosID": 14,
-			"Pos": "",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 1
-				}
-			}
-		},
-		{
-			"ID": 15,
-			"PosID": 15,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:10",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:11:2",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 2
-				}
-			}
-		},
-		{
-			"ID": 16,
-			"PosID": 16,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:9",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:23:10",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 3
-				}
-			}
-		},
-		{
-			"ID": 17,
-			"PosID": 17,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:24:5",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 4
-				}
-			}
-		},
-		{
-			"ID": 18,
-			"PosID": 18,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:7",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:12:2",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 5
-				}
-			}
-		},
-		{
 			"ID": 19,
 			"PosID": 19,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:5",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:25:7",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 3,
-				"Clock": {
-					"1": 9,
-					"3": 6
-				}
-			}
-		},
-		{
-			"ID": 14,
-			"PosID": 14,
 			"Pos": "",
-			"Value": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:30:19",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
 			},
 			"State": {
-				"GoroutineID": 3,
+				"GoroutineID": 1,
 				"Clock": {
-					"1": 9,
-					"3": 1
+					"1": 9
 				}
 			}
 		},
 		{
 			"ID": 20,
 			"PosID": 20,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:21",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:6",
+			"Pos": "",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -395,9 +359,9 @@
 		{
 			"ID": 21,
 			"PosID": 21,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:21",
+			"Pos": "",
 			"Value": "",
-			"OpKind": 0,
+			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -410,61 +374,10 @@
 			}
 		},
 		{
-			"ID": 11,
-			"PosID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:6",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 6
-				}
-			}
-		},
-		{
-			"ID": 12,
-			"PosID": 12,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 7
-				}
-			}
-		},
-		{
-			"ID": 13,
-			"PosID": 13,
-			"Pos": "",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 8
-				}
-			}
-		},
-		{
 			"ID": 22,
 			"PosID": 22,
-			"Pos": "",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:30:19",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -480,7 +393,7 @@
 		{
 			"ID": 23,
 			"PosID": 23,
-			"Pos": "",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -498,8 +411,8 @@
 			"ID": 24,
 			"PosID": 24,
 			"Pos": "",
-			"Value": "",
-			"OpKind": 1,
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/ForLoops/WhileLoop/prog1.go:20:16",
+			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}

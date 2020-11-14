@@ -3,20 +3,16 @@ package ssaUtils
 import (
 	"errors"
 	"fmt"
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"go/token"
 	"go/types"
-	"os"
-	"sort"
-	"strings"
-
-	"github.com/amit-davidson/Chronos/domain"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/ssa"
 	"golang.org/x/tools/go/ssa/ssautil"
+	"sort"
 )
 
-var GlobalProgram *ssa.Program
-var GlobalPackageName string
 
 var typesCache = make(map[*types.Interface][]*ssa.Function)
 
@@ -40,32 +36,6 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	return ssaProg, ssaPkg, nil
 }
 
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
-	GlobalProgram = prog
-	if defaultPkgPath != "" {
-		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
-
-		return nil
-	}
-
-	var retError error
-	GlobalPackageName, retError = GetTopLevelPackageName(pkg)
-	if retError != nil {
-		return retError
-	}
-	return nil
-}
-
-func GetTopLevelPackageName(pkg *ssa.Package) (string, error) {
-	pkgName := pkg.Pkg.Path()
-	r := strings.SplitAfterN(pkgName, string(os.PathSeparator), 4)
-	if len(r) < 3 {
-		return "", errors.New("package should be provided in the following format:{VCS}/{organization}/{package}")
-	}
-	topLevelPackage := r[0] + r[1] + r[2]
-	return topLevelPackage, nil
-}
-
 func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Function {
 	methodImplementations := make([]*ssa.Function, 0)
 	recvInterface := recv.(*types.Interface)
@@ -75,15 +45,15 @@ func GetMethodImplementations(recv types.Type, method *types.Func) []*ssa.Functi
 	}
 
 	implementors := make([]types.Type, 0)
-	for _, typ := range GlobalProgram.RuntimeTypes() {
+	for _, typ := range ssaPureUtils.GlobalProgram.RuntimeTypes() {
 		if types.Implements(typ, recvInterface) {
 			implementors = append(implementors, typ)
 		}
 	}
 	for _, implementor := range implementors {
-		setMethods := GlobalProgram.MethodSets.MethodSet(implementor)
+		setMethods := ssaPureUtils.GlobalProgram.MethodSets.MethodSet(implementor)
 		method := setMethods.Lookup(method.Pkg(), method.Name())
-		methodImpl := GlobalProgram.MethodValue(method)
+		methodImpl := ssaPureUtils.GlobalProgram.MethodValue(method)
 		if methodImpl.Synthetic == "" {
 			methodImplementations = append(methodImplementations, methodImpl)
 		}

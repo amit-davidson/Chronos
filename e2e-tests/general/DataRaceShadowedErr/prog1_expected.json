@@ -381,7 +381,79 @@
 		{
 			"ID": 23,
 			"PosID": 23,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:3",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:13",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 1
+				}
+			}
+		},
+		{
+			"ID": 24,
+			"PosID": 24,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:22",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 2
+				}
+			}
+		},
+		{
+			"ID": 25,
+			"PosID": 25,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 3
+				}
+			}
+		},
+		{
+			"ID": 26,
+			"PosID": 26,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 4
+				}
+			}
+		},
+		{
+			"ID": 27,
+			"PosID": 27,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -389,17 +461,54 @@
 				"ExistingUnlocks": {}
 			},
 			"State": {
-				"GoroutineID": 1,
+				"GoroutineID": 2,
 				"Clock": {
-					"1": 23
+					"1": 23,
+					"2": 5
 				}
 			}
 		},
 		{
-			"ID": 24,
-			"PosID": 24,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:10",
+			"ID": 28,
+			"PosID": 28,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:11",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 6
+				}
+			}
+		},
+		{
+			"ID": 29,
+			"PosID": 29,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:19:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 23,
+					"2": 7
+				}
+			}
+		},
+		{
+			"ID": 30,
+			"PosID": 30,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:3",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -413,10 +522,10 @@
 			}
 		},
 		{
-			"ID": 25,
-			"PosID": 25,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
+			"ID": 31,
+			"PosID": 31,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:24:10",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -430,10 +539,10 @@
 			}
 		},
 		{
-			"ID": 26,
-			"PosID": 26,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
+			"ID": 32,
+			"PosID": 32,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -447,136 +556,27 @@
 			}
 		},
 		{
-			"ID": 27,
-			"PosID": 27,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:13",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 1
-				}
-			}
-		},
-		{
-			"ID": 28,
-			"PosID": 28,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:22",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 2
-				}
-			}
-		},
-		{
-			"ID": 29,
-			"PosID": 29,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 3
-				}
-			}
-		},
-		{
-			"ID": 30,
-			"PosID": 30,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
-			"OpKind": 1,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 4
-				}
-			}
-		},
-		{
-			"ID": 31,
-			"PosID": 31,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 5
-				}
-			}
-		},
-		{
-			"ID": 32,
-			"PosID": 32,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:11",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 2,
-				"Clock": {
-					"1": 27,
-					"2": 6
-				}
-			}
-		},
-		{
 			"ID": 33,
 			"PosID": 33,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:29:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:32:9",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
 			},
 			"State": {
-				"GoroutineID": 2,
+				"GoroutineID": 1,
 				"Clock": {
-					"1": 27,
-					"2": 7
+					"1": 27
 				}
 			}
 		},
 		{
 			"ID": 34,
 			"PosID": 34,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:13",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:13",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -593,7 +593,7 @@
 		{
 			"ID": 35,
 			"PosID": 35,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:22",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:22",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:8:20",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -611,7 +611,7 @@
 		{
 			"ID": 36,
 			"PosID": 36,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -629,7 +629,7 @@
 		{
 			"ID": 37,
 			"PosID": 37,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:17:7",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:27:7",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 1,
 			"LocksetJson": {
@@ -647,7 +647,7 @@
 		{
 			"ID": 38,
 			"PosID": 38,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:4",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:4",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:9:2",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -665,7 +665,7 @@
 		{
 			"ID": 39,
 			"PosID": 39,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:18:11",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:28:11",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:6",
 			"OpKind": 0,
 			"LocksetJson": {
@@ -683,8 +683,8 @@
 		{
 			"ID": 40,
 			"PosID": 40,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:19:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:10:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:29:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/general/DataRaceShadowedErr/prog1.go:22:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},

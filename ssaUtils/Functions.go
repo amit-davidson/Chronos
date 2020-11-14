@@ -2,6 +2,7 @@ package ssaUtils
 
 import (
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/token"
 	"go/types"
@@ -205,7 +206,7 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 		return funcState
 	}
 	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
-	if !strings.Contains(pkgName, GlobalPackageName) {
+	if !strings.Contains(pkgName, ssaPureUtils.GlobalPackageName) {
 		return funcState
 	}
 

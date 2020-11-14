@@ -183,8 +183,8 @@
 		{
 			"ID": 11,
 			"PosID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
-			"Value": "",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:5:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -200,8 +200,8 @@
 		{
 			"ID": 12,
 			"PosID": 12,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
-			"Value": "",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -217,8 +217,8 @@
 		{
 			"ID": 13,
 			"PosID": 13,
-			"Pos": "",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -235,7 +235,7 @@
 			"ID": 14,
 			"PosID": 14,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:5:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -252,8 +252,8 @@
 			"ID": 15,
 			"PosID": 15,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"OpKind": 0,
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:5:2",
+			"OpKind": 1,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -268,8 +268,8 @@
 		{
 			"ID": 16,
 			"PosID": 16,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"Value": "",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:4:2",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -285,8 +285,8 @@
 		{
 			"ID": 17,
 			"PosID": 17,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:2",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:4",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -302,9 +302,9 @@
 		{
 			"ID": 18,
 			"PosID": 18,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:21",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:5:2",
-			"OpKind": 1,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
+			"Value": "",
+			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
 				"ExistingUnlocks": {}
@@ -317,61 +317,10 @@
 			}
 		},
 		{
-			"ID": 11,
-			"PosID": 11,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 6
-				}
-			}
-		},
-		{
-			"ID": 12,
-			"PosID": 12,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
-			"Value": "",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 7
-				}
-			}
-		},
-		{
-			"ID": 13,
-			"PosID": 13,
-			"Pos": "",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
-			"OpKind": 0,
-			"LocksetJson": {
-				"ExistingLocks": {},
-				"ExistingUnlocks": {}
-			},
-			"State": {
-				"GoroutineID": 1,
-				"Clock": {
-					"1": 8
-				}
-			}
-		},
-		{
 			"ID": 19,
 			"PosID": 19,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:4:2",
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
+			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
@@ -387,8 +336,8 @@
 		{
 			"ID": 20,
 			"PosID": 20,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:2",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:12:4",
+			"Pos": "",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/stdlibNoSuccess/TestNoRaceForIncr/prog1.go:10:16",
 			"OpKind": 0,
 			"LocksetJson": {
 				"ExistingLocks": {},
