@@ -1,6 +1,6 @@
 package domain
 
-import 	(
+import (
 	"github.com/amit-davidson/Chronos/utils/stacks"
 )
 
@@ -13,18 +13,18 @@ type Context struct {
 
 func NewEmptyContext() *Context {
 	return &Context{
-		Clock:                VectorClock{},
-		GoroutineID:          GoroutineCounter.GetNext(),
-		StackTrace:           stacks.NewIntStackWithMap(),
+		Clock:       VectorClock{},
+		GoroutineID: GoroutineCounter.GetNext(),
+		StackTrace:  stacks.NewIntStackWithMap(),
 	}
 }
 
 func NewGoroutineExecutionState(state *Context) *Context {
 	state.Increment()
 	return &Context{
-		Clock:                state.Clock,
-		GoroutineID:          GoroutineCounter.GetNext(),
-		StackTrace:           state.StackTrace,
+		Clock:       state.Clock,
+		GoroutineID: GoroutineCounter.GetNext(),
+		StackTrace:  state.StackTrace,
 	}
 }
 
@@ -44,8 +44,16 @@ func (gs *Context) MayConcurrent(state *Context) bool {
 
 func (gs *Context) Copy() *Context {
 	return &Context{
-		GoroutineID:          gs.GoroutineID,
-		Clock:                gs.Clock.Copy(),
-		StackTrace:           gs.StackTrace.Copy(),
+		GoroutineID: gs.GoroutineID,
+		Clock:       gs.Clock.Copy(),
+		StackTrace:  gs.StackTrace.Copy(),
+	}
+}
+
+func (gs *Context) CopyWithoutMap() *Context {
+	return &Context{
+		GoroutineID: gs.GoroutineID,
+		Clock:       gs.Clock.Copy(),
+		StackTrace:  stacks.NewIntStackWithMapWithParams(*gs.StackTrace.GetItems().Copy(), nil),
 	}
 }

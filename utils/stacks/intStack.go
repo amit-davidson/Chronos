@@ -6,8 +6,13 @@ type IntStackWithMap struct {
 }
 
 func NewIntStackWithMap() *IntStackWithMap {
-	stack := make([]int, 0)
+	stack := make([]int, 0, 20)
 	intMap := make(IntMap)
+	basicBlockStack := &IntStackWithMap{stack: stack, intMap: intMap}
+	return basicBlockStack
+}
+
+func NewIntStackWithMapWithParams(stack IntStack, intMap IntMap) *IntStackWithMap {
 	basicBlockStack := &IntStackWithMap{stack: stack, intMap: intMap}
 	return basicBlockStack
 }
@@ -51,7 +56,6 @@ func (s *IntStackWithMap) Pop() int {
 func (s *IntStackWithMap) Merge(sn *IntStackWithMap) {
 	for _, item := range sn.Iter() {
 		s.stack.Push(item)
-		s.intMap[item] = struct{}{}
 	}
 }
 
