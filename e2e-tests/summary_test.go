@@ -6,6 +6,7 @@ import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/stretchr/testify/require"
@@ -57,6 +58,7 @@ func TestE2E(t *testing.T) {
 		{name: "DataRaceWithOnlyAlloc", testPath: "general/DataRaceWithOnlyAlloc/prog1.go", resPath: "general/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},
 		{name: "LockInsideGoroutine", testPath: "locksAndUnlocks/LockInsideGoroutine/prog1.go", resPath: "locksAndUnlocks/LockInsideGoroutine/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceWithSameFunction", testPath: "general/DataRaceWithSameFunction/prog1.go", resPath: "general/DataRaceWithSameFunction/prog1_expected.json", shouldUpdate: false},
+		{name: "DataRaceNestedSameFunction", testPath: "general/DataRaceNestedSameFunction/prog1.go", resPath: "general/DataRaceNestedSameFunction/prog1_expected.json", shouldUpdate: false},
 		{name: "StructMethod", testPath: "general/StructMethod/prog1.go", resPath: "general/StructMethod/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceIceCreamMaker", testPath: "interfaces/DataRaceIceCreamMaker/prog1.go", resPath: "interfaces/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
 		{name: "InterfaceWithLock", testPath: "interfaces/InterfaceWithLock/prog1.go", resPath: "interfaces/InterfaceWithLock/prog1_expected.json", shouldUpdate: false},
@@ -201,10 +203,15 @@ func TestE2E(t *testing.T) {
 			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 
-			err = ssaUtils.SetGlobals(ssaProg, ssaPkg, "")
+			domain.GoroutineCounter = utils.NewCounter()
+			domain.GuardedAccessCounter = utils.NewCounter()
+			domain.PosIDCounter = utils.NewCounter()
+
+			err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, "")
 			require.NoError(t, err)
 
 			entryFunc := ssaPkg.Func("main")
+			ssaUtils.PreProcess(entryFunc)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())

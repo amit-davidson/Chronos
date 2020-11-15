@@ -1,6 +1,13 @@
 package domain
 
-import "github.com/amit-davidson/Chronos/utils/stacks"
+import (
+	"github.com/amit-davidson/Chronos/utils"
+	"github.com/amit-davidson/Chronos/utils/stacks"
+)
+
+var GoroutineCounter *utils.Counter
+var GuardedAccessCounter *utils.Counter
+var PosIDCounter *utils.Counter
 
 type FunctionState struct {
 	GuardedAccesses []*GuardedAccess
@@ -34,42 +41,31 @@ func (fs *FunctionState) MergeChildFunction(newFunction *FunctionState, shouldMe
 // AddContextToFunction adds flow specific context data
 func (fs *FunctionState) AddContextToFunction(context *Context) {
 	for _, ga := range fs.GuardedAccesses {
-		ga.ID = context.GuardedAccessCounter.GetNext()
+		ga.ID = GuardedAccessCounter.GetNext()
 		ga.State.GoroutineID = context.GoroutineID
 		context.Increment()
-		ga.State.Clock = context.Copy().Clock
 
-		newStack := context.StackTrace.GetItems().Copy()
-		gaStack := ga.Stacktrace
-		newStack.MergeStacks(gaStack)
-		ga.Stacktrace = newStack
+
+		relativePos := ga.State.StackTrace.Iter()[ga.PosToRemove+1:]
+		a := stacks.NewIntStackWithMap()
+		for _, item := range relativePos {
+			a.Push(item)
+		}
+		tmpContext := context.Copy()
+		tmpContext.StackTrace.Merge(a)
+		ga.State.StackTrace = tmpContext.StackTrace
+		ga.State.Clock = tmpContext.Clock
 	}
 }
 
 // RemoveContextFromFunction strips any context related data from the guarded access fields. It nullifies id, goroutine id,
 // clock and removes from the guarded access the prefix that matches the context path. This way, other flows can take
 // the guarded access and add relevant data.
-func (fs *FunctionState) RemoveContextFromFunction(context *Context) {
+func (fs *FunctionState) RemoveContextFromFunction() {
 	gas := make([]*GuardedAccess, 0, len(fs.GuardedAccesses))
 	for i := range fs.GuardedAccesses {
-		ga := fs.GuardedAccesses[i].Copy()
-		ga.ID = 0
-		ga.State.GoroutineID = 0
-		ga.State.Clock = nil
-
-		newStack := context.StackTrace.GetItems().Copy().GetItems()
-		gaStack := ga.Stacktrace.GetItems()
-		diffPoint := len(newStack)
-		for i := 0; i < len(newStack); i++ {
-			pos := newStack[i]
-			gaPos := gaStack[i]
-			if pos != gaPos { // We reached the point where the paths differ
-				diffPoint = i
-			}
-		}
-
-		modifiedStack := newStack[diffPoint:]
-		ga.Stacktrace = (*stacks.IntStack)(&modifiedStack)
+		ga := fs.GuardedAccesses[i].ShallowCopy()
+		ga.PosToRemove++
 		gas = append(gas, ga)
 	}
 	fs.GuardedAccesses = gas

@@ -13,9 +13,9 @@ func NewIntStackWithMap() *IntStackWithMap {
 }
 
 func (s *IntStackWithMap) Copy() *IntStackWithMap {
-	tmp := NewIntStackWithMap()
+	tmp := &IntStackWithMap{}
 	tmpStack := s.stack.Copy()
-	tmpMap := make(IntMap)
+	tmpMap := make(IntMap, len(s.stack))
 	for k, v := range s.intMap {
 		tmpMap[k] = v
 	}
@@ -26,6 +26,10 @@ func (s *IntStackWithMap) Copy() *IntStackWithMap {
 
 func (s *IntStackWithMap) GetItems() *IntStack {
 	return &s.stack
+}
+
+func (s *IntStackWithMap) Iter() []int {
+	return s.stack
 }
 
 func (s *IntStackWithMap) Contains(v int) bool {
@@ -42,6 +46,13 @@ func (s *IntStackWithMap) Pop() int {
 	v := s.stack.Pop()
 	delete(s.intMap, v)
 	return v
+}
+
+func (s *IntStackWithMap) Merge(sn *IntStackWithMap) {
+	for _, item := range sn.Iter() {
+		s.stack.Push(item)
+		s.intMap[item] = struct{}{}
+	}
 }
 
 type IntMap map[int]struct{}
