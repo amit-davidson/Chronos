@@ -68,8 +68,9 @@ func IsFunctionContainingLocks(f *ssa.Function) bool {
 				if IsUnlock(f) {
 					recv := callCommon.Args[len(callCommon.Args)-1]
 					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
-					locksCount[mutexPos]--
-					if locksCount[mutexPos] == 0 {
+					if locksCount[mutexPos] > 0 {
+						locksCount[mutexPos]--
+					} else if locksCount[mutexPos] == 0 {
 						delete(locksCount, mutexPos)
 					}
 				}

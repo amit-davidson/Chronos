@@ -58,7 +58,7 @@ func TestE2E(t *testing.T) {
 		{name: "DataRaceWithOnlyAlloc", testPath: "general/DataRaceWithOnlyAlloc/prog1.go", resPath: "general/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},
 		{name: "LockInsideGoroutine", testPath: "locksAndUnlocks/LockInsideGoroutine/prog1.go", resPath: "locksAndUnlocks/LockInsideGoroutine/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceWithSameFunction", testPath: "general/DataRaceWithSameFunction/prog1.go", resPath: "general/DataRaceWithSameFunction/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceNestedSameFunction", testPath: "general/DataRaceNestedSameFunction/prog1.go", resPath: "general/DataRaceNestedSameFunction/prog1_expected.json", shouldUpdate: true},
+		{name: "DataRaceNestedSameFunction", testPath: "general/DataRaceNestedSameFunction/prog1.go", resPath: "general/DataRaceNestedSameFunction/prog1_expected.json", shouldUpdate: false},
 		{name: "StructMethod", testPath: "general/StructMethod/prog1.go", resPath: "general/StructMethod/prog1_expected.json", shouldUpdate: false},
 		{name: "DataRaceIceCreamMaker", testPath: "interfaces/DataRaceIceCreamMaker/prog1.go", resPath: "interfaces/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
 		{name: "InterfaceWithLock", testPath: "interfaces/InterfaceWithLock/prog1.go", resPath: "interfaces/InterfaceWithLock/prog1_expected.json", shouldUpdate: false},
