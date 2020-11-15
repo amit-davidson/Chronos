@@ -15,7 +15,7 @@ func NewEmptyContext() *Context {
 	return &Context{
 		Clock:       VectorClock{},
 		GoroutineID: GoroutineCounter.GetNext(),
-		StackTrace:  stacks.NewIntStackWithMap(),
+		StackTrace:  stacks.NewEmptyIntStackWithMap(),
 	}
 }
 
@@ -54,6 +54,6 @@ func (gs *Context) CopyWithoutMap() *Context {
 	return &Context{
 		GoroutineID: gs.GoroutineID,
 		Clock:       gs.Clock.Copy(),
-		StackTrace:  stacks.NewIntStackWithMapWithParams(*gs.StackTrace.GetItems().Copy(), nil),
+		StackTrace:  stacks.NewIntStackWithMap(*gs.StackTrace.GetItems().Copy(), nil),
 	}
 }

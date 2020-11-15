@@ -5,14 +5,14 @@ type IntStackWithMap struct {
 	intMap IntMap
 }
 
-func NewIntStackWithMap() *IntStackWithMap {
+func NewEmptyIntStackWithMap() *IntStackWithMap {
 	stack := make([]int, 0, 20)
 	intMap := make(IntMap)
 	basicBlockStack := &IntStackWithMap{stack: stack, intMap: intMap}
 	return basicBlockStack
 }
 
-func NewIntStackWithMapWithParams(stack IntStack, intMap IntMap) *IntStackWithMap {
+func NewIntStackWithMap(stack IntStack, intMap IntMap) *IntStackWithMap {
 	basicBlockStack := &IntStackWithMap{stack: stack, intMap: intMap}
 	return basicBlockStack
 }
