@@ -45,14 +45,9 @@ func (fs *FunctionState) AddContextToFunction(context *Context) {
 		ga.State.GoroutineID = context.GoroutineID
 		context.Increment()
 
-
 		relativePos := ga.State.StackTrace.Iter()[ga.PosToRemove+1:]
-		a := stacks.NewIntStackWithMap()
-		for _, item := range relativePos {
-			a.Push(item)
-		}
-		tmpContext := context.Copy()
-		tmpContext.StackTrace.Merge(a)
+		tmpContext := context.CopyWithoutMap()
+		tmpContext.StackTrace.GetItems().MergeStacks((*stacks.IntStack)(&relativePos))
 		ga.State.StackTrace = tmpContext.StackTrace
 		ga.State.Clock = tmpContext.Clock
 	}

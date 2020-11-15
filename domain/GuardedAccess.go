@@ -25,26 +25,28 @@ func (op OpKind) String() string {
 }
 
 type GuardedAccess struct {
-	ID          int // ID depends on the flow, which means it's unique.
 	PosID       int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
 	Pos         token.Pos
-	PosToRemove int
+	OpKind      OpKind
 	Value       ssa.Value
+
+	PosToRemove int
+	ID          int // ID depends on the flow, which means it's unique.
 	State       *Context
 	Lockset     *Lockset
-	OpKind      OpKind
 }
 
 func (ga *GuardedAccess) Copy() *GuardedAccess {
 	return &GuardedAccess{
+		PosID:  ga.PosID,
+		Pos:    ga.Pos,
+		Value:  ga.Value,
+		OpKind: ga.OpKind,
+
 		ID:          ga.ID,
-		PosID:       ga.PosID,
-		Pos:         ga.Pos,
 		PosToRemove: ga.PosToRemove,
-		Value:       ga.Value,
 		Lockset:     ga.Lockset.Copy(),
-		OpKind:      ga.OpKind,
-		State:       ga.State.Copy(),
+		State:       ga.State.CopyWithoutMap(),
 	}
 }
 
@@ -86,5 +88,5 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
 	context.Increment()
 	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), PosID: PosIDCounter.GetNext(), Pos: pos,
-		Value: value, Lockset: lockset.Copy(), OpKind: kind, State: context.Copy()}
+		Value: value, Lockset: lockset.Copy(), OpKind: kind, State: context.CopyWithoutMap()}
 }
