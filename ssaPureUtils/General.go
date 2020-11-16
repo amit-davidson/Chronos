@@ -23,23 +23,6 @@ func GetMutexPos(value ssa.Value) token.Pos {
 
 }
 
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package, PreProcessResults *PreProcessResults, defaultPkgPath string) error {
-	PreProcess = PreProcessResults
-	GlobalProgram = prog
-	if defaultPkgPath != "" {
-		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
-
-		return nil
-	}
-
-	var retError error
-	GlobalPackageName, retError = GetTopLevelPackageName(pkg)
-	if retError != nil {
-		return retError
-	}
-	return nil
-}
-
 func GetTopLevelPackageName(pkg *ssa.Package) (string, error) {
 	pkgName := pkg.Pkg.Path()
 	r := strings.SplitAfterN(pkgName, string(os.PathSeparator), 4)

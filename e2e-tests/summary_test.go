@@ -21,7 +21,7 @@ const (
 	testSelective
 )
 
-var shouldUpdateAll = updateAll
+var shouldUpdateAll = testSelective
 
 func TestE2E(t *testing.T) {
 	var testCases = []struct {
@@ -208,8 +208,7 @@ func TestE2E(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			preProcess := ssaPureUtils.InitPreProcess(entryFunc)
-			err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, preProcess, "")
+			err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
 			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}

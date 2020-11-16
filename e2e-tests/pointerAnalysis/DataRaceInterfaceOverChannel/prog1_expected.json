@@ -60,6 +60,60 @@
 		{
 			"ID": 4,
 			"PosID": 4,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 2,
+					"2": 3
+				}
+			}
+		},
+		{
+			"ID": 5,
+			"PosID": 5,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 2,
+					"2": 4
+				}
+			}
+		},
+		{
+			"ID": 6,
+			"PosID": 6,
+			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:13:4",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 2,
+				"Clock": {
+					"1": 2,
+					"2": 5
+				}
+			}
+		},
+		{
+			"ID": 7,
+			"PosID": 7,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"OpKind": 0,
@@ -75,8 +129,8 @@
 			}
 		},
 		{
-			"ID": 5,
-			"PosID": 5,
+			"ID": 8,
+			"PosID": 8,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"Value": "",
 			"OpKind": 0,
@@ -92,8 +146,8 @@
 			}
 		},
 		{
-			"ID": 6,
-			"PosID": 6,
+			"ID": 9,
+			"PosID": 9,
 			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go:28:8",
 			"OpKind": 1,

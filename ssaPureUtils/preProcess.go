@@ -4,6 +4,8 @@ import (
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
+	"os"
+	"strings"
 )
 
 type PreProcessResults struct {
@@ -25,11 +27,23 @@ func InitFunctionWithLocksPreprocess(entryFunc *ssa.Function) *FunctionWithLocks
 	IsFunctionContainingLocks(preProcess, entryFunc)
 	return preProcess
 }
-func InitPreProcess(entryFunc *ssa.Function) *PreProcessResults {
-	preProcess := &PreProcessResults{}
+func InitPreProcess(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string, entryFunc *ssa.Function) error {
+	GlobalProgram = prog
+	if defaultPkgPath != "" {
+		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
+	} else {
+		var retError error
+		GlobalPackageName, retError = GetTopLevelPackageName(pkg)
+		if retError != nil {
+			return retError
+		}
+	}
+
+	PreProcessResults := &PreProcessResults{}
 	locksPreProcess := InitFunctionWithLocksPreprocess(entryFunc)
-	preProcess.FunctionWithLocksPreprocess = locksPreProcess
-	return preProcess
+	PreProcessResults.FunctionWithLocksPreprocess = locksPreProcess
+	PreProcess = PreProcessResults
+	return nil
 }
 
 func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPreprocess, f *ssa.Function) bool {

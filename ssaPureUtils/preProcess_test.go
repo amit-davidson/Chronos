@@ -9,8 +9,7 @@ func setup(t *testing.T, filePath string) bool {
 	ssaProg, ssaPkg, err := LoadPackage(filePath)
 	require.NoError(t, err)
 	f := ssaPkg.Func("main")
-	PreProcess := InitPreProcess(f)
-	err = SetGlobals(ssaProg, ssaPkg, PreProcess, "")
+	err = InitPreProcess(ssaProg, ssaPkg, "", f)
 	require.NoError(t, err)
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	return isContainingLock
