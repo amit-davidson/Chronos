@@ -21,7 +21,7 @@ const (
 	testSelective
 )
 
-var shouldUpdateAll = testSelective
+var shouldUpdateAll = updateAll
 
 func TestE2E(t *testing.T) {
 	var testCases = []struct {

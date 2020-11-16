@@ -1,17 +1,21 @@
 {
 	"Lockset": {
-		"ExistingLocks": {},
+		"ExistingLocks": {
+			"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+		},
 		"ExistingUnlocks": {}
 	},
 	"GuardedAccess": [
 		{
 			"ID": 1,
 			"PosID": 1,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:16:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:16:4",
+			"Pos": "github.com/amit-davidson/Chronos/-",
+			"Value": "github.com/amit-davidson/Chronos/-",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -24,11 +28,13 @@
 		{
 			"ID": 2,
 			"PosID": 2,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:16:4",
+			"Pos": "github.com/amit-davidson/Chronos/-",
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -41,17 +47,76 @@
 		{
 			"ID": 3,
 			"PosID": 3,
-			"Pos": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:16:4",
-			"Value": "github.com/amit-davidson/Chronos/e2e-tests/interfaces/NestedInterface/prog1.go:16:4",
+			"Pos": "github.com/amit-davidson/Chronos/-",
+			"Value": "github.com/amit-davidson/Chronos/-",
 			"OpKind": 1,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
 				"GoroutineID": 1,
 				"Clock": {
 					"1": 3
+				}
+			}
+		},
+		{
+			"ID": 4,
+			"PosID": 4,
+			"Pos": "github.com/amit-davidson/Chronos/-",
+			"Value": "github.com/amit-davidson/Chronos/-",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 4
+				}
+			}
+		},
+		{
+			"ID": 5,
+			"PosID": 5,
+			"Pos": "github.com/amit-davidson/Chronos/-",
+			"Value": "",
+			"OpKind": 0,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 5
+				}
+			}
+		},
+		{
+			"ID": 6,
+			"PosID": 6,
+			"Pos": "github.com/amit-davidson/Chronos/-",
+			"Value": "github.com/amit-davidson/Chronos/-",
+			"OpKind": 1,
+			"LocksetJson": {
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/-": "github.com/amit-davidson/Chronos/-"
+				},
+				"ExistingUnlocks": {}
+			},
+			"State": {
+				"GoroutineID": 1,
+				"Clock": {
+					"1": 6
 				}
 			}
 		}

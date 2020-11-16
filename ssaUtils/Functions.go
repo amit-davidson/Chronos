@@ -24,7 +24,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 	defer context.StackTrace.Pop()
 
 	if callCommon.IsInvoke() {
-		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
+		impls := ssaPureUtils.GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(context, impls[0])
 			for _, impl := range impls[1:] {

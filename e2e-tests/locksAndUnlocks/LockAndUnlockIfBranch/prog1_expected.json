@@ -64,7 +64,9 @@
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:14:13"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -81,7 +83,9 @@
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:8:5",
 			"OpKind": 1,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:14:13"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -98,7 +102,9 @@
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:17:13",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:14:13"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -115,7 +121,9 @@
 			"Value": "",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:14:13"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
@@ -132,7 +140,9 @@
 			"Value": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:17:16",
 			"OpKind": 0,
 			"LocksetJson": {
-				"ExistingLocks": {},
+				"ExistingLocks": {
+					"github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:12:2": "github.com/amit-davidson/Chronos/e2e-tests/locksAndUnlocks/LockAndUnlockIfBranch/prog1.go:14:13"
+				},
 				"ExistingUnlocks": {}
 			},
 			"State": {
