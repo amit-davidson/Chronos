@@ -24,7 +24,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 	defer context.StackTrace.Pop()
 
 	if callCommon.IsInvoke() {
-		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
+		impls := ssaPureUtils.GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(context, impls[0])
 			for _, impl := range impls[1:] {
@@ -44,11 +44,11 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 		funcStateRet := HandleFunction(context, fn)
 		return funcStateRet
 	case *ssa.Function:
-		if IsLock(call) {
+		if ssaPureUtils.IsLock(call) {
 			AddLock(funcState, callCommon, false)
 			return funcState
 		}
-		if IsUnlock(call) {
+		if ssaPureUtils.IsUnlock(call) {
 			AddLock(funcState, callCommon, true)
 			return funcState
 		}
@@ -215,7 +215,7 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	isContainingLocks, ok := isFunctionContainingLocksMap[fn.Signature]
+	isContainingLocks, ok := ssaPureUtils.PreProcess.FunctionWithLocks[fn.Signature]
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}

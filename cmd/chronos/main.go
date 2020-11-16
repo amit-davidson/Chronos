@@ -24,19 +24,19 @@ func main() {
 	domain.GuardedAccessCounter = utils.NewCounter()
 	domain.PosIDCounter = utils.NewCounter()
 
-	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile)
+	ssaProg, ssaPkg, err := ssaPureUtils.LoadPackage(*defaultFile)
 	if err != nil {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-	err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, *defaultPkgPath)
+
+	entryFunc := ssaPkg.Func("main")
+	err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 
-	entryFunc := ssaPkg.Func("main")
-	ssaUtils.PreProcess(entryFunc)
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
 	err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)

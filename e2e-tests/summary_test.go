@@ -200,18 +200,16 @@ func TestE2E(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
+			ssaProg, ssaPkg, err := ssaPureUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 
 			domain.GoroutineCounter = utils.NewCounter()
 			domain.GuardedAccessCounter = utils.NewCounter()
 			domain.PosIDCounter = utils.NewCounter()
 
-			err = ssaPureUtils.SetGlobals(ssaProg, ssaPkg, "")
-			require.NoError(t, err)
-
 			entryFunc := ssaPkg.Func("main")
-			ssaUtils.PreProcess(entryFunc)
+			err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
+			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())

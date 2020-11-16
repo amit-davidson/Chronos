@@ -10,7 +10,7 @@ import (
 
 var GlobalProgram *ssa.Program
 var GlobalPackageName string
-
+var PreProcess *PreProcessResults
 
 
 func GetMutexPos(value ssa.Value) token.Pos {
@@ -21,22 +21,6 @@ func GetMutexPos(value ssa.Value) token.Pos {
 	obj := GetUnderlyingObjectFromField(val)
 	return obj.Pos()
 
-}
-
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
-	GlobalProgram = prog
-	if defaultPkgPath != "" {
-		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
-
-		return nil
-	}
-
-	var retError error
-	GlobalPackageName, retError = GetTopLevelPackageName(pkg)
-	if retError != nil {
-		return retError
-	}
-	return nil
 }
 
 func GetTopLevelPackageName(pkg *ssa.Package) (string, error) {

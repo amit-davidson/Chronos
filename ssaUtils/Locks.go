@@ -3,7 +3,6 @@ package ssaUtils
 import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/ssaPureUtils"
-	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"golang.org/x/tools/go/ssa"
 )
@@ -17,13 +16,4 @@ func AddLock(funcState *domain.BlockState, call *ssa.CallCommon, isUnlock bool) 
 	} else {
 		funcState.Lockset.UpdateLockSet(lock, nil)
 	}
-}
-
-func IsLock(call *ssa.Function) bool {
-	return utils.IsCallTo(call, "(*sync.Mutex).Lock")
-}
-
-
-func IsUnlock(call *ssa.Function) bool {
-	return utils.IsCallTo(call, "(*sync.Mutex).Unlock")
 }
