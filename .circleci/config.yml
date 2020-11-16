@@ -14,4 +14,4 @@ jobs:
       - run:
           name: Run tests
           command: |
-            go test -v e2e-tests/summary_test.go
+            go test -v ./...
