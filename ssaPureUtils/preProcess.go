@@ -46,6 +46,8 @@ func InitPreProcess(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string, 
 	return nil
 }
 
+// IsFunctionContainingLocks calculates if a function contains locks depending on the call graph. It does it by
+// iterating the entire call graph and calculates on each function the mutexes being held at each exit point (locksCount).
 func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPreprocess, f *ssa.Function) bool {
 	FunctionWithLocksPreprocess.visitedFuncs.Push(f)
 	defer FunctionWithLocksPreprocess.visitedFuncs.Pop()

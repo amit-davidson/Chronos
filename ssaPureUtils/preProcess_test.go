@@ -37,19 +37,9 @@ func TestIsFunctionContainingLocks_WithEvenLockAndUnlock(t *testing.T) {
 
 func TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLater(t *testing.T) {
 	// Even though the number of locks and unlocks is equal, this still marked as containing locks since in the data
-	// flow analysis, the unlock precede the lock.
+	// flow analysis, the unlock precedes the lock.
 	isContainingLock := setup(t, "./testdata/EvenLockAndUnlockAndLockComesLater/EvenLockAndUnlockAndLockComesLater.go")
 	require.True(t, isContainingLock)
-}
-
-func TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLaterInTheFlowButAppearEarlierInCode(t *testing.T) {
-	// In general this should be marked as true since the mutex is marked as locked when the function exits. It's
-	// assumed that if the number of locks equals to the number of unlocks, then the lock step will precede the unlock step.
-	// Even if the number of cases is equal and the order is opposite, the data flow analysis still might see it
-	// due to the order they appear in the code. See TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLater for example.
-	// Cases as in this may result in incorrect/missing reports of race conditions but they are very rare.
-	isContainingLock := setup(t, "./testdata/TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLaterInTheFlowButAppearEarlierInCode/TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLaterInTheFlowButAppearEarlierInCode.go")
-	require.False(t, isContainingLock)
 }
 
 func TestIsFunctionContainingLocks_WithEvenLockAndDeferUnlock(t *testing.T) {
@@ -72,6 +62,11 @@ func TestIsFunctionContainingLocks_WithUnevenLockAndUnlockAndLockComesLater(t *t
 
 func TestIsFunctionContainingLocks_NestedFunctionWithLock(t *testing.T) {
 	isContainingLock := setup(t, "./testdata/NestedFunctionWithLock/NestedFunctionWithLock.go")
+	require.True(t, isContainingLock)
+}
+
+func TestIsFunctionContainingLocks_RecursionNestedFunctionWithLock(t *testing.T) {
+	isContainingLock := setup(t, "./testdata/RecursionNestedFunctionWithLock/RecursionNestedFunctionWithLock.go")
 	require.True(t, isContainingLock)
 }
 
