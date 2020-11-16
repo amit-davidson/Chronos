@@ -10,7 +10,7 @@ import (
 
 var GlobalProgram *ssa.Program
 var GlobalPackageName string
-
+var PreProcess *PreProcessResults
 
 
 func GetMutexPos(value ssa.Value) token.Pos {
@@ -23,7 +23,8 @@ func GetMutexPos(value ssa.Value) token.Pos {
 
 }
 
-func SetGlobals(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string) error {
+func SetGlobals(prog *ssa.Program, pkg *ssa.Package, PreProcessResults *PreProcessResults, defaultPkgPath string) error {
+	PreProcess = PreProcessResults
 	GlobalProgram = prog
 	if defaultPkgPath != "" {
 		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
