@@ -31,7 +31,7 @@ func main() {
 	}
 
 	entryFunc := ssaPkg.Func("main")
-	err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, "", entryFunc)
+	err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
