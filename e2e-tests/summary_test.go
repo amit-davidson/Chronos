@@ -6,7 +6,6 @@ import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
-	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/stretchr/testify/require"
@@ -200,7 +199,7 @@ func TestE2E(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			ssaProg, ssaPkg, err := ssaPureUtils.LoadPackage(tc.testPath)
+			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 
 			domain.GoroutineCounter = utils.NewCounter()
@@ -208,7 +207,7 @@ func TestE2E(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
+			err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
 			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}

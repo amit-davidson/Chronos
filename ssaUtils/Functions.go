@@ -24,7 +24,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 	defer context.StackTrace.Pop()
 
 	if callCommon.IsInvoke() {
-		impls := ssaPureUtils.GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
+		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(context, impls[0])
 			for _, impl := range impls[1:] {
@@ -206,7 +206,7 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 		return funcState
 	}
 	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
-	if !strings.Contains(pkgName, ssaPureUtils.GlobalPackageName) {
+	if !strings.Contains(pkgName, GlobalPackageName) {
 		return funcState
 	}
 
@@ -215,7 +215,7 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	isContainingLocks, ok := ssaPureUtils.PreProcess.FunctionWithLocks[fn.Signature]
+	isContainingLocks, ok := PreProcess.FunctionWithLocks[fn.Signature]
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}

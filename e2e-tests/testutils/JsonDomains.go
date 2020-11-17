@@ -1,7 +1,7 @@
 package testutils
 
 import (
-	"github.com/amit-davidson/Chronos/ssaPureUtils"
+	"github.com/amit-davidson/Chronos/ssaUtils"
 	"go/token"
 	"path/filepath"
 	"strings"
@@ -21,7 +21,7 @@ type GuardedAccessJSON struct {
 }
 
 func GuardedAccessToJSON(ga *domain.GuardedAccess) GuardedAccessJSON {
-	prog := ssaPureUtils.GlobalProgram
+	prog := ssaUtils.GlobalProgram
 	dumpJson := GuardedAccessJSON{}
 	dumpJson.ID = ga.ID
 	dumpJson.PosID = ga.PosID
@@ -40,7 +40,7 @@ type LocksetJson struct {
 }
 
 func LocksetToJSON(ls *domain.Lockset) *LocksetJson {
-	prog := ssaPureUtils.GlobalProgram
+	prog := ssaUtils.GlobalProgram
 
 	dumpJson := &LocksetJson{
 		ExistingLocks:   map[string]string{},
@@ -66,12 +66,12 @@ func GetRelativePath(pos token.Pos, prog *ssa.Program) string {
 	}
 	position := prog.Fset.Position(pos)
 	path := position.String()
-	path1 := strings.Split(path, ssaPureUtils.GlobalPackageName)
+	path1 := strings.Split(path, ssaUtils.GlobalPackageName)
 	if len(path1) == 0 {
 		// path is an empty string, so got no elements
-		return ssaPureUtils.GlobalPackageName
+		return ssaUtils.GlobalPackageName
 	}
-	return filepath.Join(ssaPureUtils.GlobalPackageName, path1[len(path1)-1])
+	return filepath.Join(ssaUtils.GlobalPackageName, path1[len(path1)-1])
 }
 
 type ContextJSON struct {

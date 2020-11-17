@@ -8,10 +8,6 @@ import (
 	"strings"
 )
 
-var GlobalProgram *ssa.Program
-var GlobalPackageName string
-var PreProcess *PreProcessResults
-
 
 func GetMutexPos(value ssa.Value) token.Pos {
 	val, ok := GetField(value)
@@ -20,7 +16,6 @@ func GetMutexPos(value ssa.Value) token.Pos {
 	}
 	obj := GetUnderlyingObjectFromField(val)
 	return obj.Pos()
-
 }
 
 func GetTopLevelPackageName(pkg *ssa.Package) (string, error) {

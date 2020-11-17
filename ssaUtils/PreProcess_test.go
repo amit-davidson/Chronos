@@ -1,4 +1,4 @@
-package ssaPureUtils
+package ssaUtils
 
 import (
 	"github.com/stretchr/testify/require"

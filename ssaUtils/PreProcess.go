@@ -1,6 +1,7 @@
-package ssaPureUtils
+package ssaUtils
 
 import (
+	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/utils/stacks"
 	"go/types"
 	"golang.org/x/tools/go/ssa"
@@ -33,7 +34,7 @@ func InitPreProcess(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string, 
 		GlobalPackageName = strings.TrimSuffix(defaultPkgPath, string(os.PathSeparator))
 	} else {
 		var retError error
-		GlobalPackageName, retError = GetTopLevelPackageName(pkg)
+		GlobalPackageName, retError = ssaPureUtils.GetTopLevelPackageName(pkg)
 		if retError != nil {
 			return retError
 		}
@@ -52,7 +53,7 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 	FunctionWithLocksPreprocess.visitedFuncs.Push(f)
 	defer FunctionWithLocksPreprocess.visitedFuncs.Pop()
 
-	if IsLock(f) || IsUnlock(f) {
+	if ssaPureUtils.IsLock(f) || ssaPureUtils.IsUnlock(f) {
 		return false
 	}
 
@@ -88,14 +89,14 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 				if FunctionWithLocksPreprocess.visitedFuncs.Contains(f) {
 					continue
 				}
-				if IsLock(f) {
+				if ssaPureUtils.IsLock(f) {
 					recv := callCommon.Args[len(callCommon.Args)-1]
-					mutexPos := int(GetMutexPos(recv))
+					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
 					FunctionWithLocksPreprocess.locksCount[mutexPos]++
 				}
-				if IsUnlock(f) {
+				if ssaPureUtils.IsUnlock(f) {
 					recv := callCommon.Args[len(callCommon.Args)-1]
-					mutexPos := int(GetMutexPos(recv))
+					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
 					if FunctionWithLocksPreprocess.locksCount[mutexPos] > 0 {
 						FunctionWithLocksPreprocess.locksCount[mutexPos]--
 						if FunctionWithLocksPreprocess.locksCount[mutexPos] == 0 {
