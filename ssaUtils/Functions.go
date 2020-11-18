@@ -177,7 +177,7 @@ func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.CallCommonStac
 			break
 		}
 		retState := HandleCallCommon(context, deferFunction, deferFunction.Pos())
-		calculatedState.MergeChildBlock(retState)
+		calculatedState.MergeChildBlock(retState, true)
 	}
 	return calculatedState
 
@@ -190,12 +190,12 @@ func (cfg *CFG) calculateFunctionStatePathInsensitive(context *domain.Context, b
 		if cfg.calculatedState == nil {
 			cfg.calculatedState = state.Copy()
 		} else {
-			cfg.calculatedState.MergeChildBlock(state)
+			cfg.calculatedState.MergeChildBlock(state, false)
 		}
 
 		deferBlock := cfg.ComputedDeferBlocks[block.Index]
 		if deferBlock != nil {
-			cfg.calculatedState.MergeChildBlock(deferBlock)
+			cfg.calculatedState.MergeChildBlock(deferBlock, false)
 		}
 	}
 }
@@ -211,7 +211,6 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	}
 
 	// regular
-	cfg := newCFG()
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
@@ -219,6 +218,7 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
+	cfg := newCFG()
 	if isContainingLocks {
 		cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
 	} else {

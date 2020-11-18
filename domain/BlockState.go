@@ -34,9 +34,11 @@ func (existingBlock *BlockState) AddResult(newBlock *BlockState, shouldMergeLock
 // Merge child B unto A:
 // A -> B
 // Will Merge B unto A
-func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
-	for _, guardedAccess := range newBlock.GuardedAccesses {
-		guardedAccess.Lockset.UpdateLockSet(existingBlock.Lockset.Locks, existingBlock.Lockset.Unlocks)
+func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState, shouldUpdateGALockset bool) {
+	if shouldUpdateGALockset {
+		for _, guardedAccess := range newBlock.GuardedAccesses {
+			guardedAccess.Lockset.UpdateLockSet(existingBlock.Lockset.Locks, existingBlock.Lockset.Unlocks)
+		}
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	existingBlock.DeferredFunctions.MergeStacks(newBlock.DeferredFunctions)

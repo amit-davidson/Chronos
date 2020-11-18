@@ -50,7 +50,7 @@ func (cfg *CFG) CalculatePath() {
 	state := cfg.ComputedBlocks[block.Index].Copy()
 	for _, nextBlock := range path[1:] {
 		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
-		state.MergeChildBlock(nextState)
+		state.MergeChildBlock(nextState, true)
 	}
 
 	var firstDeferState *domain.BlockState
@@ -72,7 +72,7 @@ func (cfg *CFG) CalculatePath() {
 				continue
 			}
 			nextStateCopy := nextState.Copy()
-			deferStateCopy.MergeChildBlock(nextStateCopy)
+			deferStateCopy.MergeChildBlock(nextStateCopy, true)
 		}
 		state.AddResult(deferStateCopy, true)
 	}

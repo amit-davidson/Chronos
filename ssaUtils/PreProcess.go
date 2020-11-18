@@ -15,14 +15,14 @@ type PreProcessResults struct {
 
 type FunctionWithLocksPreprocess struct {
 	FunctionWithLocks map[*types.Signature]bool
-	locksCount        map[int]int
+	locks             map[int]struct{} // Is lock exists, and if it's in a conditional path
 	visitedFuncs      *stacks.FunctionStackWithMap
 }
 
 func InitFunctionWithLocksPreprocess(entryFunc *ssa.Function) *FunctionWithLocksPreprocess {
 	preProcess := &FunctionWithLocksPreprocess{
 		FunctionWithLocks: make(map[*types.Signature]bool),
-		locksCount:        make(map[int]int),
+		locks:             make(map[int]struct{}),
 		visitedFuncs:      stacks.NewFunctionStackWithMap(),
 	}
 	IsFunctionContainingLocks(preProcess, entryFunc)
@@ -47,8 +47,9 @@ func InitPreProcess(prog *ssa.Program, pkg *ssa.Package, defaultPkgPath string, 
 	return nil
 }
 
-// IsFunctionContainingLocks calculates if a function contains locks depending on the call graph. It does it by
-// iterating the entire call graph and calculates on each function the mutexes being held at each exit point (locksCount).
+// IsFunctionContainingLocks calculates if a function contains locks when it finishes it's execution depending on the
+// call graph. It does it by iterating the entire call graph and calculates on each block if a lock is succeeded with an
+// unlock. If it does not, the function is marked as containing locks.
 func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPreprocess, f *ssa.Function) bool {
 	FunctionWithLocksPreprocess.visitedFuncs.Push(f)
 	defer FunctionWithLocksPreprocess.visitedFuncs.Pop()
@@ -57,8 +58,6 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 		return false
 	}
 
-	functionName := f.Name()
-	_ = functionName
 	for _, block := range f.Blocks {
 		for _, instr := range block.Instrs {
 			call, ok := instr.(ssa.CallInstruction)
@@ -92,17 +91,16 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 				if ssaPureUtils.IsLock(f) {
 					recv := callCommon.Args[len(callCommon.Args)-1]
 					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
-					FunctionWithLocksPreprocess.locksCount[mutexPos]++
+					FunctionWithLocksPreprocess.locks[mutexPos] = struct{}{}
 				}
 				if ssaPureUtils.IsUnlock(f) {
 					recv := callCommon.Args[len(callCommon.Args)-1]
 					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
-					if FunctionWithLocksPreprocess.locksCount[mutexPos] > 0 {
-						FunctionWithLocksPreprocess.locksCount[mutexPos]--
-						if FunctionWithLocksPreprocess.locksCount[mutexPos] == 0 {
-							delete(FunctionWithLocksPreprocess.locksCount, mutexPos)
-						}
+					_, isLockExist := FunctionWithLocksPreprocess.locks[mutexPos]
+					if !isLockExist {
+						continue
 					}
+					delete(FunctionWithLocksPreprocess.locks, mutexPos)
 				}
 
 				IsFunctionContainingLocks(FunctionWithLocksPreprocess, f)
@@ -110,7 +108,7 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 		}
 	}
 	var res bool
-	if len(FunctionWithLocksPreprocess.locksCount) > 0 {
+	if len(FunctionWithLocksPreprocess.locks) > 0 {
 		res = true
 	} else {
 		res = false
