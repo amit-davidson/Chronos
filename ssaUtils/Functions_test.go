@@ -9,7 +9,7 @@ import (
 )
 
 func Test_HandleFunction_DeferredLockAndUnlockIfBranch(t *testing.T) {
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/Defer/DeferredLockAndUnlockIfBranch/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/Defer/DeferredLockAndUnlockIfBranch/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 0)
@@ -48,7 +48,7 @@ func Test_HandleFunction_DeferredLockAndUnlockIfBranch(t *testing.T) {
 }
 
 func Test_HandleFunction_NestedDeferWithLockAndUnlock(t *testing.T) {
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/Defer/NestedDeferWithLockAndUnlock/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/Defer/NestedDeferWithLockAndUnlock/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 1)
@@ -72,7 +72,7 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlock(t *testing.T) {
 
 func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) {
 	t.Skip("A bug. 7 should contain a lock")
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/Defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/Defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 0)
@@ -111,7 +111,7 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) 
 
 func Test_HandleFunction_ForLoop(t *testing.T) {
 	t.Skip("A bug. A for loop is assumed to be always executed so state.Lockset.Locks supposed to contain locks")
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/ForLoops/ForLoop/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/ForLoops/ForLoop/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 1)
@@ -150,7 +150,7 @@ func Test_HandleFunction_ForLoop(t *testing.T) {
 }
 
 func Test_HandleFunction_NestedForLoopWithRace(t *testing.T) {
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/ForLoops/NestedForLoopWithRace/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/ForLoops/NestedForLoopWithRace/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 0)
@@ -194,7 +194,7 @@ func Test_HandleFunction_NestedForLoopWithRace(t *testing.T) {
 }
 
 func Test_HandleFunction_WhileLoop(t *testing.T) {
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/ForLoops/WhileLoop/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/ForLoops/WhileLoop/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 0)
@@ -240,7 +240,7 @@ func Test_HandleFunction_WhileLoop(t *testing.T) {
 
 func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
 	t.Skip("for {}")
-	f := LoadMain(t, "./testdata/FunctionsPathSensitive/ForLoops/WhileLoopWithoutHeader/prog1.go")
+	f := LoadMain(t, "./testdata/Functions/ForLoops/WhileLoopWithoutHeader/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 0)
