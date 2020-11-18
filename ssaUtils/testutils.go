@@ -4,6 +4,7 @@ import (
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/stretchr/testify/require"
+	"go/constant"
 	"golang.org/x/tools/go/ssa"
 	"testing"
 )
@@ -17,6 +18,11 @@ func FindGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *
 		}
 	}
 	return nil
+}
+
+func GetConstString(v *ssa.Const) string {
+	return constant.StringVal(v.Value)
+
 }
 
 func IsGARead(ga *domain.GuardedAccess) bool {
