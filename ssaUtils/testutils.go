@@ -8,7 +8,7 @@ import (
 	"testing"
 )
 
-func FindBlock(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) *domain.GuardedAccess {
+func FindGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) *domain.GuardedAccess {
 	wasFound := false
 	for _, ga := range GuardedAccesses {
 		wasFound = validationFunc(ga)
@@ -27,8 +27,8 @@ func IsGAWrite(ga *domain.GuardedAccess) bool {
 	return ga.OpKind == domain.GuardAccessWrite
 }
 
-func FindBlockWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) *domain.GuardedAccess {
-	res := FindBlock(GuardedAccesses, validationFunc)
+func FindGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) *domain.GuardedAccess {
+	res := FindGA(GuardedAccesses, validationFunc)
 	require.NotNil(t, res)
 	return res
 }

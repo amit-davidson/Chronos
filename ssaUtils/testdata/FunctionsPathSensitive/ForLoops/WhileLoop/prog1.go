@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 import "time"
 
 type myType struct {
@@ -13,7 +11,7 @@ func main() {
 	x := new(myType)
 	c := make(chan int, 100)
 	go func() {
-		for {
+		for true {
 			x = new(myType) // write to x
 			c <- 0
 			<-c
@@ -21,7 +19,7 @@ func main() {
 	}()
 	for i := 0; i < 4; i++ {
 		go func() {
-			for {
+			for true {
 				_ = *x // if exists a race condition, `*x` will visit a wrong memory address, and will panic
 				c <- 0
 				<-c

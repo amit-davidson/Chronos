@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"sync"
 )
 import "time"
 
@@ -9,11 +10,13 @@ type myType struct {
 	A int
 }
 
+var mutex = sync.Mutex{}
 func main() {
 	x := new(myType)
 	c := make(chan int, 100)
 	go func() {
 		for {
+			mutex.Lock()
 			x = new(myType) // write to x
 			c <- 0
 			<-c
