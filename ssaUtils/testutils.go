@@ -20,9 +20,23 @@ func FindGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *
 	return nil
 }
 
+func FindMultipleGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) []*domain.GuardedAccess {
+	foundGAs := make([]*domain.GuardedAccess, 0)
+	for _, ga := range GuardedAccesses {
+		wasFound := validationFunc(ga)
+		if wasFound == true {
+			foundGAs = append(foundGAs, ga)
+		}
+	}
+	return foundGAs
+}
+
 func GetConstString(v *ssa.Const) string {
 	return constant.StringVal(v.Value)
+}
 
+func GetGlobalString(v *ssa.Global) string {
+	return v.Name()
 }
 
 func IsGARead(ga *domain.GuardedAccess) bool {
@@ -39,7 +53,13 @@ func FindGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, valid
 	return res
 }
 
-func LoadMain(t *testing.T, filePath string) *ssa.Function {
+func FinMultipleGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool, expectedAmount int) []*domain.GuardedAccess {
+	res := FindMultipleGA(GuardedAccesses, validationFunc)
+	require.Equal(t, expectedAmount, len(res))
+	return res
+}
+
+func LoadMain(t *testing.T, filePath string) (*ssa.Function, *ssa.Package) {
 	domain.GoroutineCounter = utils.NewCounter()
 	domain.GuardedAccessCounter = utils.NewCounter()
 	domain.PosIDCounter = utils.NewCounter()
@@ -49,5 +69,28 @@ func LoadMain(t *testing.T, filePath string) *ssa.Function {
 	f := ssaPkg.Func("main")
 	err = InitPreProcess(ssaProg, ssaPkg, "", f)
 	require.NoError(t, err)
-	return f
+	return f, ssaPkg
+}
+
+func EqualDifferentOrder(a, b []*domain.GuardedAccess) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	diff := make(map[int]int, len(a))
+	for _, x := range a {
+		diff[x.ID]++
+	}
+	for _, y := range b {
+		if _, ok := diff[y.ID]; !ok {
+			return false
+		}
+		diff[y.ID] -= 1
+		if diff[y.ID] == 0 {
+			delete(diff, y.ID)
+		}
+	}
+	if len(diff) == 0 {
+		return true
+	}
+	return false
 }

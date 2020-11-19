@@ -85,6 +85,10 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 	return false
 }
 
+func (ga *GuardedAccess) IsConflicting(gaToCompare *GuardedAccess) bool {
+	return !ga.Intersects(gaToCompare) && ga.State.MayConcurrent(gaToCompare.State)
+}
+
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
 	context.Increment()
 	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), PosID: PosIDCounter.GetNext(), Pos: pos,

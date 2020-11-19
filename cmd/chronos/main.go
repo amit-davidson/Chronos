@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/output"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
@@ -42,7 +43,7 @@ func main() {
 		fmt.Printf("Error in analysis:%s\n", err)
 		os.Exit(1)
 	}
-	err = pointerAnalysis.GenerateError(conflictingGAs, ssaProg)
+	err = output.GenerateError(conflictingGAs, ssaProg)
 	if err != nil {
 		fmt.Printf("Error in generating errors:%s\n", err)
 		os.Exit(1)
