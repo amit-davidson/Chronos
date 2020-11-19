@@ -645,7 +645,7 @@ func Test_HandleFunction_DataRaceGoto(t *testing.T) {
 	state := HandleFunction(ctx, f)
 	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
 	require.NoError(t, err)
-	gas := FinMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
 		if !IsGAWrite(ga) {
 			return false
 		}
@@ -680,7 +680,6 @@ func Test_HandleFunction_DataRaceGoto(t *testing.T) {
 		}
 		return true
 	})
-
 
 	found = false
 	for _, ca := range conflictingAccesses {
@@ -760,4 +759,80 @@ func Test_HandleFunction_DataRaceNestedSameFunction(t *testing.T) {
 	})
 
 	assert.Subset(t, gas, conflictingAccesses[0])
+}
+
+func Test_HandleFunction_DataRaceProperty(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceProperty/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	gaA := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		field, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		if field.X.Name() != "w" {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, gaA.State.Clock, 2)
+
+	gaB := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		field, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		_, ok = field.X.(*ssa.UnOp)
+		if !ok {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, gaB.State.Clock, 3)
+
+	found := false
+	for _, ca := range conflictingAccesses {
+		if EqualDifferentOrder([]*domain.GuardedAccess{gaA, gaB}, ca) {
+			found = true
+		}
+	}
+	assert.True(t, found)
+}
+
+func Test_HandleFunction_DataRaceRecursion(t *testing.T) {
+	t.Skip("gas should be of length 3")
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceRecursion/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		field, ok := ga.Value.(*ssa.Global)
+		if !ok {
+			return false
+		}
+		if field.Name() != "a" {
+			return false
+		}
+		return true
+	}, 2)
+
+	found := false
+	for _, ca := range conflictingAccesses {
+		if EqualDifferentOrder(gas, ca) {
+			found = true
+		}
+	}
+	assert.True(t, found)
 }

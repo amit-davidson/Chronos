@@ -15,8 +15,18 @@ const (
 )
 
 func GenerateError(conflictingGAs [][]*domain.GuardedAccess, prog *ssa.Program) error {
-	messages := make([]string, 0)
+	foundDataRaces := utils.NewDoubleKeyMap() // To avoid reporting on the same pair of positions more then once. Can happen if for the same place we read and then write.
+	truncatedonflictingGAs := make([][]*domain.GuardedAccess, 0)
 	for _, conflict := range conflictingGAs {
+		isExist := foundDataRaces.IsExist(conflict[0].Pos, conflict[1].Pos)
+		if !isExist {
+			foundDataRaces.Add(conflict[0].Pos, conflict[1].Pos)
+			truncatedonflictingGAs = append(truncatedonflictingGAs, conflict)
+		}
+	}
+
+	messages := make([]string, 0)
+	for _, conflict := range truncatedonflictingGAs {
 		label, err := getMessage(conflict[0], conflict[1], prog)
 		if err != nil {
 			return err

@@ -53,7 +53,7 @@ func FindGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, valid
 	return res
 }
 
-func FinMultipleGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool, expectedAmount int) []*domain.GuardedAccess {
+func FindMultipleGAWithFail(t *testing.T, GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool, expectedAmount int) []*domain.GuardedAccess {
 	res := FindMultipleGA(GuardedAccesses, validationFunc)
 	require.Equal(t, expectedAmount, len(res))
 	return res
