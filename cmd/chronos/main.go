@@ -28,7 +28,6 @@ func main() {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-
 	entryFunc := ssaPkg.Func("main")
 	err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
 	if err != nil {
@@ -38,10 +37,14 @@ func main() {
 
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
-	err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+	conflictingGAs, err := pointerAnalysis.Analysis(ssaPkg, functionState.GuardedAccesses)
 	if err != nil {
 		fmt.Printf("Error in analysis:%s\n", err)
 		os.Exit(1)
 	}
-
+	err = pointerAnalysis.GenerateError(conflictingGAs, ssaProg)
+	if err != nil {
+		fmt.Printf("Error in generating errors:%s\n", err)
+		os.Exit(1)
+	}
 }

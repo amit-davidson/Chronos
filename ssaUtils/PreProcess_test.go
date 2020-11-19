@@ -38,7 +38,7 @@ func TestIsFunctionContainingLocks_WithEvenLockAndUnlock(t *testing.T) {
 }
 
 func TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLater(t *testing.T) {
-	f := LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/EvenLockAndUnlockAndLockComesLater.go")
+	f := LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/LockInEmbeddedStruct.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.True(t, isContainingLock)
 }
@@ -56,7 +56,7 @@ func TestIsFunctionContainingLocks_WithUnevenLockAndUnlock(t *testing.T) {
 }
 
 func TestIsFunctionContainingLocks_WithUnevenLockAndUnlockAndLockComesLater(t *testing.T) {
-	f := LoadMain(t, "./testdata/Preprocess/UnevenLockAndUnlockAndLockComesLater/UnevenLockAndUnlockAndLockComesLater.go")
+	f := LoadMain(t, "./testdata/Preprocess/UnevenLockAndUnlockAndLockComesLater/WaitGroup.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.False(t, isContainingLock)
 }
@@ -77,4 +77,16 @@ func TestIsFunctionContainingLocks_NestedFunctionWithLockButThenUnlock(t *testin
 	f := LoadMain(t, "./testdata/Preprocess/NestedFunctionWithLockButThenUnlock/NestedFunctionWithLockButThenUnlock.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.False(t, isContainingLock)
+}
+
+func TestIsFunctionContainingLocks_LockInAStruct(t *testing.T) {
+	f := LoadMain(t, "./testdata/Preprocess/LockInAStruct/LockInEmbeddedStruct.go")
+	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
+	require.True(t, isContainingLock)
+}
+
+func TestIsFunctionContainingLocks_EmbeddedStruct(t *testing.T) {
+	f := LoadMain(t, "./testdata/Preprocess/LockInEmbeddedStruct/LockInEmbeddedStruct.go")
+	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
+	require.True(t, isContainingLock)
 }

@@ -34,7 +34,7 @@ const (
 //        D->ga10, ga11, ga12, ga1, ga2, ga3, ga4, ga5, ga6
 // And then for pos all the guarded accesses are compared to see if data races might exist
 
-func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAccess) error {
+func Analysis(pkg *ssa.Package, accesses []*domain.GuardedAccess) ([][2]*domain.GuardedAccess, error) {
 	config := &pointer.Config{
 		Mains: []*ssa.Package{pkg},
 	}
@@ -50,7 +50,7 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 
 	result, err := pointer.Analyze(config)
 	if err != nil {
-		return err // internal error in pointer analysis
+		return nil, err // internal error in pointer analysis
 	}
 
 	// Join instructions of variables that may point to each other.
@@ -64,8 +64,8 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 			positionsToGuardAccesses[allocPos] = append(positionsToGuardAccesses[allocPos], positionsToGuardAccesses[queryPos]...)
 		}
 	}
-	messages := make([]string, 0)
 	foundDataRaces := utils.NewDoubleKeyMap() // To avoid reporting on the same pair of positions more then once. Can happen if for the same place we read and then write.
+	conflictingGA := make([][2]*domain.GuardedAccess, 0)
 	for _, guardedAccesses := range positionsToGuardAccesses {
 		for _, guardedAccessA := range guardedAccesses {
 			for _, guardedAccessB := range guardedAccesses {
@@ -73,24 +73,32 @@ func Analysis(pkg *ssa.Package, prog *ssa.Program, accesses []*domain.GuardedAcc
 					isExist := foundDataRaces.IsExist(guardedAccessA.Pos, guardedAccessB.Pos)
 					if !isExist {
 						foundDataRaces.Add(guardedAccessA.Pos, guardedAccessB.Pos)
-						label, err := getMessage(guardedAccessA, guardedAccessB, prog)
-						if err != nil {
-							return err
-						}
-						messages = append(messages, label)
+						conflictingGA = append(conflictingGA, [2]*domain.GuardedAccess{guardedAccessA, guardedAccessB})
 					}
 				}
 			}
 		}
 	}
-	if len(messages) == 0 {
-		print("No data races found\n")
-		return nil
-	}
-	print(messages[0])
-	for _, message := range messages[1:] {
-		print("=========================\n")
-		print(message)
+	return conflictingGA, nil
+}
+
+func GenerateError(conflictingGAs [][2]*domain.GuardedAccess, prog *ssa.Program) error {
+	messages := make([]string, 0)
+	for _, conflict := range conflictingGAs {
+		label, err := getMessage(conflict[0], conflict[1], prog)
+		if err != nil {
+			return err
+		}
+		messages = append(messages, label)
+
+		if len(messages) == 0 {
+			print("No data races found\n")
+		}
+		print(messages[0])
+		for _, message := range messages[1:] {
+			print("=========================\n")
+			print(message)
+		}
 	}
 	return nil
 }

@@ -207,7 +207,7 @@ func TestE2E(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
+			err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, "", entryFunc)
 			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
@@ -219,9 +219,14 @@ func TestE2E(t *testing.T) {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
 			testutils.CompareResult(t, tc.resPath, functionState.Lockset, functionState.GuardedAccesses)
-			err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+			conflictingGAs, err := pointerAnalysis.Analysis(ssaPkg, functionState.GuardedAccesses)
 			if err != nil {
 				fmt.Printf("Error in analysis:%s\n", err)
+				os.Exit(1)
+			}
+			err = pointerAnalysis.GenerateError(conflictingGAs, ssaProg)
+			if err != nil {
+				fmt.Printf("Error in generating errors:%s\n", err)
 				os.Exit(1)
 			}
 		})
