@@ -741,3 +741,23 @@ func Test_HandleFunction_DataRaceMap(t *testing.T) {
 	}
 	assert.True(t, found)
 }
+
+func Test_HandleFunction_DataRaceNestedSameFunction(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceNestedSameFunction/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	gas := FindMultipleGA(state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		global, ok := ga.Value.(*ssa.Global)
+		if !ok {
+			return false
+		}
+		if global.Name() != "count" {
+			return false
+		}
+		return true
+	})
+
+	assert.Subset(t, gas, conflictingAccesses[0])
+}
