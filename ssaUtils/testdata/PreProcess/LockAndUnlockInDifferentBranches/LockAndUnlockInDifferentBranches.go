@@ -1,4 +1,4 @@
-package functionWithLock
+package main
 
 import (
 	"math/rand"
