@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/e2e-tests/testutils"
+	"github.com/amit-davidson/Chronos/output"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
-	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"github.com/stretchr/testify/require"
@@ -30,39 +30,6 @@ func TestE2E(t *testing.T) {
 		resPath      string
 		shouldUpdate bool
 	}{
-		{name: "Lock", testPath: "locksAndUnlocks/Lock/prog1.go", resPath: "locksAndUnlocks/Lock/prog1_expected.json", shouldUpdate: false},
-		{name: "LockAndUnlock", testPath: "locksAndUnlocks/LockAndUnlock/prog1.go", resPath: "locksAndUnlocks/LockAndUnlock/prog1_expected.json", shouldUpdate: false},
-		{name: "LockAndUnlockIfBranch", testPath: "locksAndUnlocks/LockAndUnlockIfBranch/prog1.go", resPath: "locksAndUnlocks/LockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
-		{name: "ElseIf", testPath: "general/ElseIf/prog1.go", resPath: "general/ElseIf/prog1_expected.json", shouldUpdate: false},
-		{name: "LockInBothBranches", testPath: "locksAndUnlocks/LockInBothBranches/prog1.go", resPath: "locksAndUnlocks/LockInBothBranches/prog1_expected.json", shouldUpdate: false},
-		{name: "DeferredLockAndUnlockIfBranch", testPath: "defer/DeferredLockAndUnlockIfBranch/prog1.go", resPath: "defer/DeferredLockAndUnlockIfBranch/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedDeferWithLockAndUnlock", testPath: "defer/NestedDeferWithLockAndUnlock/prog1.go", resPath: "defer/NestedDeferWithLockAndUnlock/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedDeferWithLockAndUnlockAndGoroutine", testPath: "defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go", resPath: "defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1_expected.json", shouldUpdate: false},
-		{name: "LockAndUnlockIfMap", testPath: "locksAndUnlocks/LockAndUnlockIfMap/prog1.go", resPath: "locksAndUnlocks/LockAndUnlockIfMap/prog1_expected.json", shouldUpdate: false},
-		{name: "MultipleLocksNoRace", testPath: "locksAndUnlocks/MultipleLocksNoRace/prog1.go", resPath: "locksAndUnlocks/MultipleLocksNoRace/prog1_expected.json", shouldUpdate: false},
-		{name: "MultipleLocksRace", testPath: "locksAndUnlocks/MultipleLocksRace/prog1.go", resPath: "locksAndUnlocks/MultipleLocksRace/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedFunctions", testPath: "general/NestedFunctions/prog1.go", resPath: "general/NestedFunctions/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceRecursion", testPath: "general/DataRaceRecursion/prog1.go", resPath: "general/DataRaceRecursion/prog1_expected.json", shouldUpdate: false},
-		{name: "RecursionWithGoroutine", testPath: "general/RecursionWithGoroutine/prog1.go", resPath: "general/RecursionWithGoroutine/prog1_expected.json", shouldUpdate: false},
-		{name: "RecursionWithRecover", testPath: "general/RecursionWithRecover/prog1.go", resPath: "general/RecursionWithRecover/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceGoto", testPath: "general/DataRaceGoto/prog1.go", resPath: "general/DataRaceGoto/prog1_expected.json", shouldUpdate: false},
-		{name: "Simple", testPath: "general/Simple/prog1.go", resPath: "general/Simple/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedConditionWithLockInAllBranches", testPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1.go", resPath: "locksAndUnlocks/NestedConditionWithLockInAllBranches/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceMap", testPath: "general/DataRaceMap/prog1.go", resPath: "general/DataRaceMap/prog1_expected.json", shouldUpdate: false},
-		{name: "ForLoop", testPath: "ForLoops/ForLoop/prog1.go", resPath: "ForLoops/ForLoop/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedForLoopWithRace", testPath: "ForLoops/NestedForLoopWithRace/prog1.go", resPath: "ForLoops/NestedForLoopWithRace/prog1_expected.json", shouldUpdate: false},
-		{name: "WhileLoop", testPath: "ForLoops/WhileLoop/prog1.go", resPath: "ForLoops/WhileLoop/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceShadowedErr", testPath: "general/DataRaceShadowedErr/prog1.go", resPath: "general/DataRaceShadowedErr/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceInterfaceOverChannel", testPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go", resPath: "pointerAnalysis/DataRaceInterfaceOverChannel/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceProperty", testPath: "general/DataRaceProperty/prog1.go", resPath: "general/DataRaceProperty/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceWithOnlyAlloc", testPath: "general/DataRaceWithOnlyAlloc/prog1.go", resPath: "general/DataRaceWithOnlyAlloc/prog1_expected.json", shouldUpdate: false},
-		{name: "LockInsideGoroutine", testPath: "locksAndUnlocks/LockInsideGoroutine/prog1.go", resPath: "locksAndUnlocks/LockInsideGoroutine/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceWithSameFunction", testPath: "general/DataRaceWithSameFunction/prog1.go", resPath: "general/DataRaceWithSameFunction/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceNestedSameFunction", testPath: "general/DataRaceNestedSameFunction/prog1.go", resPath: "general/DataRaceNestedSameFunction/prog1_expected.json", shouldUpdate: false},
-		{name: "StructMethod", testPath: "general/StructMethod/prog1.go", resPath: "general/StructMethod/prog1_expected.json", shouldUpdate: false},
-		{name: "DataRaceIceCreamMaker", testPath: "interfaces/DataRaceIceCreamMaker/prog1.go", resPath: "interfaces/DataRaceIceCreamMaker/prog1_expected.json", shouldUpdate: false},
-		{name: "InterfaceWithLock", testPath: "interfaces/InterfaceWithLock/prog1.go", resPath: "interfaces/InterfaceWithLock/prog1_expected.json", shouldUpdate: false},
-		{name: "NestedInterface", testPath: "interfaces/NestedInterface/prog1.go", resPath: "interfaces/NestedInterface/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceStackPushPop", testPath: "stdlib/TestNoRaceStackPushPop/prog1.go", resPath: "stdlib/TestNoRaceStackPushPop/prog1_expected.json", shouldUpdate: false},
 		{name: "RaceNestedArrayCopy", testPath: "stdlib/RaceNestedArrayCopy/prog1.go", resPath: "stdlib/RaceNestedArrayCopy/prog1_expected.json", shouldUpdate: false},
 		{name: "TestNoRaceAsFunc4", testPath: "stdlib/TestNoRaceAsFunc4/prog1.go", resPath: "stdlib/TestNoRaceAsFunc4/prog1_expected.json", shouldUpdate: false},
@@ -200,7 +167,7 @@ func TestE2E(t *testing.T) {
 	}
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			ssaProg, ssaPkg, err := ssaPureUtils.LoadPackage(tc.testPath)
+			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
 			require.NoError(t, err)
 
 			domain.GoroutineCounter = utils.NewCounter()
@@ -208,7 +175,7 @@ func TestE2E(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, "",entryFunc)
+			err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, "", entryFunc)
 			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
@@ -220,9 +187,14 @@ func TestE2E(t *testing.T) {
 				utils.UpdateFile(t, tc.resPath, dump)
 			}
 			testutils.CompareResult(t, tc.resPath, functionState.Lockset, functionState.GuardedAccesses)
-			err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+			conflictingGAs, err := pointerAnalysis.Analysis(ssaPkg, functionState.GuardedAccesses)
 			if err != nil {
 				fmt.Printf("Error in analysis:%s\n", err)
+				os.Exit(1)
+			}
+			err = output.GenerateError(conflictingGAs, ssaProg)
+			if err != nil {
+				fmt.Printf("Error in generating errors:%s\n", err)
 				os.Exit(1)
 			}
 		})

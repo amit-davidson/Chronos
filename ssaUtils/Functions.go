@@ -24,7 +24,7 @@ func HandleCallCommon(context *domain.Context, callCommon *ssa.CallCommon, pos t
 	defer context.StackTrace.Pop()
 
 	if callCommon.IsInvoke() {
-		impls := ssaPureUtils.GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
+		impls := GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 		if len(impls) > 0 {
 			funcState = HandleFunction(context, impls[0])
 			for _, impl := range impls[1:] {
@@ -177,7 +177,7 @@ func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.CallCommonStac
 			break
 		}
 		retState := HandleCallCommon(context, deferFunction, deferFunction.Pos())
-		calculatedState.MergeChildBlock(retState)
+		calculatedState.MergeChildBlock(retState, true)
 	}
 	return calculatedState
 
@@ -190,12 +190,12 @@ func (cfg *CFG) calculateFunctionStatePathInsensitive(context *domain.Context, b
 		if cfg.calculatedState == nil {
 			cfg.calculatedState = state.Copy()
 		} else {
-			cfg.calculatedState.MergeChildBlock(state)
+			cfg.calculatedState.MergeChildBlock(state, false)
 		}
 
 		deferBlock := cfg.ComputedDeferBlocks[block.Index]
 		if deferBlock != nil {
-			cfg.calculatedState.MergeChildBlock(deferBlock)
+			cfg.calculatedState.MergeChildBlock(deferBlock, false)
 		}
 	}
 }
@@ -206,19 +206,19 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 		return funcState
 	}
 	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
-	if !strings.Contains(pkgName, ssaPureUtils.GlobalPackageName) {
+	if !strings.Contains(pkgName, GlobalPackageName) {
 		return funcState
 	}
 
 	// regular
-	cfg := newCFG()
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	isContainingLocks, ok := ssaPureUtils.PreProcess.FunctionWithLocks[fn.Signature]
+	isContainingLocks, ok := PreProcess.FunctionWithLocks[fn.Signature]
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
+	cfg := newCFG()
 	if isContainingLocks {
 		cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
 	} else {

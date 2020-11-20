@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/output"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
-	"github.com/amit-davidson/Chronos/ssaPureUtils"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"golang.org/x/tools/go/ssa"
@@ -24,14 +24,13 @@ func main() {
 	domain.GuardedAccessCounter = utils.NewCounter()
 	domain.PosIDCounter = utils.NewCounter()
 
-	ssaProg, ssaPkg, err := ssaPureUtils.LoadPackage(*defaultFile)
+	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile)
 	if err != nil {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
-
 	entryFunc := ssaPkg.Func("main")
-	err = ssaPureUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
+	err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -39,10 +38,14 @@ func main() {
 
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
-	err = pointerAnalysis.Analysis(ssaPkg, ssaProg, functionState.GuardedAccesses)
+	conflictingGAs, err := pointerAnalysis.Analysis(ssaPkg, functionState.GuardedAccesses)
 	if err != nil {
 		fmt.Printf("Error in analysis:%s\n", err)
 		os.Exit(1)
 	}
-
+	err = output.GenerateError(conflictingGAs, ssaProg)
+	if err != nil {
+		fmt.Printf("Error in generating errors:%s\n", err)
+		os.Exit(1)
+	}
 }
