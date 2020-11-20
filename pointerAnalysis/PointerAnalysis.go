@@ -2,6 +2,7 @@ package pointerAnalysis
 
 import (
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/utils"
 	"go/token"
 	"golang.org/x/tools/go/pointer"
 	"golang.org/x/tools/go/ssa"
@@ -69,3 +70,15 @@ func Analysis(pkg *ssa.Package, accesses []*domain.GuardedAccess) ([][]*domain.G
 	return conflictingGA, nil
 }
 
+func FilterDuplicates(conflictingGAs [][]*domain.GuardedAccess) [][]*domain.GuardedAccess {
+	foundDataRaces := utils.NewDoubleKeyMap() // To avoid reporting on the same pair of positions more then once. Can happen if for the same place we read and then write.
+	nonDuplicatesGAs := make([][]*domain.GuardedAccess, 0)
+	for _, conflict := range conflictingGAs {
+		isExist := foundDataRaces.IsExist(conflict[0].Pos, conflict[1].Pos)
+		if !isExist {
+			foundDataRaces.Add(conflict[0].Pos, conflict[1].Pos)
+			nonDuplicatesGAs = append(nonDuplicatesGAs, conflict)
+		}
+	}
+	return nonDuplicatesGAs
+}

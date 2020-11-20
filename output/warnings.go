@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/pointerAnalysis"
 	"github.com/amit-davidson/Chronos/ssaUtils"
 	"github.com/amit-davidson/Chronos/utils"
 	"golang.org/x/tools/go/ssa"
@@ -15,33 +16,24 @@ const (
 )
 
 func GenerateError(conflictingGAs [][]*domain.GuardedAccess, prog *ssa.Program) error {
-	foundDataRaces := utils.NewDoubleKeyMap() // To avoid reporting on the same pair of positions more then once. Can happen if for the same place we read and then write.
-	truncatedonflictingGAs := make([][]*domain.GuardedAccess, 0)
-	for _, conflict := range conflictingGAs {
-		isExist := foundDataRaces.IsExist(conflict[0].Pos, conflict[1].Pos)
-		if !isExist {
-			foundDataRaces.Add(conflict[0].Pos, conflict[1].Pos)
-			truncatedonflictingGAs = append(truncatedonflictingGAs, conflict)
-		}
+	if len(conflictingGAs) == 0 {
+		print("No data races found\n")
 	}
-
+	filteredDuplicates := pointerAnalysis.FilterDuplicates(conflictingGAs)
 	messages := make([]string, 0)
-	for _, conflict := range truncatedonflictingGAs {
+	for _, conflict := range filteredDuplicates {
 		label, err := getMessage(conflict[0], conflict[1], prog)
 		if err != nil {
 			return err
 		}
 		messages = append(messages, label)
-
-		if len(messages) == 0 {
-			print("No data races found\n")
-		}
-		print(messages[0])
-		for _, message := range messages[1:] {
-			print("=========================\n")
-			print(message)
-		}
 	}
+	print(messages[0])
+	for _, message := range messages[1:] {
+		print("=========================\n")
+		print(message)
+	}
+
 	return nil
 }
 

@@ -836,3 +836,225 @@ func Test_HandleFunction_DataRaceRecursion(t *testing.T) {
 	}
 	assert.True(t, found)
 }
+
+func Test_HandleFunction_DataRaceShadowedErr(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceShadowedErr/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	assert.Len(t, conflictingAccesses, 8)
+	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
+	assert.Len(t, filteredAccesses, 4)
+}
+
+func Test_HandleFunction_DataRaceWithOnlyAlloc(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceWithOnlyAlloc/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	assert.Len(t, conflictingAccesses, 2)
+	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
+	assert.Len(t, filteredAccesses, 1)
+
+	gaA := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		_, ok := ga.Value.(*ssa.FreeVar)
+		if !ok {
+			return false
+		}
+		return true
+	})
+
+	gaB := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		_, ok := ga.Value.(*ssa.Alloc)
+		if !ok {
+			return false
+		}
+		return true
+	})
+	require.Len(t, filteredAccesses, 1)
+	assert.True(t, EqualDifferentOrder([]*domain.GuardedAccess{gaA, gaB}, filteredAccesses[0]))
+}
+
+func Test_HandleFunction_DataRaceWithSameFunction(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceWithSameFunction/prog1.go")
+	ctx := domain.NewEmptyContext()
+	entryCallCommon := ssa.CallCommon{Value: f}
+	state := HandleCallCommon(ctx, &entryCallCommon, f.Pos())
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
+	assert.Len(t, filteredAccesses, 1)
+
+	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		val, ok := ga.Value.(*ssa.Global)
+		if !ok {
+			return false
+		}
+		if GetGlobalString(val) != "count" {
+			return false
+		}
+		return true
+	}, 4)
+	for _, ga := range gas {
+		assert.Len(t, ga.State.StackTrace.Iter(), 2)
+	}
+	require.Len(t, filteredAccesses, 1)
+	assert.Subset(t, gas, conflictingAccesses[0])
+}
+
+func Test_HandleFunction_NestedFunctions(t *testing.T) {
+	t.Skip("Amount of locks on 2nd ga should be 2")
+	f, _ := LoadMain(t, "./testdata/Functions/General/NestedFunctions/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	assert.Len(t, state.Lockset.Locks, 1)
+	assert.Len(t, state.Lockset.Unlocks, 2)
+
+	ga := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if val.Int64() != 5 {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, ga.Lockset.Locks, 2)
+	assert.Len(t, ga.Lockset.Unlocks, 0)
+
+	ga = FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if val.Int64() != 6 {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, ga.Lockset.Locks, 2)
+	assert.Len(t, ga.Lockset.Unlocks, 0)
+}
+
+func Test_HandleFunction_RecursionWithGoroutine(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/General/RecursionWithGoroutine/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+
+	// Should found 2 occurrences since the algorithm should traverse more then once to find conflicting accesses such
+	// as recursion with a goroutine
+	_ = FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if val.Int64() != 0 {
+			return false
+		}
+		return true
+	}, 2)
+}
+
+func Test_HandleFunction_Simple(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/General/Simple/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+
+	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		_, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		return true
+	}, 2)
+	assert.True(t, gas[0].State.MayConcurrent(gas[1].State))
+}
+
+func Test_HandleFunction_StructMethod(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/General/StructMethod/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+
+	gaA := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		_, ok = val.X.(*ssa.Alloc)
+		if ok {
+			return false
+		}
+		return true
+	}, 1)
+
+	gaB := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		_, ok = val.X.(*ssa.Parameter)
+		if !ok {
+			return false
+		}
+		return true
+	})
+	assert.True(t, gaA[0].State.MayConcurrent(gaB.State))
+}
+
+func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	
+
+	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGAWrite(ga) {
+			return false
+		}
+		_, ok := ga.Value.(*ssa.FieldAddr)
+		if !ok {
+			return false
+		}
+		return true
+	}, 2)
+
+
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
+	require.Len(t, filteredAccesses, 1)
+	found := false
+	for _, ca := range conflictingAccesses {
+		if EqualDifferentOrder(gas, ca) {
+			found = true
+		}
+	}
+	assert.True(t, found)
+}
