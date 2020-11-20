@@ -592,7 +592,7 @@ func Test_HandleFunction_MultipleLocksNoRace(t *testing.T) {
 	})
 
 	assert.Len(t, GA2.Lockset.Locks, 1)
-	assert.True(t, GA1.IsConflicting(GA2))
+	assert.False(t, GA1.IsConflicting(GA2))
 }
 
 func Test_HandleFunction_NestedConditionWithLockInAllBranches(t *testing.T) {
@@ -1029,7 +1029,7 @@ func Test_HandleFunction_StructMethod(t *testing.T) {
 }
 
 func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
-	f, pkg := LoadMain(t, "./testdata/Functions/pointerAnalysis/DataRaceInterfaceOverChannel/prog1.go")
+	f, pkg := LoadMain(t, "./testdata/Functions/PointerAnalysis/DataRaceInterfaceOverChannel/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	
