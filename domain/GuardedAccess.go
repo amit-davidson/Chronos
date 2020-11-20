@@ -25,24 +25,26 @@ func (op OpKind) String() string {
 }
 
 type GuardedAccess struct {
-	PosID       int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
-	Pos         token.Pos
-	OpKind      OpKind
-	Value       ssa.Value
+	*PosData
+	*FlowData
+}
 
+type PosData struct {
+	PosID  int // guarded accesses of the same function share the same PosID. It's used to mark the same guarded access in different flows.
+	Pos    token.Pos
+	OpKind OpKind
+	Value  ssa.Value
+}
+
+type FlowData struct {
 	PosToRemove int
 	ID          int // ID depends on the flow, which means it's unique.
 	State       *Context
 	Lockset     *Lockset
 }
 
-func (ga *GuardedAccess) Copy() *GuardedAccess {
-	return &GuardedAccess{
-		PosID:  ga.PosID,
-		Pos:    ga.Pos,
-		Value:  ga.Value,
-		OpKind: ga.OpKind,
-
+func (ga *FlowData) Copy() *FlowData {
+	return &FlowData{
 		ID:          ga.ID,
 		PosToRemove: ga.PosToRemove,
 		Lockset:     ga.Lockset.Copy(),
@@ -50,16 +52,17 @@ func (ga *GuardedAccess) Copy() *GuardedAccess {
 	}
 }
 
+func (ga *GuardedAccess) Copy() *GuardedAccess {
+	return &GuardedAccess{
+		PosData:  ga.PosData,
+		FlowData: ga.FlowData.Copy(),
+	}
+}
+
 func (ga *GuardedAccess) ShallowCopy() *GuardedAccess {
 	return &GuardedAccess{
-		ID:          ga.ID,
-		PosID:       ga.PosID,
-		Pos:         ga.Pos,
-		PosToRemove: ga.PosToRemove,
-		Value:       ga.Value,
-		Lockset:     ga.Lockset,
-		OpKind:      ga.OpKind,
-		State:       ga.State,
+		PosData:  ga.PosData,
+		FlowData: ga.FlowData.Copy(),
 	}
 }
 
@@ -91,6 +94,17 @@ func (ga *GuardedAccess) IsConflicting(gaToCompare *GuardedAccess) bool {
 
 func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
 	context.Increment()
-	return &GuardedAccess{ID: GuardedAccessCounter.GetNext(), PosID: PosIDCounter.GetNext(), Pos: pos,
-		Value: value, Lockset: lockset.Copy(), OpKind: kind, State: context.CopyWithoutMap()}
+	return &GuardedAccess{
+		PosData: &PosData{
+			PosID:  PosIDCounter.GetNext(),
+			Pos:    pos,
+			OpKind: kind,
+			Value:  value,
+		},
+		FlowData: &FlowData{
+			ID:      GuardedAccessCounter.GetNext(),
+			Lockset: lockset.Copy(),
+			State:   context.CopyWithoutMap(),
+		},
+	}
 }

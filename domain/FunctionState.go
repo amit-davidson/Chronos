@@ -28,16 +28,6 @@ func CreateFunctionState(ga []*GuardedAccess, ls *Lockset) *FunctionState {
 	}
 }
 
-// Merge child B unto A:
-// A -> B
-// Will Merge B unto A
-func (fs *FunctionState) MergeChildFunction(newFunction *FunctionState, shouldMergeLockset bool) {
-	fs.GuardedAccesses = append(fs.GuardedAccesses, newFunction.GuardedAccesses...)
-	if shouldMergeLockset {
-		fs.Lockset.UpdateLockSet(newFunction.Lockset.Locks, newFunction.Lockset.Unlocks)
-	}
-}
-
 // AddContextToFunction adds flow specific context data
 func (fs *FunctionState) AddContextToFunction(context *Context) {
 	for _, ga := range fs.GuardedAccesses {
