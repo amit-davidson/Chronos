@@ -18,6 +18,7 @@ const (
 func GenerateError(conflictingGAs [][]*domain.GuardedAccess, prog *ssa.Program) error {
 	if len(conflictingGAs) == 0 {
 		print("No data races found\n")
+		return nil
 	}
 	filteredDuplicates := pointerAnalysis.FilterDuplicates(conflictingGAs)
 	messages := make([]string, 0)
