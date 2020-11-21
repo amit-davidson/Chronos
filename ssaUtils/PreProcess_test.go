@@ -38,7 +38,7 @@ func TestIsFunctionContainingLocks_WithEvenLockAndUnlock(t *testing.T) {
 }
 
 func TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLater(t *testing.T) {
-	f, _:= LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/MutexInterface.go")
+	f, _:= LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/WithEvenLockAndUnlockAndLockComesLate.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.True(t, isContainingLock)
 }
