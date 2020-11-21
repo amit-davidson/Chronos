@@ -38,7 +38,7 @@ func TestIsFunctionContainingLocks_WithEvenLockAndUnlock(t *testing.T) {
 }
 
 func TestIsFunctionContainingLocks_WithEvenLockAndUnlockAndLockComesLater(t *testing.T) {
-	f, _:= LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/EvenLockAndUnlockAndLockComesLater.go")
+	f, _:= LoadMain(t, "./testdata/Preprocess/EvenLockAndUnlockAndLockComesLater/MutexInterface.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.True(t, isContainingLock)
 }
@@ -87,6 +87,14 @@ func TestIsFunctionContainingLocks_LockInAStruct(t *testing.T) {
 
 func TestIsFunctionContainingLocks_EmbeddedStruct(t *testing.T) {
 	f, _:= LoadMain(t, "./testdata/Preprocess/LockInEmbeddedStruct/LockInEmbeddedStruct.go")
+	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
+	require.True(t, isContainingLock)
+}
+
+// We ignore a mutex called though an interface because there's no easy way to get the concrete value so it's hard to
+// determine the receiver. Pointer analysis should be used for that.
+func TestIsFunctionContainingLocks_MutexInterface(t *testing.T) {
+	f, _:= LoadMain(t, "./testdata/Preprocess/MutexInterface/MutexInterface.go")
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.True(t, isContainingLock)
 }
