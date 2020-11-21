@@ -90,3 +90,11 @@ func TestIsFunctionContainingLocks_EmbeddedStruct(t *testing.T) {
 	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
 	require.True(t, isContainingLock)
 }
+
+// We ignore a mutex called though an interface because there's no easy way to get the concrete value so it's hard to
+// determine the receiver. Pointer analysis should be used for that.
+func TestIsFunctionContainingLocks_MutexInterface(t *testing.T) {
+	f, _:= LoadMain(t, "./testdata/Preprocess/MutexInterface/MutexInterface.go")
+	isContainingLock := PreProcess.FunctionWithLocks[f.Signature]
+	require.True(t, isContainingLock)
+}

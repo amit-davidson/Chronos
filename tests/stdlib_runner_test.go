@@ -67,12 +67,12 @@ func TestStdlib(t *testing.T) {
 		//{name: "TestNoRaceShortCalc2", testPath: "testdata/stdlibNoSuccess/TestNoRaceShortCalc2/prog1.go"},  // Cant evaluate first part of condition to see the second will never execute
 		//{name: "TestNoRaceShortCalc", testPath: "testdata/stdlibNoSuccess/TestNoRaceShortCalc/prog1.go"},  // Cant evaluate first part of condition to see the second will never execute
 		//{name: "TestNoRaceOr", testPath: "testdata/stdlibNoSuccess/TestNoRaceOr/prog1.go"},  // Cant evaluate first part of condition to see the second will never execute
-		//{name: "TestRaceOr2", testPath: "testdata/stdlib/TestRaceOr2/prog1.go"}, 
+		//{name: "TestRaceOr2", testPath: "testdata/stdlib/TestRaceOr2/prog1.go"},
 		{name: "TestRaceOr", testPath: "testdata/stdlib/TestRaceOr/prog1.go"},
 		{name: "TestNoRaceAnd", testPath: "testdata/stdlibNoSuccess/TestNoRaceAnd/prog1.go"}, // Cant evaluate first part of condition to see the second will never execute
 		{name: "TestRaceAnd2", testPath: "testdata/stdlib/TestRaceAnd2/prog1.go"},
 		{name: "TestRaceAnd", testPath: "testdata/stdlib/TestRaceAnd/prog1.go"},
-		//{name: "TestRaceEmptyInterface2", testPath: "testdata/stdlibNoSuccess/TestRaceEmptyInterface2/prog1.go"}, 
+		//{name: "TestRaceEmptyInterface2", testPath: "testdata/stdlibNoSuccess/TestRaceEmptyInterface2/prog1.go"},
 		{name: "TestRaceEmptyInterface1", testPath: "testdata/stdlib/TestRaceEmptyInterface/prog1.go"},
 		{name: "TestRaceRune", testPath: "testdata/stdlib/TestRaceRune/prog1.go"},
 		{name: "TestRaceIndirection", testPath: "testdata/stdlibNoSuccess/TestRaceIndirection/prog1.go"}, // sync using channels
@@ -135,10 +135,10 @@ func TestStdlib(t *testing.T) {
 		{name: "TestRaceSelect4", testPath: "testdata/stdlib/TestRaceSelect4/prog1.go"},
 		{name: "TestRaceSelect5", testPath: "testdata/stdlib/TestRaceSelect5/prog1.go"},
 		//{name: "TestNoRaceSelect1", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect1/prog1.go"},  // All of the no race use syncing with channels
-		//{name: "TestNoRaceSelect2", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect2/prog1.go"}, 
-		//{name: "TestNoRaceSelect3", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect3/prog1.go"}, 
-		//{name: "TestNoRaceSelect4", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect4/prog1.go"}, 
-		//{name: "TestNoRaceSelect5", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect5/prog1.go"}, 
+		//{name: "TestNoRaceSelect2", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect2/prog1.go"},
+		//{name: "TestNoRaceSelect3", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect3/prog1.go"},
+		//{name: "TestNoRaceSelect4", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect4/prog1.go"},
+		//{name: "TestNoRaceSelect5", testPath: "testdata/stdlibNoSuccess/TestNoRaceSelect5/prog1.go"},
 		{name: "TestRaceUnaddressableMapLen", testPath: "testdata/stdlib/TestRaceUnaddressableMapLen/prog1.go"},
 		{name: "TestNoRaceCase", testPath: "testdata/stdlib/TestNoRaceCase/prog1.go"},
 		{name: "TestNoRaceRangeIssue5446", testPath: "testdata/stdlib/TestNoRaceRangeIssue5446/prog1.go"},

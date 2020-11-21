@@ -70,13 +70,9 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 			if callCommon.IsInvoke() {
 				funcs = GetMethodImplementations(callCommon.Value.Type().Underlying(), callCommon.Method)
 			} else {
-				fnInstr, ok := callCommon.Value.(*ssa.Function)
-				if !ok {
-					anonFn, ok := callCommon.Value.(*ssa.MakeClosure)
-					if !ok {
-						continue
-					}
-					fnInstr = anonFn.Fn.(*ssa.Function)
+				fnInstr := callCommon.StaticCallee()
+				if fnInstr == nil {
+					continue
 				}
 				funcs = []*ssa.Function{fnInstr}
 			}
@@ -88,12 +84,12 @@ func IsFunctionContainingLocks(FunctionWithLocksPreprocess *FunctionWithLocksPre
 				if FunctionWithLocksPreprocess.visitedFuncs.Contains(f) {
 					continue
 				}
-				if ssaPureUtils.IsLock(f) {
+				if ssaPureUtils.IsLock(f) && len(callCommon.Args) > 0 {
 					recv := callCommon.Args[len(callCommon.Args)-1]
 					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
 					FunctionWithLocksPreprocess.locks[mutexPos] = struct{}{}
 				}
-				if ssaPureUtils.IsUnlock(f) {
+				if ssaPureUtils.IsUnlock(f) && len(callCommon.Args) > 0 {
 					recv := callCommon.Args[len(callCommon.Args)-1]
 					mutexPos := int(ssaPureUtils.GetMutexPos(recv))
 					_, isLockExist := FunctionWithLocksPreprocess.locks[mutexPos]
