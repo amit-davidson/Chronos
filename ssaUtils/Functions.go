@@ -185,7 +185,7 @@ func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.CallCommonStac
 
 func (cfg *CFG) calculateFunctionStatePathInsensitive(context *domain.Context, blocks []*ssa.BasicBlock) {
 	for _, block := range blocks {
-		cfg.calculateBlockStateIfNeeded(context, block)
+		cfg.calculateBlockState(context, block)
 		state := cfg.ComputedBlocks[block.Index]
 		if cfg.calculatedState == nil {
 			cfg.calculatedState = state.Copy()

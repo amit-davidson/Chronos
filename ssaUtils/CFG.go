@@ -29,10 +29,10 @@ func (cfg *CFG) calculateFunctionStatePathSensitive(context *domain.Context, blo
 
 func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
 	for _, nextBlock := range block.Succs {
-		cfg.calculateBlockStateIfNeeded(context, block)
+		cfg.calculateBlockState(context, block)
 		if len(nextBlock.Succs) == 0 || cfg.visitedBlocksStack.Contains(nextBlock) {
 			// If a return is reached or if a cycle of a loop is completed.
-			cfg.calculateBlockStateIfNeeded(context, nextBlock)
+			cfg.calculateBlockState(context, nextBlock)
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.CalculatePath()
 			cfg.visitedBlocksStack.Pop()
@@ -84,7 +84,7 @@ func (cfg *CFG) CalculatePath() {
 	}
 }
 
-func (cfg *CFG) calculateBlockStateIfNeeded(context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateBlockState(context *domain.Context, block *ssa.BasicBlock) {
 	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
 		cfg.ComputedBlocks[block.Index] = GetBlockSummary(context, block)
 		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
