@@ -7,81 +7,51 @@ import (
 )
 
 type CFG struct {
-	visitedBlocksStack *stacks.BasicBlockStack
+	visitedBlocksStack *stacks.BlockMap
 
 	ComputedBlocks      map[int]*domain.BlockState
 	ComputedDeferBlocks map[int]*domain.BlockState
-	calculatedState     *domain.BlockState
 }
 
 func newCFG() *CFG {
 	return &CFG{
-		visitedBlocksStack:  stacks.NewBasicBlockStack(),
+		visitedBlocksStack:  stacks.NewBlockMap(),
 		ComputedBlocks:      make(map[int]*domain.BlockState),
 		ComputedDeferBlocks: make(map[int]*domain.BlockState),
 	}
 }
 
-func (cfg *CFG) calculateFunctionStatePathSensitive(context *domain.Context, block *ssa.BasicBlock) {
-	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
-	cfg.traverseGraph(context, firstBlock)
-}
+func (cfg *CFG) CalculateFunctionStatePathSensitive(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
+	cfg.visitedBlocksStack.Add(block)
+	defer cfg.visitedBlocksStack.Remove(block)
+	cfg.calculateBlockState(context, block)
 
-func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
+	// Regular flow
+	blockState := cfg.ComputedBlocks[block.Index]
+
+	// recursion
+	var branchState *domain.BlockState
 	for _, nextBlock := range block.Succs {
-		cfg.calculateBlockState(context, block)
-		if len(nextBlock.Succs) == 0 || cfg.visitedBlocksStack.Contains(nextBlock) {
-			// If a return is reached or if a cycle of a loop is completed.
-			cfg.calculateBlockState(context, nextBlock)
-			cfg.visitedBlocksStack.Push(nextBlock)
-			cfg.CalculatePath()
-			cfg.visitedBlocksStack.Pop()
+		// if it's a cycle we skip it
+		if cfg.visitedBlocksStack.Contains(nextBlock.Index) {
+			continue
+		}
+		retBlockState := cfg.CalculateFunctionStatePathSensitive(context, nextBlock)
+		if branchState == nil {
+			branchState = retBlockState.Copy()
 		} else {
-			cfg.visitedBlocksStack.Push(nextBlock)
-			cfg.traverseGraph(context, nextBlock)
-			cfg.visitedBlocksStack.Pop()
+			branchState.MergeSiblingBlock(retBlockState)
 		}
 	}
-}
-
-func (cfg *CFG) CalculatePath() {
-	path := cfg.visitedBlocksStack.GetItems()
-	block := path[0]
-	state := cfg.ComputedBlocks[block.Index].Copy()
-	for _, nextBlock := range path[1:] {
-		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
-		state.MergeChildBlock(nextState, true)
+	if branchState != nil {
+		blockState.MergeChildBlock(branchState)
 	}
 
-	var firstDeferState *domain.BlockState
-	var firstDeferIndex int
-	for i := len(path) - 1; i >= 0; i-- {
-		deferIndex := path[i].Index
-		deferState, ok := cfg.ComputedDeferBlocks[deferIndex]
-		if ok {
-			firstDeferState = deferState
-			firstDeferIndex = i
-			break
-		}
+	// Defer
+	if deferState, ok := cfg.ComputedDeferBlocks[block.Index]; ok {
+		blockState.MergeChildBlock(deferState)
 	}
-	if firstDeferState != nil {
-		deferStateCopy := firstDeferState.Copy()
-		for i := firstDeferIndex - 1; i >= 0; i-- {
-			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
-			if !ok {
-				continue
-			}
-			nextStateCopy := nextState.Copy()
-			deferStateCopy.MergeChildBlock(nextStateCopy, true)
-		}
-		state.AddResult(deferStateCopy, true)
-	}
-
-	if cfg.calculatedState == nil {
-		cfg.calculatedState = state
-	} else {
-		cfg.calculatedState.MergeSiblingBlock(state)
-	}
+	return blockState
 }
 
 func (cfg *CFG) calculateBlockState(context *domain.Context, block *ssa.BasicBlock) {
