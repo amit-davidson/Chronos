@@ -109,9 +109,47 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) 
 	assert.Len(t, foundGA.Lockset.Locks, 1)
 }
 
-func Test_HandleFunction_ForLoop(t *testing.T) {
-	t.Skip("A bug. A for loop is assumed to be always executed so state.Lockset.Locks supposed to contain locks")
-	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoop/prog1.go")
+func Test_HandleFunction_ForLoopLockInsideLoop(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoopLockInsideLoop/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	assert.Len(t, state.Lockset.Locks, 0)
+
+	foundGA := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if GetConstString(val) != "b" {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, foundGA.Lockset.Locks, 0)
+	assert.Len(t, foundGA.Lockset.Unlocks, 0)
+
+	foundGA = FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if GetConstString(val) != "c" {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, foundGA.Lockset.Locks, 1)
+	assert.Len(t, foundGA.Lockset.Unlocks, 0)
+}
+
+func Test_HandleFunction_ForLoopLockOutsideLoop(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoopLockOutsideLoop/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 1)
@@ -1057,4 +1095,15 @@ func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
 		}
 	}
 	assert.True(t, found)
+}
+
+func Test_HandleFunction_DataRaceExternalFunction(t *testing.T) {
+	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceExternalFunction/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+
+	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
+	require.NoError(t, err)
+	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
+	require.Len(t, filteredAccesses, 1)
 }

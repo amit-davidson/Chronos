@@ -214,16 +214,17 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	isContainingLocks, ok := PreProcess.FunctionWithLocks[fn.Signature]
+	_, ok := PreProcess.FunctionWithLocks[fn.Signature]
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
 	cfg := newCFG()
-	if isContainingLocks {
-		cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
-	} else {
-		cfg.calculateFunctionStatePathInsensitive(context, fn.Blocks)
-	}
+	cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
+	//if isContainingLocks {
+	//	cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
+	//} else {
+	//	cfg.calculateFunctionStatePathInsensitive(context, fn.Blocks)
+	//}
 
 	return cfg.calculatedState
 }

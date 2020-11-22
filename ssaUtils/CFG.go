@@ -28,15 +28,15 @@ func (cfg *CFG) calculateFunctionStatePathSensitive(context *domain.Context, blo
 }
 
 func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
-	nextBlocks := block.Succs
-	for _, nextBlock := range nextBlocks {
+	for _, nextBlock := range block.Succs {
 		cfg.calculateBlockStateIfNeeded(context, block)
-		if len(nextBlock.Succs) == 0 {
+		if len(nextBlock.Succs) == 0 || cfg.visitedBlocksStack.Contains(nextBlock) {
+			// If a return is reached or if a cycle of a loop is completed.
 			cfg.calculateBlockStateIfNeeded(context, nextBlock)
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.CalculatePath()
 			cfg.visitedBlocksStack.Pop()
-		} else if !cfg.visitedBlocksStack.Contains(nextBlock) {
+		} else {
 			cfg.visitedBlocksStack.Push(nextBlock)
 			cfg.traverseGraph(context, nextBlock)
 			cfg.visitedBlocksStack.Pop()

@@ -74,7 +74,7 @@ func (s *BasicBlockStack) Contains(v *ssa.BasicBlock) bool {
 	if !ok {
 		return false
 	}
-	if block.count >= 2 {
+	if block.count >= 1 {
 		return true
 	}
 	return false
