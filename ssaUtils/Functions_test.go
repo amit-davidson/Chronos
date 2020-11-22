@@ -277,7 +277,6 @@ func Test_HandleFunction_WhileLoop(t *testing.T) {
 }
 
 func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
-	t.Skip("for {}")
 	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/WhileLoopWithoutHeader/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
@@ -299,7 +298,7 @@ func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
 		return true
 	})
 	stateA := ga.State
-	assert.Len(t, ga.Lockset.Locks, 0)
+	assert.Len(t, ga.Lockset.Locks, 1)
 	assert.Len(t, ga.Lockset.Unlocks, 0)
 
 	ga = FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
@@ -881,9 +880,9 @@ func Test_HandleFunction_DataRaceShadowedErr(t *testing.T) {
 	state := HandleFunction(ctx, f)
 	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
 	require.NoError(t, err)
-	assert.Len(t, conflictingAccesses, 8)
+	assert.Len(t, conflictingAccesses, 6)
 	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
-	assert.Len(t, filteredAccesses, 4)
+	assert.Len(t, filteredAccesses, 3)
 }
 
 func Test_HandleFunction_DataRaceWithOnlyAlloc(t *testing.T) {
@@ -1095,15 +1094,4 @@ func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
 		}
 	}
 	assert.True(t, found)
-}
-
-func Test_HandleFunction_DataRaceExternalFunction(t *testing.T) {
-	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceExternalFunction/prog1.go")
-	ctx := domain.NewEmptyContext()
-	state := HandleFunction(ctx, f)
-
-	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
-	require.NoError(t, err)
-	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
-	require.Len(t, filteredAccesses, 1)
 }
