@@ -24,14 +24,16 @@ func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.CallCommonSta
 	}
 }
 
-func (existingBlock *BlockState) AddResult(newBlock *BlockState, shouldMergeLockset bool) {
+// AddFunctionCallState is used to add the state of a function call to the blocks total state when iterating through it.
+// shouldMergeLockset is used depending if the call was using a goroutine or not.
+func (existingBlock *BlockState) AddFunctionCallState(newBlock *BlockState, shouldMergeLockset bool) {
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	if shouldMergeLockset {
 		existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 	}
 }
 
-// Merge child B unto A:
+// MergeChildBlock merges child block with it's parent in append-like fashion.
 // A -> B
 // Will Merge B unto A
 func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
@@ -43,7 +45,7 @@ func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
 	existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 }
 
-// Merge state of nodes from branches:
+// MergeSiblingBlock merges sibling blocks in merge-like fashion.
 // A -> B
 //   -> C
 // Will Merge B and C

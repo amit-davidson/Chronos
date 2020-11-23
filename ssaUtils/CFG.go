@@ -21,7 +21,13 @@ func newCFG() *CFG {
 	}
 }
 
-func (cfg *CFG) CalculateFunctionStatePathSensitive(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
+// CalculateFunctionState works by traversing the tree in a DFS way, similar to the flow of the function when it'll run.
+// It calculates the state of the regular flow of block first, then adds the state of any succeeding blocks in the tree,
+// and finally the block's defer state if exist.
+// The function uses two way to aggregate the states between blocks. If the blocks are adjacent (siblings) to each
+// other, (resulted from a branch) then a merge mechanism is used. If one block is below the other, then an append is
+// performed.
+func (cfg *CFG) CalculateFunctionState(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
 	cfg.visitedBlocksStack.Add(block)
 	defer cfg.visitedBlocksStack.Remove(block)
 	cfg.calculateBlockState(context, block)
@@ -36,13 +42,15 @@ func (cfg *CFG) CalculateFunctionStatePathSensitive(context *domain.Context, blo
 		if cfg.visitedBlocksStack.Contains(nextBlock.Index) {
 			continue
 		}
-		retBlockState := cfg.CalculateFunctionStatePathSensitive(context, nextBlock)
+
+		retBlockState := cfg.CalculateFunctionState(context, nextBlock)
 		if branchState == nil {
 			branchState = retBlockState.Copy()
 		} else {
 			branchState.MergeSiblingBlock(retBlockState)
 		}
 	}
+
 	if branchState != nil {
 		blockState.MergeChildBlock(branchState)
 	}

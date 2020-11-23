@@ -153,12 +153,12 @@ func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.Blo
 		case *ssa.Call:
 			callCommon := call.Common()
 			funcStateRet := HandleCallCommon(context, callCommon, callCommon.Pos())
-			funcState.AddResult(funcStateRet, true)
+			funcState.AddFunctionCallState(funcStateRet, true)
 		case *ssa.Go:
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(context)
-			funcStateRet := HandleCallCommon(newState.Copy(), callCommon, callCommon.Pos())
-			funcState.AddResult(funcStateRet, false)
+			funcStateRet := HandleCallCommon(newState, callCommon, callCommon.Pos())
+			funcState.AddFunctionCallState(funcStateRet, false)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			funcState.DeferredFunctions.Push(callCommon)
@@ -203,6 +203,6 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
 	cfg := newCFG()
-	calculatedState := cfg.CalculateFunctionStatePathSensitive(context, fn.Blocks[0])
+	calculatedState := cfg.CalculateFunctionState(context, fn.Blocks[0])
 	return calculatedState
 }
