@@ -153,12 +153,12 @@ func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.Blo
 		case *ssa.Call:
 			callCommon := call.Common()
 			funcStateRet := HandleCallCommon(context, callCommon, callCommon.Pos())
-			funcState.AddResult(funcStateRet, true)
+			funcState.AddFunctionCallState(funcStateRet, true)
 		case *ssa.Go:
 			callCommon := call.Common()
 			newState := domain.NewGoroutineExecutionState(context)
-			funcStateRet := HandleCallCommon(newState.Copy(), callCommon, callCommon.Pos())
-			funcState.AddResult(funcStateRet, false)
+			funcStateRet := HandleCallCommon(newState, callCommon, callCommon.Pos())
+			funcState.AddFunctionCallState(funcStateRet, false)
 		case *ssa.Defer:
 			callCommon := call.Common()
 			funcState.DeferredFunctions.Push(callCommon)
@@ -171,33 +171,17 @@ func GetBlockSummary(context *domain.Context, block *ssa.BasicBlock) *domain.Blo
 
 func (cfg *CFG) runDefers(context *domain.Context, defers *stacks.CallCommonStack) *domain.BlockState {
 	calculatedState := domain.GetEmptyBlockState()
-	for {
-		deferFunction := defers.Pop()
+	defersItems := defers.GetItems()
+	for i := len(defersItems) - 1; i >= 0; i-- {
+		deferFunction := defersItems[i]
 		if deferFunction == nil {
 			break
 		}
 		retState := HandleCallCommon(context, deferFunction, deferFunction.Pos())
-		calculatedState.MergeChildBlock(retState, true)
+		calculatedState.MergeChildBlock(retState)
 	}
 	return calculatedState
 
-}
-
-func (cfg *CFG) calculateFunctionStatePathInsensitive(context *domain.Context, blocks []*ssa.BasicBlock) {
-	for _, block := range blocks {
-		cfg.calculateBlockStateIfNeeded(context, block)
-		state := cfg.ComputedBlocks[block.Index]
-		if cfg.calculatedState == nil {
-			cfg.calculatedState = state.Copy()
-		} else {
-			cfg.calculatedState.MergeChildBlock(state, false)
-		}
-
-		deferBlock := cfg.ComputedDeferBlocks[block.Index]
-		if deferBlock != nil {
-			cfg.calculatedState.MergeChildBlock(deferBlock, false)
-		}
-	}
 }
 
 func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockState {
@@ -214,16 +198,11 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 	if fn.Blocks == nil { // External function
 		return funcState
 	}
-	isContainingLocks, ok := PreProcess.FunctionWithLocks[fn.Signature]
+	_, ok := PreProcess.FunctionWithLocks[fn.Signature]
 	if !ok {
 		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
 	cfg := newCFG()
-	if isContainingLocks {
-		cfg.calculateFunctionStatePathSensitive(context, fn.Blocks[0])
-	} else {
-		cfg.calculateFunctionStatePathInsensitive(context, fn.Blocks)
-	}
-
-	return cfg.calculatedState
+	calculatedState := cfg.CalculateFunctionState(context, fn.Blocks[0])
+	return calculatedState
 }

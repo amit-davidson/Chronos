@@ -10,9 +10,7 @@ func NewCallCommonStack() *CallCommonStack {
 }
 
 func (s *CallCommonStack) GetItems() []*ssa.CallCommon {
-	tmp := make([]*ssa.CallCommon, len(*s))
-	copy(tmp, *s)
-	return tmp
+	return *s
 }
 
 func (s *CallCommonStack) Push(v *ssa.CallCommon) {

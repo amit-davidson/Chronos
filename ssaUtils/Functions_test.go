@@ -109,9 +109,47 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) 
 	assert.Len(t, foundGA.Lockset.Locks, 1)
 }
 
-func Test_HandleFunction_ForLoop(t *testing.T) {
-	t.Skip("A bug. A for loop is assumed to be always executed so state.Lockset.Locks supposed to contain locks")
-	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoop/prog1.go")
+func Test_HandleFunction_ForLoopLockInsideLoop(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoopLockInsideLoop/prog1.go")
+	ctx := domain.NewEmptyContext()
+	state := HandleFunction(ctx, f)
+	assert.Len(t, state.Lockset.Locks, 0)
+
+	foundGA := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if GetConstString(val) != "b" {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, foundGA.Lockset.Locks, 0)
+	assert.Len(t, foundGA.Lockset.Unlocks, 0)
+
+	foundGA = FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
+		if !IsGARead(ga) {
+			return false
+		}
+		val, ok := ga.Value.(*ssa.Const)
+		if !ok {
+			return false
+		}
+		if GetConstString(val) != "c" {
+			return false
+		}
+		return true
+	})
+	assert.Len(t, foundGA.Lockset.Locks, 1)
+	assert.Len(t, foundGA.Lockset.Unlocks, 0)
+}
+
+func Test_HandleFunction_ForLoopLockOutsideLoop(t *testing.T) {
+	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/ForLoopLockOutsideLoop/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
 	assert.Len(t, state.Lockset.Locks, 1)
@@ -239,7 +277,6 @@ func Test_HandleFunction_WhileLoop(t *testing.T) {
 }
 
 func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
-	t.Skip("for {}")
 	f, _ := LoadMain(t, "./testdata/Functions/ForLoops/WhileLoopWithoutHeader/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
@@ -261,7 +298,7 @@ func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
 		return true
 	})
 	stateA := ga.State
-	assert.Len(t, ga.Lockset.Locks, 0)
+	assert.Len(t, ga.Lockset.Locks, 1)
 	assert.Len(t, ga.Lockset.Unlocks, 0)
 
 	ga = FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
@@ -843,9 +880,9 @@ func Test_HandleFunction_DataRaceShadowedErr(t *testing.T) {
 	state := HandleFunction(ctx, f)
 	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
 	require.NoError(t, err)
-	assert.Len(t, conflictingAccesses, 8)
+	assert.Len(t, conflictingAccesses, 6)
 	filteredAccesses := pointerAnalysis.FilterDuplicates(conflictingAccesses)
-	assert.Len(t, filteredAccesses, 4)
+	assert.Len(t, filteredAccesses, 3)
 }
 
 func Test_HandleFunction_DataRaceWithOnlyAlloc(t *testing.T) {

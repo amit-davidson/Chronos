@@ -22,9 +22,9 @@ func NewEmptyContext() *Context {
 func NewGoroutineExecutionState(state *Context) *Context {
 	state.Increment()
 	return &Context{
-		Clock:       state.Clock,
+		Clock:       state.Clock.Copy(),
 		GoroutineID: GoroutineCounter.GetNext(),
-		StackTrace:  state.StackTrace,
+		StackTrace:  state.StackTrace.Copy(),
 	}
 }
 

@@ -7,84 +7,62 @@ import (
 )
 
 type CFG struct {
-	visitedBlocksStack *stacks.BasicBlockStack
+	visitedBlocksStack *stacks.BlockMap
 
 	ComputedBlocks      map[int]*domain.BlockState
 	ComputedDeferBlocks map[int]*domain.BlockState
-	calculatedState     *domain.BlockState
 }
 
 func newCFG() *CFG {
 	return &CFG{
-		visitedBlocksStack:  stacks.NewBasicBlockStack(),
+		visitedBlocksStack:  stacks.NewBlockMap(),
 		ComputedBlocks:      make(map[int]*domain.BlockState),
 		ComputedDeferBlocks: make(map[int]*domain.BlockState),
 	}
 }
 
-func (cfg *CFG) calculateFunctionStatePathSensitive(context *domain.Context, block *ssa.BasicBlock) {
-	firstBlock := &ssa.BasicBlock{Index: -1, Succs: []*ssa.BasicBlock{block}}
-	cfg.traverseGraph(context, firstBlock)
-}
+// CalculateFunctionState works by traversing the tree in a DFS way, similar to the flow of the function when it'll run.
+// It calculates the state of the regular flow of block first, then adds the state of any succeeding blocks in the tree,
+// and finally the block's defer state if exist.
+// The function uses two way to aggregate the states between blocks. If the blocks are adjacent (siblings) to each
+// other, (resulted from a branch) then a merge mechanism is used. If one block is below the other, then an append is
+// performed.
+func (cfg *CFG) CalculateFunctionState(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
+	cfg.visitedBlocksStack.Add(block)
+	defer cfg.visitedBlocksStack.Remove(block)
+	cfg.calculateBlockState(context, block)
 
-func (cfg *CFG) traverseGraph(context *domain.Context, block *ssa.BasicBlock) {
-	nextBlocks := block.Succs
-	for _, nextBlock := range nextBlocks {
-		cfg.calculateBlockStateIfNeeded(context, block)
-		if len(nextBlock.Succs) == 0 {
-			cfg.calculateBlockStateIfNeeded(context, nextBlock)
-			cfg.visitedBlocksStack.Push(nextBlock)
-			cfg.CalculatePath()
-			cfg.visitedBlocksStack.Pop()
-		} else if !cfg.visitedBlocksStack.Contains(nextBlock) {
-			cfg.visitedBlocksStack.Push(nextBlock)
-			cfg.traverseGraph(context, nextBlock)
-			cfg.visitedBlocksStack.Pop()
+	// Regular flow
+	blockState := cfg.ComputedBlocks[block.Index]
+
+	// recursion
+	var branchState *domain.BlockState
+	for _, nextBlock := range block.Succs {
+		// if it's a cycle we skip it
+		if cfg.visitedBlocksStack.Contains(nextBlock.Index) {
+			continue
+		}
+
+		retBlockState := cfg.CalculateFunctionState(context, nextBlock)
+		if branchState == nil {
+			branchState = retBlockState.Copy()
+		} else {
+			branchState.MergeSiblingBlock(retBlockState)
 		}
 	}
+
+	if branchState != nil {
+		blockState.MergeChildBlock(branchState)
+	}
+
+	// Defer
+	if deferState, ok := cfg.ComputedDeferBlocks[block.Index]; ok {
+		blockState.MergeChildBlock(deferState)
+	}
+	return blockState
 }
 
-func (cfg *CFG) CalculatePath() {
-	path := cfg.visitedBlocksStack.GetItems()
-	block := path[0]
-	state := cfg.ComputedBlocks[block.Index].Copy()
-	for _, nextBlock := range path[1:] {
-		nextState := cfg.ComputedBlocks[nextBlock.Index].Copy()
-		state.MergeChildBlock(nextState, true)
-	}
-
-	var firstDeferState *domain.BlockState
-	var firstDeferIndex int
-	for i := len(path) - 1; i >= 0; i-- {
-		deferIndex := path[i].Index
-		deferState, ok := cfg.ComputedDeferBlocks[deferIndex]
-		if ok {
-			firstDeferState = deferState
-			firstDeferIndex = i
-			break
-		}
-	}
-	if firstDeferState != nil {
-		deferStateCopy := firstDeferState.Copy()
-		for i := firstDeferIndex - 1; i >= 0; i-- {
-			nextState, ok := cfg.ComputedDeferBlocks[path[i].Index]
-			if !ok {
-				continue
-			}
-			nextStateCopy := nextState.Copy()
-			deferStateCopy.MergeChildBlock(nextStateCopy, true)
-		}
-		state.AddResult(deferStateCopy, true)
-	}
-
-	if cfg.calculatedState == nil {
-		cfg.calculatedState = state
-	} else {
-		cfg.calculatedState.MergeSiblingBlock(state)
-	}
-}
-
-func (cfg *CFG) calculateBlockStateIfNeeded(context *domain.Context, block *ssa.BasicBlock) {
+func (cfg *CFG) calculateBlockState(context *domain.Context, block *ssa.BasicBlock) {
 	if _, ok := cfg.ComputedBlocks[block.Index]; !ok {
 		cfg.ComputedBlocks[block.Index] = GetBlockSummary(context, block)
 		deferedFunctions := cfg.ComputedBlocks[block.Index].DeferredFunctions
