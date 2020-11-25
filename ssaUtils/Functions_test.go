@@ -71,7 +71,7 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlock(t *testing.T) {
 }
 
 func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) {
-	t.Skip("A bug. 7 should contain a lock")
+	//t.Skip("A bug. 7 should contain a lock")
 	f, _ := LoadMain(t, "./testdata/Functions/Defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
@@ -984,7 +984,7 @@ func Test_HandleFunction_NestedFunctions(t *testing.T) {
 		}
 		return true
 	})
-	assert.Len(t, ga.Lockset.Locks, 2)
+	assert.Len(t, ga.Lockset.Locks, 3)
 	assert.Len(t, ga.Lockset.Unlocks, 0)
 }
 
