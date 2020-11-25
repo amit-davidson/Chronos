@@ -2,8 +2,6 @@ package main
 
 import "sync"
 
-var a int
-
 func main() {
 	g := &sync.WaitGroup{}
 	runs := 5
