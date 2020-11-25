@@ -71,7 +71,6 @@ func Test_HandleFunction_NestedDeferWithLockAndUnlock(t *testing.T) {
 }
 
 func Test_HandleFunction_NestedDeferWithLockAndUnlockAndGoroutine(t *testing.T) {
-	//t.Skip("A bug. 7 should contain a lock")
 	f, _ := LoadMain(t, "./testdata/Functions/Defer/NestedDeferWithLockAndUnlockAndGoroutine/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
@@ -845,7 +844,6 @@ func Test_HandleFunction_DataRaceProperty(t *testing.T) {
 }
 
 func Test_HandleFunction_DataRaceRecursion(t *testing.T) {
-	t.Skip("gas should be of length 3")
 	f, pkg := LoadMain(t, "./testdata/Functions/General/DataRaceRecursion/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
@@ -863,11 +861,23 @@ func Test_HandleFunction_DataRaceRecursion(t *testing.T) {
 			return false
 		}
 		return true
-	}, 2)
+	}, 3)
 
+	// We check that the recursion is iterated twice. Then we make sure that both cases can conflict with the read at
+	// the beginning.
 	found := false
+	gasToCheck := []*domain.GuardedAccess{gas[0], gas[1]}
 	for _, ca := range conflictingAccesses {
-		if EqualDifferentOrder(gas, ca) {
+		if EqualDifferentOrder(gasToCheck, ca) {
+			found = true
+		}
+	}
+	assert.True(t, found)
+
+	found = false
+	gasToCheck = []*domain.GuardedAccess{gas[0], gas[2]}
+	for _, ca := range conflictingAccesses {
+		if EqualDifferentOrder(gasToCheck, ca) {
 			found = true
 		}
 	}
@@ -1068,7 +1078,6 @@ func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
 	f, pkg := LoadMain(t, "./testdata/Functions/PointerAnalysis/DataRaceInterfaceOverChannel/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
-	
 
 	gas := FindMultipleGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
 		if !IsGAWrite(ga) {
@@ -1080,7 +1089,6 @@ func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
 		}
 		return true
 	}, 2)
-
 
 	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)
 	require.NoError(t, err)
