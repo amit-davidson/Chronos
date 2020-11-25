@@ -948,7 +948,6 @@ func Test_HandleFunction_DataRaceWithSameFunction(t *testing.T) {
 }
 
 func Test_HandleFunction_NestedFunctions(t *testing.T) {
-	t.Skip("Amount of locks on 2nd ga should be 2")
 	f, _ := LoadMain(t, "./testdata/Functions/General/NestedFunctions/prog1.go")
 	ctx := domain.NewEmptyContext()
 	state := HandleFunction(ctx, f)
