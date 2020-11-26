@@ -190,17 +190,13 @@ func HandleFunction(context *domain.Context, fn *ssa.Function) *domain.BlockStat
 		return funcState
 	}
 	pkgName := fn.Pkg.Pkg.Path() // Used to guard against entering standard library packages
-	if !strings.Contains(pkgName, GlobalPackageName) {
+	if !strings.Contains(pkgName, GlobalModuleName) {
 		return funcState
 	}
 
 	// regular
 	if fn.Blocks == nil { // External function
 		return funcState
-	}
-	_, ok := PreProcess.FunctionWithLocks[fn.Signature]
-	if !ok {
-		panic("Function is being iterated but wasn't found when iterating on program functions in preprocess")
 	}
 	cfg := newCFG()
 	calculatedState := cfg.CalculateFunctionState(context, fn.Blocks[0])

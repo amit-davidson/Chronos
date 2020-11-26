@@ -163,8 +163,7 @@ func TestStdlib(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, "", entryFunc)
-			require.NoError(t, err)
+			ssaUtils.InitPreProcess(ssaProg, "")
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())

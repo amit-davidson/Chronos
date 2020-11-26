@@ -14,10 +14,14 @@ import (
 
 func main() {
 	defaultFile := flag.String("file", "", "The file containing the entry point of the program")
-	defaultPkgPath := flag.String("pkg", "", "Path to the to pkg of the file. Tells Chronos where to perform the search. By default, it assumes the file is inside $GOPATH")
+	defaultModulePath := flag.String("mod", "", "Path to the module where the search should be performed. It needs to be in the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.")
 	flag.Parse()
 	if *defaultFile == "" {
 		fmt.Printf("Please provide a file to load\n")
+		os.Exit(1)
+	}
+	if *defaultModulePath == "" {
+		fmt.Printf("Please provide a path to the module. It should be in the following format:{VCS}/{organization}/{package}.\n")
 		os.Exit(1)
 	}
 	domain.GoroutineCounter = utils.NewCounter()
@@ -30,11 +34,7 @@ func main() {
 		os.Exit(1)
 	}
 	entryFunc := ssaPkg.Func("main")
-	err = ssaUtils.InitPreProcess(ssaProg, ssaPkg, *defaultPkgPath, entryFunc)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+	ssaUtils.InitPreProcess(ssaProg, *defaultModulePath)
 
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
