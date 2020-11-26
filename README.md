@@ -23,17 +23,17 @@ go get -v github.com/amit-davidson/Chronos/cmd/chronos
 Pass the entry point
 
 ```
-chronos --file <path_to_main>
+chronos --file <path_to_main> --mod <path_to_module>
 ```
 
 Help
 
 ```
 Usage of ./chronos:
-  -file string
+  --file string
     	The file containing the entry point of the program
-  -pkg string
-    	Path to the to pkg of the file. Tells Chronos where to perform the search. By default, it assumes the file is inside $GOPATH
+  --mod string
+    	Path to the module where the search should be performed. It needs to be in the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.
 ```
 
 ## Example:
