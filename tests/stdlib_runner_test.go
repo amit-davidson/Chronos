@@ -163,7 +163,7 @@ func TestStdlib(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			ssaUtils.InitPreProcess(ssaProg, "")
+			ssaUtils.InitPreProcess(ssaProg, "github.com/amit-davidson/Chronos")
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
