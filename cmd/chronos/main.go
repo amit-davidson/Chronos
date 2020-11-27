@@ -28,13 +28,17 @@ func main() {
 	domain.GuardedAccessCounter = utils.NewCounter()
 	domain.PosIDCounter = utils.NewCounter()
 
-	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile)
+	ssaProg, ssaPkg, err := ssaUtils.LoadPackage(*defaultFile, *defaultModulePath)
 	if err != nil {
 		fmt.Printf("Failed loading with the following error:%s\n", err)
 		os.Exit(1)
 	}
 	entryFunc := ssaPkg.Func("main")
-	ssaUtils.InitPreProcess(ssaProg, *defaultModulePath)
+	err = ssaUtils.InitPreProcess(ssaProg, *defaultModulePath)
+	if err != nil {
+		fmt.Print(err)
+		os.Exit(1)
+	}
 
 	entryCallCommon := ssa.CallCommon{Value: entryFunc}
 	functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())
