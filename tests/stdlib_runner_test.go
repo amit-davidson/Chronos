@@ -39,14 +39,14 @@ func TestStdlib(t *testing.T) {
 		{name: "TestNoRaceEmptyStruct", testPath: "testdata/stdlibNoSuccess/TestNoRaceEmptyStruct/prog1.go"},
 		//{name: "TestRaceHeapParam", testPath: "testdata/stdlib/TestRaceHeapParam/prog1.go"},  // No ssa param as value. Might be a bug in ssa.
 		{name: "TestRaceStructInd", testPath: "testdata/stdlib/TestRaceStructInd/prog1.go"},
-		//{name: "TestRaceAppendSliceStruct", testPath: "testdata/stdlibNoSuccess/TestRaceAppendSliceStruct/prog1.go"},  // spread operator can't tell which item are affected
+		{name: "TestRaceAppendSliceStruct", testPath: "testdata/stdlibNoSuccess/TestRaceAppendSliceStruct/prog1.go"},
 		{name: "TestRaceSliceStruct", testPath: "testdata/stdlibNoSuccess/TestRaceSliceStruct/prog1.go"}, // same
 		{name: "TestRaceSliceString", testPath: "testdata/stdlib/TestRaceSliceString/prog1.go"},
 		{name: "TestRaceSliceSlice2", testPath: "testdata/stdlib/TestRaceSliceSlice2/prog1.go"},
 		{name: "TestRaceSliceSlice", testPath: "testdata/stdlib/TestRaceSliceSlice/prog1.go"},
 		{name: "TestRaceBlockAs", testPath: "testdata/stdlib/TestRaceBlockAs/prog1.go"},
 		{name: "TestRaceTypeAssert", testPath: "testdata/stdlib/TestRaceTypeAssert/prog1.go"},
-		//{name: "TestRaceAddrExpr", testPath: "testdata/stdlib/TestRaceAddrExpr/prog1.go"},  // Due to the way ssa works, it's not possible to differ between p.x = 5 and p{x:5}. The first option might participate in a data race but the second never.
+		{name: "TestRaceAddrExpr", testPath: "testdata/stdlib/TestRaceAddrExpr/prog1.go"},
 		{name: "TestNoRaceAddrExpr", testPath: "testdata/stdlib/TestNoRaceAddrExpr/prog1.go"},
 		{name: "TestRaceDeferArg2", testPath: "testdata/stdlib/TestRaceDeferArg2/prog1.go"},
 		{name: "TestRaceDeferArg", testPath: "testdata/stdlib/TestRaceDeferArg/prog1.go"},
