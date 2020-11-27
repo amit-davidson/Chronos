@@ -21,7 +21,7 @@ func NewLockset() *Lockset {
 }
 
 func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
-	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing, of course).
+	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing).
 	// It means that if a mutex was unlocked at some point but later was locked again,
 	// then its latest status is locked, and the unlock status is removed.
 	// Source: https://github.com/amit-davidson/Chronos/pull/10/files#r507203577
@@ -41,6 +41,24 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
 	}
 }
 
+func (ls *Lockset) UpdateLockSetWithoutCopy(prevLS *Lockset) {
+	for lockName, lock := range prevLS.Locks {
+		_, okLock := ls.Locks[lockName] // We check to see the lock doesn't exist to not override it with old reference of this lock
+		_, okUnlock := ls.Unlocks[lockName]
+		if !okLock && !okUnlock {
+			ls.Locks[lockName] = lock
+		}
+	}
+
+	for lockName, lock := range prevLS.Unlocks {
+		_, okLock := ls.Locks[lockName] // We check to see the unlock doesn't exist to not override it with old reference of this unlock
+		_, okUnlock := ls.Unlocks[lockName]
+		if !okLock && !okUnlock {
+			ls.Unlocks[lockName] = lock
+		}
+	}
+}
+
 func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
 	locks := Intersect(ls.Locks, locksetToMerge.Locks)
 	unlocks := Union(ls.Unlocks, locksetToMerge.Unlocks)
@@ -54,7 +72,7 @@ func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
 }
 
 func (ls *Lockset) Copy() *Lockset {
-	newLs := NewLockset()
+	newLs := &Lockset{}
 	newLocks := make(locksLastUse, len(ls.Locks))
 	for key, value := range ls.Locks {
 		newLocks[key] = value

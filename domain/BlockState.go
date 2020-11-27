@@ -28,9 +28,8 @@ func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.CallCommonSta
 // shouldMergeLockset is used depending if the call was using a goroutine or not.
 func (existingBlock *BlockState) AddFunctionCallState(newBlock *BlockState, shouldMergeLockset bool) {
 	for _, guardedAccess := range newBlock.GuardedAccesses {
-		existingLockset := existingBlock.Lockset.Copy()
-		existingLockset.UpdateLockSet(guardedAccess.Lockset.Locks, guardedAccess.Lockset.Unlocks)
-		guardedAccess.Lockset = existingLockset
+		guardedAccess.Lockset.UpdateLockSetWithoutCopy(existingBlock.Lockset)
+
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	if shouldMergeLockset {
@@ -43,9 +42,7 @@ func (existingBlock *BlockState) AddFunctionCallState(newBlock *BlockState, shou
 // Will Merge B unto A
 func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
 	for _, guardedAccess := range newBlock.GuardedAccesses {
-		existingLockset := existingBlock.Lockset.Copy()
-		existingLockset.UpdateLockSet(guardedAccess.Lockset.Locks, guardedAccess.Lockset.Unlocks)
-		guardedAccess.Lockset = existingLockset
+		guardedAccess.Lockset.UpdateLockSetWithoutCopy(existingBlock.Lockset)
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	existingBlock.DeferredFunctions.MergeStacks(newBlock.DeferredFunctions)
