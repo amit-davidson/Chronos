@@ -10,6 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"
 	"os"
+	"path/filepath"
+	"runtime"
 	"testing"
 )
 
@@ -153,9 +155,13 @@ func TestStdlib(t *testing.T) {
 		//{name: "TestRaceIssue5654", testPath: "testdata/stdlib/TestRaceIssue5654/prog1.go"},  // PackageProblem
 		{name: "TestNoRaceTinyAlloc", testPath: "testdata/stdlib/TestNoRaceTinyAlloc/prog1.go"},
 	}
+	_, ex, _, ok := runtime.Caller(0)
+	require.True(t, ok)
+	modulePath := filepath.Dir(filepath.Dir(ex))
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath)
+
+			ssaProg, ssaPkg, err := ssaUtils.LoadPackage(tc.testPath, modulePath)
 			require.NoError(t, err)
 
 			domain.GoroutineCounter = utils.NewCounter()
@@ -163,7 +169,8 @@ func TestStdlib(t *testing.T) {
 			domain.PosIDCounter = utils.NewCounter()
 
 			entryFunc := ssaPkg.Func("main")
-			ssaUtils.InitPreProcess(ssaProg, "github.com/amit-davidson/Chronos")
+			err = ssaUtils.InitPreProcess(ssaProg, modulePath)
+			require.NoError(t, err)
 
 			entryCallCommon := ssa.CallCommon{Value: entryFunc}
 			functionState := ssaUtils.HandleCallCommon(domain.NewEmptyContext(), &entryCallCommon, entryFunc.Pos())

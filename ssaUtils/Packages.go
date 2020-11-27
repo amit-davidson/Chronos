@@ -19,7 +19,7 @@ var GlobalProgram *ssa.Program
 var GlobalModuleName string
 
 var ErrNoPackages = errors.New("no packages in the path")
-
+var ErrLoadPackages = errors.New("loading the following file contained errors")
 
 func Create(t *testing.T, path, fileName string) *ssa.Package {
 	var conf loader.Config
@@ -39,9 +39,10 @@ func Create(t *testing.T, path, fileName string) *ssa.Package {
 	return ssautil.CreateProgram(lprog, ssa.SanityCheckFunctions).Package(foo)
 }
 
-func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
+func LoadPackage(path, modulePath string) (*ssa.Program, *ssa.Package, error) {
 	conf1 := packages.Config{
 		Mode: packages.LoadAllSyntax,
+		Dir:  modulePath,
 	}
 	loadQuery := fmt.Sprintf("file=%s", path)
 	pkgs, err := packages.Load(&conf1, loadQuery)
@@ -50,6 +51,10 @@ func LoadPackage(path string) (*ssa.Program, *ssa.Package, error) {
 	}
 	if len(pkgs) == 0 {
 		return nil, nil, fmt.Errorf("%s: %w", path, ErrNoPackages)
+	}
+
+	if len(pkgs[0].Errors) > 0 {
+		return nil, nil, fmt.Errorf("%w %s: %s", ErrLoadPackages, path, pkgs[0].Errors[0].Msg)
 	}
 	ssaProg, ssaPkgs := ssautil.AllPackages(pkgs, 0)
 	ssaProg.Build()
