@@ -20,11 +20,13 @@ func NewLockset() *Lockset {
 	}
 }
 
-func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
-	// The algorithm works by remembering each lock's state (locked/unlocked/or nothing).
-	// It means that if a mutex was unlocked at some point but later was locked again,
-	// then its latest status is locked, and the unlock status is removed.
-	// Source: https://github.com/amit-davidson/Chronos/pull/10/files#r507203577
+// The three following methods handle updating the lockset the same way. By recording each lock state (locked/unlocked)
+// at the current point. It means that if a mutex was unlocked at some point but later was locked again, then it's latest
+// status is locked, and the unlock status is removed. The difference between each algorithm is the context used.
+//
+// UpdateWithNewLockSet updates the lockset and expects newLocks, newUnlocks to contain the most up to date status of the
+// mutex and update accordingly.
+func (ls *Lockset) UpdateWithNewLockSet(newLocks, newUnlocks locksLastUse) {
 	for lockName, lock := range newLocks {
 		ls.Locks[lockName] = lock
 	}
@@ -41,7 +43,9 @@ func (ls *Lockset) UpdateLockSet(newLocks, newUnlocks locksLastUse) {
 	}
 }
 
-func (ls *Lockset) UpdateLockSetWithoutCopy(prevLS *Lockset) {
+// UpdateWithPrevLockset works the same as UpdateWithNewLockSet but expects prevLS to contain an earlier version of the
+// status of the locks.
+func (ls *Lockset) UpdateWithPrevLockset(prevLS *Lockset) {
 	for lockName, lock := range prevLS.Locks {
 		_, okLock := ls.Locks[lockName] // We check to see the lock doesn't exist to not override it with old reference of this lock
 		_, okUnlock := ls.Unlocks[lockName]
@@ -59,9 +63,13 @@ func (ls *Lockset) UpdateLockSetWithoutCopy(prevLS *Lockset) {
 	}
 }
 
+// MergeSiblingLockset is called when merging different paths of the control flow graph. The mutex status should be
+// merged and not appended. Because Locks is a must set, for a lock to appear in the result, an intersect
+// between the branches' lockset is performed to make sure the lock appears in all branches. Unlock is a may set, so a
+// union is applied since it's sufficient to have an unlock at least in one of the branches.
 func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
-	locks := Intersect(ls.Locks, locksetToMerge.Locks)
-	unlocks := Union(ls.Unlocks, locksetToMerge.Unlocks)
+	locks := intersect(ls.Locks, locksetToMerge.Locks)
+	unlocks := union(ls.Unlocks, locksetToMerge.Unlocks)
 
 	for unlockName := range unlocks {
 		// If there's a lock in one branch and an unlock in second, then unlock wins
@@ -86,7 +94,7 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func Intersect(mapA, mapB locksLastUse) locksLastUse {
+func intersect(mapA, mapB locksLastUse) locksLastUse {
 	i := make(locksLastUse, min(len(mapA), len(mapB)))
 	for a := range mapA {
 		for b := range mapB {
@@ -98,7 +106,7 @@ func Intersect(mapA, mapB locksLastUse) locksLastUse {
 	return i
 }
 
-func Union(mapA, mapB locksLastUse) locksLastUse {
+func union(mapA, mapB locksLastUse) locksLastUse {
 	i := make(locksLastUse, max(len(mapA), len(mapB)))
 	for a := range mapA {
 		i[a] = mapA[a]
