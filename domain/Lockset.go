@@ -68,15 +68,13 @@ func (ls *Lockset) UpdateWithPrevLockset(prevLS *Lockset) {
 // between the branches' lockset is performed to make sure the lock appears in all branches. Unlock is a may set, so a
 // union is applied since it's sufficient to have an unlock at least in one of the branches.
 func (ls *Lockset) MergeSiblingLockset(locksetToMerge *Lockset) {
-	locks := intersect(ls.Locks, locksetToMerge.Locks)
-	unlocks := union(ls.Unlocks, locksetToMerge.Unlocks)
+	ls.Locks.intersect(locksetToMerge.Locks)
+	ls.Unlocks.union(locksetToMerge.Unlocks)
 
-	for unlockName := range unlocks {
+	for unlockName := range ls.Unlocks {
 		// If there's a lock in one branch and an unlock in second, then unlock wins
-		delete(locks, unlockName)
+		delete(ls.Locks, unlockName)
 	}
-	ls.Locks = locks
-	ls.Unlocks = unlocks
 }
 
 func (ls *Lockset) Copy() *Lockset {
@@ -94,39 +92,22 @@ func (ls *Lockset) Copy() *Lockset {
 	return newLs
 }
 
-func intersect(mapA, mapB locksLastUse) locksLastUse {
-	i := make(locksLastUse, min(len(mapA), len(mapB)))
-	for a := range mapA {
-		for b := range mapB {
+func (ls *locksLastUse) intersect(newLS locksLastUse) {
+	found := false
+	for a := range *ls {
+		for b := range newLS {
 			if a == b {
-				i[a] = mapA[a]
+				found = true
 			}
 		}
+		if !found {
+			delete(*ls, a)
+		}
 	}
-	return i
 }
 
-func union(mapA, mapB locksLastUse) locksLastUse {
-	i := make(locksLastUse, max(len(mapA), len(mapB)))
-	for a := range mapA {
-		i[a] = mapA[a]
+func (ls *locksLastUse) union(newLS locksLastUse) {
+	for b := range newLS {
+		(*ls)[b] = newLS[b]
 	}
-	for b := range mapB {
-		i[b] = mapB[b]
-	}
-	return i
-}
-
-func max(a, b int) int {
-	if a < b {
-		return b
-	}
-	return a
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
 }
