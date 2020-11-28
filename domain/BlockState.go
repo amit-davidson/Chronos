@@ -28,13 +28,12 @@ func CreateBlockState(ga []*GuardedAccess, ls *Lockset, df *stacks.CallCommonSta
 // shouldMergeLockset is used depending if the call was using a goroutine or not.
 func (existingBlock *BlockState) AddFunctionCallState(newBlock *BlockState, shouldMergeLockset bool) {
 	for _, guardedAccess := range newBlock.GuardedAccesses {
-		existingLockset := existingBlock.Lockset.Copy()
-		existingLockset.UpdateLockSet(guardedAccess.Lockset.Locks, guardedAccess.Lockset.Unlocks)
-		guardedAccess.Lockset = existingLockset
+		guardedAccess.Lockset.UpdateWithPrevLockset(existingBlock.Lockset)
+
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	if shouldMergeLockset {
-		existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
+		existingBlock.Lockset.UpdateWithNewLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 	}
 }
 
@@ -43,13 +42,11 @@ func (existingBlock *BlockState) AddFunctionCallState(newBlock *BlockState, shou
 // Will Merge B unto A
 func (existingBlock *BlockState) MergeChildBlock(newBlock *BlockState) {
 	for _, guardedAccess := range newBlock.GuardedAccesses {
-		existingLockset := existingBlock.Lockset.Copy()
-		existingLockset.UpdateLockSet(guardedAccess.Lockset.Locks, guardedAccess.Lockset.Unlocks)
-		guardedAccess.Lockset = existingLockset
+		guardedAccess.Lockset.UpdateWithPrevLockset(existingBlock.Lockset)
 	}
 	existingBlock.GuardedAccesses = append(existingBlock.GuardedAccesses, newBlock.GuardedAccesses...)
 	existingBlock.DeferredFunctions.MergeStacks(newBlock.DeferredFunctions)
-	existingBlock.Lockset.UpdateLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
+	existingBlock.Lockset.UpdateWithNewLockSet(newBlock.Lockset.Locks, newBlock.Lockset.Unlocks)
 }
 
 // MergeSiblingBlock merges sibling blocks in merge-like fashion.
