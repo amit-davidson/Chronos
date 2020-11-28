@@ -71,7 +71,7 @@ func (existingBlock *BlockState) MergeSiblingBlock(newBlock *BlockState) {
 }
 
 func (existingBlock *BlockState) Copy() *BlockState {
-	newFunctionState := GetEmptyBlockState()
+	newFunctionState := &BlockState{}
 	newFunctionState.Lockset = existingBlock.Lockset.Copy()
 	for _, ga := range existingBlock.GuardedAccesses {
 		newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, ga.Copy())
