@@ -58,7 +58,7 @@ Limitations:
 
 ## Chronos vs go race:
 
-Chronos successfully reports cases where go race fails thanks to his static nature. Mostly because data races appear in unexpected production workloads, which are hard to produce in dev.
+Chronos successfully reports cases where go race fails thanks to it's static nature. Mostly because data races appear in unexpected production workloads, which are hard to produce in dev.
 In addition, go race is having trouble with short programs where without contrived synchronization the program may exit too quickly.
 
 In contrast, Chronos managed to report only 244/403 = 60.5% of go race test cases. This can be explained by Chronos partial support with Go's features so this number will increase in the future.
@@ -76,10 +76,5 @@ Colin J. Fidge (February 1988). [Timestamps in Message-Passing Systems That Pres
 <p float="left">
     <img src="https://i.imgur.com/NvVWFRf.png" width="230" height="440">
     <img src="https://i.imgur.com/eCNFAX7.png" width=600" height="300">
-</p>
-<hr style="border:2px solid gray"> </hr>
-<p float="left">
-    <img src="https://i.imgur.com/app5tBc.png" width="285" height="450">
-    <img src="https://i.imgur.com/Lw0LTPp.png" width="545" height="300">
 </p>
 <hr style="border:2px solid gray"> </hr>
