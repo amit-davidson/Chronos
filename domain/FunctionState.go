@@ -11,20 +11,17 @@ var PosIDCounter *utils.Counter
 
 type FunctionState struct {
 	GuardedAccesses []*GuardedAccess
-	Lockset         *Lockset
 }
 
 func GetFunctionState() *FunctionState {
 	return &FunctionState{
 		GuardedAccesses: make([]*GuardedAccess, 0),
-		Lockset:         NewLockset(),
 	}
 }
 
-func CreateFunctionState(ga []*GuardedAccess, ls *Lockset) *FunctionState {
+func CreateFunctionState(ga []*GuardedAccess) *FunctionState {
 	return &FunctionState{
 		GuardedAccesses: ga,
-		Lockset:         ls,
 	}
 }
 
@@ -58,7 +55,6 @@ func (fs *FunctionState) RemoveContextFromFunction() {
 
 func (fs *FunctionState) Copy() *FunctionState {
 	newFunctionState := GetFunctionState()
-	newFunctionState.Lockset = fs.Lockset.Copy()
 	for _, ga := range fs.GuardedAccesses {
 		newFunctionState.GuardedAccesses = append(newFunctionState.GuardedAccesses, ga.Copy())
 	}

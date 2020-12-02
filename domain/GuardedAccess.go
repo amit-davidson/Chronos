@@ -40,14 +40,12 @@ type FlowData struct {
 	PosToRemove int
 	ID          int // ID depends on the flow, which means it's unique.
 	State       *Context
-	Lockset     *Lockset
 }
 
 func (ga *FlowData) Copy() *FlowData {
 	return &FlowData{
 		ID:          ga.ID,
 		PosToRemove: ga.PosToRemove,
-		Lockset:     ga.Lockset.Copy(),
 		State:       ga.State.CopyWithoutMap(),
 	}
 }
@@ -78,13 +76,6 @@ func (ga *GuardedAccess) Intersects(gaToCompare *GuardedAccess) bool {
 		return true
 	}
 
-	for lockA := range ga.Lockset.Locks {
-		for lockB := range gaToCompare.Lockset.Locks {
-			if lockA == lockB {
-				return true
-			}
-		}
-	}
 	return false
 }
 
@@ -92,7 +83,7 @@ func (ga *GuardedAccess) IsConflicting(gaToCompare *GuardedAccess) bool {
 	return !ga.Intersects(gaToCompare) && ga.State.MayConcurrent(gaToCompare.State)
 }
 
-func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lockset, context *Context) *GuardedAccess {
+func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, context *Context) *GuardedAccess {
 	context.Increment()
 	return &GuardedAccess{
 		PosData: &PosData{
@@ -103,7 +94,6 @@ func AddGuardedAccess(pos token.Pos, value ssa.Value, kind OpKind, lockset *Lock
 		},
 		FlowData: &FlowData{
 			ID:      GuardedAccessCounter.GetNext(),
-			Lockset: lockset.Copy(),
 			State:   context.CopyWithoutMap(),
 		},
 	}

@@ -11,6 +11,7 @@ type CFG struct {
 
 	ComputedBlocks      map[int]*domain.BlockState
 	ComputedDeferBlocks map[int]*domain.BlockState
+	FunctionState       *domain.BlockState
 }
 
 func newCFG() *CFG {
@@ -18,6 +19,7 @@ func newCFG() *CFG {
 		visitedBlocksStack:  stacks.NewBlockMap(),
 		ComputedBlocks:      make(map[int]*domain.BlockState),
 		ComputedDeferBlocks: make(map[int]*domain.BlockState),
+		FunctionState:       domain.GetEmptyBlockState(),
 	}
 }
 
@@ -27,39 +29,29 @@ func newCFG() *CFG {
 // The function uses two way to aggregate the states between blocks. If the blocks are adjacent (siblings) to each
 // other, (resulted from a branch) then a merge mechanism is used. If one block is below the other, then an append is
 // performed.
-func (cfg *CFG) CalculateFunctionState(context *domain.Context, block *ssa.BasicBlock) *domain.BlockState {
+func (cfg *CFG) CalculateFunctionState(context *domain.Context, block *ssa.BasicBlock) {
 	cfg.visitedBlocksStack.Add(block)
 	defer cfg.visitedBlocksStack.Remove(block)
 	cfg.calculateBlockState(context, block)
 
 	// Regular flow
 	blockState := cfg.ComputedBlocks[block.Index]
+	cfg.FunctionState.MergeSiblingBlock(blockState)
 
 	// recursion
-	var branchState *domain.BlockState
 	for _, nextBlock := range block.Succs {
 		// if it's a cycle we skip it
 		if cfg.visitedBlocksStack.Contains(nextBlock.Index) {
 			continue
 		}
 
-		retBlockState := cfg.CalculateFunctionState(context, nextBlock)
-		if branchState == nil {
-			branchState = retBlockState.Copy()
-		} else {
-			branchState.MergeSiblingBlock(retBlockState)
-		}
-	}
-
-	if branchState != nil {
-		blockState.MergeChildBlock(branchState)
+		cfg.CalculateFunctionState(context, nextBlock)
 	}
 
 	// Defer
 	if deferState, ok := cfg.ComputedDeferBlocks[block.Index]; ok {
 		blockState.MergeChildBlock(deferState)
 	}
-	return blockState
 }
 
 func (cfg *CFG) calculateBlockState(context *domain.Context, block *ssa.BasicBlock) {
