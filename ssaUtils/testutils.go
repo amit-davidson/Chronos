@@ -16,7 +16,7 @@ func FindGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *
 	wasFound := false
 	for _, ga := range GuardedAccesses {
 		wasFound = validationFunc(ga)
-		if wasFound == true {
+		if wasFound {
 			return ga
 		}
 	}
@@ -27,7 +27,7 @@ func FindMultipleGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func
 	foundGAs := make([]*domain.GuardedAccess, 0)
 	for _, ga := range GuardedAccesses {
 		wasFound := validationFunc(ga)
-		if wasFound == true {
+		if wasFound {
 			foundGAs = append(foundGAs, ga)
 		}
 	}
