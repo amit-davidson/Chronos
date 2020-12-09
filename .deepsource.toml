@@ -10,4 +10,4 @@ name = "go"
 enabled = true
 
   [analyzers.meta]
-  import_paths = ["github.com/de-sh/Chronos"]
+  import_paths = ["github.com/amit-davidson/Chronos"]
