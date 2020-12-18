@@ -1,12 +1,13 @@
 package ssaUtils
 
 import (
+	"testing"
+
 	"github.com/amit-davidson/Chronos/domain"
 	"github.com/amit-davidson/Chronos/pointerAnalysis"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"golang.org/x/tools/go/ssa"
-	"testing"
 )
 
 func Test_HandleFunction_DeferredLockAndUnlockIfBranch(t *testing.T) {
@@ -218,10 +219,7 @@ func Test_HandleFunction_NestedForLoopWithRace(t *testing.T) {
 		if !ok {
 			return false
 		}
-		if GetConstString(val) != "b" {
-			return false
-		}
-		return true
+		return GetConstString(val) == "b"
 	})
 	stateB := ga.State
 	assert.Len(t, ga.Lockset.Locks, 0)
@@ -246,10 +244,7 @@ func Test_HandleFunction_WhileLoop(t *testing.T) {
 			return false
 		}
 		pName := ga.Value.Parent().Name()
-		if pName == "main" {
-			return false
-		}
-		return true
+		return pName != "main"
 	})
 	stateA := ga.State
 	assert.Len(t, ga.Lockset.Locks, 0)
@@ -263,10 +258,7 @@ func Test_HandleFunction_WhileLoop(t *testing.T) {
 		if !ok {
 			return false
 		}
-		if val.Name() != "x" {
-			return false
-		}
-		return true
+		return val.Name() == "x"
 	})
 	stateB := ga.State
 	assert.Len(t, ga.Lockset.Locks, 0)
@@ -291,10 +283,7 @@ func Test_HandleFunction_WhileLoopWithoutHeader(t *testing.T) {
 			return false
 		}
 		pName := ga.Value.Parent().Name()
-		if pName == "main" {
-			return false
-		}
-		return true
+		return pName != "main"
 	})
 	stateA := ga.State
 	assert.Len(t, ga.Lockset.Locks, 1)
@@ -567,10 +556,7 @@ func Test_HandleFunction_LockInsideGoroutine(t *testing.T) {
 			return false
 		}
 		pName := ga.Value.Parent().Name()
-		if pName == "main" {
-			return false
-		}
-		return true
+		return pName != "main"
 	})
 	assert.Len(t, foundGA.Lockset.Locks, 1)
 
@@ -583,10 +569,7 @@ func Test_HandleFunction_LockInsideGoroutine(t *testing.T) {
 			return false
 		}
 		pName := ga.Value.Parent().Name()
-		if pName != "main" {
-			return false
-		}
-		return true
+		return pName != "main"
 	})
 	assert.Len(t, foundGA.Lockset.Locks, 0)
 }
@@ -643,10 +626,7 @@ func Test_HandleFunction_NestedConditionWithLockInAllBranches(t *testing.T) {
 			return false
 		}
 		_, ok := ga.Value.(*ssa.MakeInterface)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	})
 	assert.Len(t, GA1.Lockset.Locks, 1)
 }
@@ -827,10 +807,7 @@ func Test_HandleFunction_DataRaceProperty(t *testing.T) {
 			return false
 		}
 		_, ok = field.X.(*ssa.UnOp)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	})
 	assert.Len(t, gaB.State.Clock, 3)
 
@@ -910,10 +887,7 @@ func Test_HandleFunction_DataRaceWithOnlyAlloc(t *testing.T) {
 			return false
 		}
 		_, ok := ga.Value.(*ssa.FreeVar)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	})
 
 	gaB := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
@@ -921,10 +895,7 @@ func Test_HandleFunction_DataRaceWithOnlyAlloc(t *testing.T) {
 			return false
 		}
 		_, ok := ga.Value.(*ssa.Alloc)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	})
 	require.Len(t, filteredAccesses, 1)
 	assert.True(t, EqualDifferentOrder([]*domain.GuardedAccess{gaA, gaB}, filteredAccesses[0]))
@@ -1012,10 +983,7 @@ func Test_HandleFunction_RecursionWithGoroutine(t *testing.T) {
 		if !ok {
 			return false
 		}
-		if val.Int64() != 0 {
-			return false
-		}
-		return true
+		return val.Int64() == 0
 	}, 2)
 }
 
@@ -1029,10 +997,7 @@ func Test_HandleFunction_Simple(t *testing.T) {
 			return false
 		}
 		_, ok := ga.Value.(*ssa.FieldAddr)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	}, 2)
 	assert.True(t, gas[0].State.MayConcurrent(gas[1].State))
 }
@@ -1051,10 +1016,7 @@ func Test_HandleFunction_StructMethod(t *testing.T) {
 			return false
 		}
 		_, ok = val.X.(*ssa.Alloc)
-		if ok {
-			return false
-		}
-		return true
+		return !ok
 	}, 1)
 
 	gaB := FindGAWithFail(t, state.GuardedAccesses, func(ga *domain.GuardedAccess) bool {
@@ -1066,10 +1028,7 @@ func Test_HandleFunction_StructMethod(t *testing.T) {
 			return false
 		}
 		_, ok = val.X.(*ssa.Parameter)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	})
 	assert.True(t, gaA[0].State.MayConcurrent(gaB.State))
 }
@@ -1084,10 +1043,7 @@ func Test_HandleFunction_DataRaceInterfaceOverChannel(t *testing.T) {
 			return false
 		}
 		_, ok := ga.Value.(*ssa.FieldAddr)
-		if !ok {
-			return false
-		}
-		return true
+		return ok
 	}, 2)
 
 	conflictingAccesses, err := pointerAnalysis.Analysis(pkg, state.GuardedAccesses)

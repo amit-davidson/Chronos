@@ -1,21 +1,22 @@
 package ssaUtils
 
 import (
-	"github.com/amit-davidson/Chronos/domain"
-	"github.com/amit-davidson/Chronos/utils"
-	"github.com/stretchr/testify/require"
 	"go/constant"
-	"golang.org/x/tools/go/ssa"
 	"path/filepath"
 	"runtime"
 	"testing"
+
+	"github.com/amit-davidson/Chronos/domain"
+	"github.com/amit-davidson/Chronos/utils"
+	"github.com/stretchr/testify/require"
+	"golang.org/x/tools/go/ssa"
 )
 
 func FindGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func(value *domain.GuardedAccess) bool) *domain.GuardedAccess {
 	wasFound := false
 	for _, ga := range GuardedAccesses {
 		wasFound = validationFunc(ga)
-		if wasFound == true {
+		if wasFound {
 			return ga
 		}
 	}
@@ -26,7 +27,7 @@ func FindMultipleGA(GuardedAccesses []*domain.GuardedAccess, validationFunc func
 	foundGAs := make([]*domain.GuardedAccess, 0)
 	for _, ga := range GuardedAccesses {
 		wasFound := validationFunc(ga)
-		if wasFound == true {
+		if wasFound {
 			foundGAs = append(foundGAs, ga)
 		}
 	}
@@ -95,8 +96,5 @@ func EqualDifferentOrder(a, b []*domain.GuardedAccess) bool {
 			delete(diff, y.ID)
 		}
 	}
-	if len(diff) == 0 {
-		return true
-	}
-	return false
+	return len(diff) == 0
 }
