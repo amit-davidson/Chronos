@@ -569,7 +569,8 @@ func Test_HandleFunction_LockInsideGoroutine(t *testing.T) {
 			return false
 		}
 		pName := ga.Value.Parent().Name()
-		return pName != "main"
+		return pName == "main"
+
 	})
 	assert.Len(t, foundGA.Lockset.Locks, 0)
 }
