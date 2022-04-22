@@ -14,14 +14,14 @@ import (
 
 func main() {
 	defaultFile := flag.String("file", "", "The file containing the entry point of the program")
-	defaultModulePath := flag.String("mod", "", "Path to the module where the search should be performed. It needs to be in the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.")
+	defaultModulePath := flag.String("mod", "", "PPath to the module where the search should be performed. Path to module can be relative or absolute but must contain the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.")
 	flag.Parse()
 	if *defaultFile == "" {
 		fmt.Printf("Please provide a file to load\n")
 		os.Exit(1)
 	}
 	if *defaultModulePath == "" {
-		fmt.Printf("Please provide a path to the module. It should be in the following format:{VCS}/{organization}/{package}.\n")
+		fmt.Printf("Please provide a path to the module. path to module can be relative or absolute but must contain the format:{VCS}/{organization}/{package}.\n")
 		os.Exit(1)
 	}
 	domain.GoroutineCounter = utils.NewCounter()
