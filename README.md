@@ -33,7 +33,7 @@ Usage of ./chronos:
   --file string
     	The file containing the entry point of the program
   --mod string
-    	Absolute path to the module where the search should be performed. Should end in the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.
+    	Absolute or relative path to the module where the search should be performed. Should end in the format:{VCS}/{organization}/{package}. Packages outside this path are excluded rom the search.
 ```
 
 ## Example:
