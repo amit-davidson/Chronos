@@ -75,6 +75,6 @@ Colin J. Fidge (February 1988). [Timestamps in Message-Passing Systems That Pres
 
 <p float="left">
     <img src="https://i.imgur.com/NvVWFRf.png" width="230" height="440">
-    <img src="https://i.imgur.com/eCNFAX7.png" width=600" height="300">
+    <img src="https://i.imgur.com/RO11LFl.png" width=600" height="300">
 </p>
 <hr style="border:2px solid gray"> </hr>
