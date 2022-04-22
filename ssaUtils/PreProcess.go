@@ -21,7 +21,7 @@ func InitPreProcess(prog *ssa.Program, defaultModulePath string) error {
 	p := strings.TrimSuffix(defaultModulePath, string(os.PathSeparator))
 	splittedPath := strings.Split(p, string(os.PathSeparator))
 	if len(splittedPath) < 3 {
-		return errors.New("package should be provided in the following format:{VCS}/{organization}/{package}")
+		return errors.New("path to module can be relative or absolute but must contain the format:{VCS}/{organization}/{package}")
 	}
 	l := len(splittedPath)
 	moduleName := path.Join(splittedPath[l-3], splittedPath[l-2], splittedPath[l-1])
